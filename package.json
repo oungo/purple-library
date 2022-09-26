@@ -1,0 +1,8 @@
+{
+  "name": "purple-library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/oungo/purple-library.git",
+  "author": "oungo <y2k6273@naver.com>",
+  "license": "MIT"
+}
