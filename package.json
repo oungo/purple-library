@@ -6,6 +6,7 @@
   "author": "oungo <y2k6273@naver.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "next dev",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
@@ -16,6 +17,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "18.7.23",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "eslint": "^8.24.0",
     "eslint-config-next": "12.3.1",
