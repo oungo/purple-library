@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { useDebounce } from '../hooks/use-debounce';
@@ -43,7 +44,11 @@ export default function BookList() {
   return (
     <BookContainer>
       {books.map((book) => {
-        return <BookItem key={book.isbn}>{book.title}</BookItem>;
+        return (
+          <BookItem key={book.isbn}>
+            <Link href={{ pathname: `/book/${book.isbn}` }}>{book.title}</Link>
+          </BookItem>
+        );
       })}
     </BookContainer>
   );
