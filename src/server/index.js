@@ -3,13 +3,14 @@ const cors = require('cors');
 const app = express();
 
 const db = require('./modules/index');
-const { getBooks } = require('./controller/book');
+const { getBooks, getBook } = require('./controller/book');
 
 require('dotenv').config();
 
 app.use(cors());
 
 app.get('/books', getBooks);
+app.get('/book/:id', getBook);
 
 db.sequelize
   .sync({ force: false }) // 서버 실행시마다 테이블을 재생성할건지에 대한 여부
