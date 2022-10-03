@@ -30,7 +30,7 @@ const getBook = async (req, res) => {
   const { id } = req.params;
 
   const response = await axios
-    .get('https://openapi.naver.com/v1/search/book_adv.json', {
+    .get(NAVER_BOOK_INFO_API_ENDPOINT, {
       headers: {
         'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
         'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET,
