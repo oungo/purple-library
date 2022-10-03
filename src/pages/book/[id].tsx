@@ -1,7 +1,8 @@
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { IBook } from '../../types/book';
+import { IBook, IBookResponse } from '../../types/book';
 import { axiosInstance } from '../../utils/common';
 
 const Article = styled.article`
@@ -20,7 +21,11 @@ const Title = styled.dt`
   font-weight: 900;
 `;
 
-export default function BookInfo() {
+interface IBookInfoProps {
+  book: IBook[];
+}
+
+export default function BookInfo({ book: initialData }: IBookInfoProps) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -29,6 +34,7 @@ export default function BookInfo() {
     () => axiosInstance.get(`/book/${id}`).then((res) => res.data.items),
     {
       enabled: !!id,
+      initialData,
     }
   );
 
@@ -56,3 +62,11 @@ export default function BookInfo() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const book = await axiosInstance
+    .get<IBookResponse>(`/book/${context.query.id}`)
+    .then((res) => res.data.items);
+
+  return { props: { book } };
+};
