@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { IBook } from '../../types/book';
+import { axiosInstance } from '../../utils/common';
 
 const Article = styled.article`
   display: flex;
@@ -26,7 +26,7 @@ export default function BookInfo() {
 
   const { data: book } = useQuery<IBook[]>(
     ['book', id],
-    () => axios.get(`http://localhost:8010/book/${id}`).then((res) => res.data.items),
+    () => axiosInstance.get(`/book/${id}`).then((res) => res.data.items),
     {
       enabled: !!id,
     }

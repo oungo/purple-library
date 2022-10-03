@@ -1,10 +1,10 @@
-import axios from 'axios';
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { useDebounce } from '../hooks/use-debounce';
 import { useKeywordStore } from '../store/useKeywordStore';
 import { IBook } from '../types/book';
+import { axiosInstance } from '../utils/common';
 
 const BookContainer = styled.ul`
   width: 50%;
@@ -29,7 +29,7 @@ export default function BookList() {
   const { data: books } = useQuery<IBook[]>(
     ['books', newKeyword],
     () =>
-      axios
+      axiosInstance
         .get('http://localhost:8010/books', {
           params: { query: newKeyword },
         })
