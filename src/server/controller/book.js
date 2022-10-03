@@ -4,7 +4,7 @@ const getBooks = async (req, res) => {
   const { query } = req.query;
 
   const response = await axios
-    .get(process.env.NAVER_BOOK_API_ENDPOINT, {
+    .get(process.env.NAVER_BOOK_LIST_API_ENDPOINT, {
       headers: {
         'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
         'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET,
