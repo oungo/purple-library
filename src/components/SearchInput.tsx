@@ -1,5 +1,15 @@
 import { KeyboardEvent } from 'react';
+import styled from 'styled-components';
 import { useKeywordStore } from '../store/useKeywordStore';
+
+const Input = styled.input`
+  width: 50%;
+  height: 3rem;
+  font-size: 2rem;
+  padding: 10px;
+  display: block;
+  margin: auto;
+`;
 
 export default function SearchInput() {
   const store = useKeywordStore();
@@ -8,5 +18,5 @@ export default function SearchInput() {
     store.change(e.currentTarget.value);
   };
 
-  return <input onKeyUp={handleKeyup} />;
+  return <Input onKeyUp={handleKeyup} />;
 }
