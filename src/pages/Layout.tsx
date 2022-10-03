@@ -1,4 +1,4 @@
-import * as React from 'react';
+import Header from './Header';
 
 export interface ILayoutProps {
   children: React.ReactNode;
@@ -7,6 +7,7 @@ export interface ILayoutProps {
 export default function Layout({ children }: ILayoutProps) {
   return (
     <>
+      <Header />
       <main>{children}</main>
     </>
   );
