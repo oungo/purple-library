@@ -7,6 +7,7 @@ export interface IBook {
   isbn: string;
   pubdate: string;
   publisher: string;
+  link: string;
 }
 
 export interface IBookResponse {
