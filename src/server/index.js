@@ -1,9 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
-const mysql = require('mysql2');
-
 const db = require('./modules/index');
+const { getBooks } = require('./controller/book');
+
+require('dotenv').config();
+
+app.use(cors());
+
+app.get('/books', getBooks);
 
 db.sequelize
   .sync({ force: false }) // 서버 실행시마다 테이블을 재생성할건지에 대한 여부
