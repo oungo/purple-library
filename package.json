@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.14",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "dotenv": "^16.0.3",
     "eslint": "^8.24.0",
