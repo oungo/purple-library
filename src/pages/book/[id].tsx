@@ -2,7 +2,8 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { IBook, IBookResponse } from '../../types/book';
+import { getBook } from '../../controller/book';
+import { IBook } from '../../types/book';
 import { axiosInstance } from '../../utils/common';
 
 const Article = styled.article`
@@ -64,9 +65,5 @@ export default function BookInfo({ book: initialData }: IBookInfoProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const book = await axiosInstance
-    .get<IBookResponse>(`/book/${context.query.id}`)
-    .then((res) => res.data.items);
-
-  return { props: { book } };
+  return { props: { book: await getBook(context.query.id) } };
 };
