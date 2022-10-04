@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getBook } from '../../controller/book';
-import { IBook } from '../../types/book';
-import { axiosInstance } from '../../utils/common';
+import { IBookResponse } from '../../types/book';
 
 const Article = styled.article`
   display: flex;
@@ -30,40 +29,36 @@ const Title = styled.dt`
 `;
 
 interface IBookInfoProps {
-  book: IBook[];
+  book: IBookResponse;
 }
 
 export default function BookInfo({ book: initialData }: IBookInfoProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: book } = useQuery<IBook[]>(
-    ['book', id],
-    () => axiosInstance.get(`/book/${id}`).then((res) => res.data.items),
-    {
-      enabled: !!id,
-      initialData,
-    }
-  );
+  const { data, error } = useQuery(['book', id], () => getBook(id), {
+    enabled: !!id,
+    initialData,
+  });
 
-  if (!book) return null;
+  if (!data || error) return null;
 
   return (
     <>
-      {book.map((info) => {
+      {data.items.map((book) => {
         return (
-          <Article key={info.isbn}>
+          <Article key={book.isbn}>
             <CoverImageSection>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={info.image} alt="책 이미지" />
+              <img src={book.image} alt="책 이미지" />
             </CoverImageSection>
             <InfoSection>
-              <Title>{info.title}</Title>
-              {info.author && <dd>작가 {info.author}</dd>}
-              {info.publisher && <dd>출판사 {info.publisher}</dd>}
-              {info.link && (
+              <Title>{book.title}</Title>
+              {book.author && <dd>작가 {book.author}</dd>}
+              {book.publisher && <dd>출판사 {book.publisher}</dd>}
+              {book.link && (
                 <dd>
-                  <a href={info.link} target="_blank" rel="noreferrer noopener">
+                  <a href={book.link} target="_blank" rel="noreferrer noopener">
                     구매 링크
                   </a>
                 </dd>
