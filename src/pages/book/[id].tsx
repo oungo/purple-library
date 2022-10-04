@@ -8,13 +8,20 @@ import { axiosInstance } from '../../utils/common';
 
 const Article = styled.article`
   display: flex;
+  justify-content: space-between;
   gap: 2rem;
+  width: 50%;
+  margin: auto;
 `;
 const CoverImageSection = styled.section`
-  width: 30%;
+  width: 50%;
+  min-width: 30%;
 `;
 const InfoSection = styled.dl`
-  width: 70%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   flex-shrink: 1;
 `;
 const Title = styled.dt`
@@ -52,10 +59,15 @@ export default function BookInfo({ book: initialData }: IBookInfoProps) {
             </CoverImageSection>
             <InfoSection>
               <Title>{info.title}</Title>
-              <dd>작가 {info.author}</dd>
-              <dd>출판사 {info.publisher}</dd>
-              <dd>{info.description}</dd>
-              <dd>구매 링크 {info.link}</dd>
+              {info.author && <dd>작가 {info.author}</dd>}
+              {info.publisher && <dd>출판사 {info.publisher}</dd>}
+              {info.link && (
+                <dd>
+                  <a href={info.link} target="_blank" rel="noreferrer noopener">
+                    구매 링크
+                  </a>
+                </dd>
+              )}
             </InfoSection>
           </Article>
         );
