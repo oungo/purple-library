@@ -21,7 +21,7 @@ const BookItem = styled.li`
   }
 `;
 
-export default function BookList() {
+export default function SearchResult() {
   const keyword = useKeywordStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 1000);
 

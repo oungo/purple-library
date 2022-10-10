@@ -1,11 +1,11 @@
 import SearchInput from '../components/SearchInput';
-import BookList from '../components/BookList';
+import SearchResult from '../components/SearchResult';
 
 function Index() {
   return (
     <>
       <SearchInput />
-      <BookList />
+      <SearchResult />
     </>
   );
 }
