@@ -18,5 +18,5 @@ export default function SearchInput() {
     store.change(e.currentTarget.value);
   };
 
-  return <Input onKeyUp={handleKeyup} />;
+  return <Input onKeyUp={handleKeyup} placeholder="검색" />;
 }
