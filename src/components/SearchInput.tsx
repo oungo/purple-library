@@ -5,10 +5,12 @@ import { useKeywordStore } from '../store/useKeywordStore';
 const Input = styled.input`
   width: 50%;
   height: 3rem;
-  font-size: 2rem;
   padding: 10px;
   display: block;
   margin: auto;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
 `;
 
 export default function SearchInput() {

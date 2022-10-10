@@ -7,17 +7,20 @@ import { useKeywordStore } from '../store/useKeywordStore';
 
 const BookContainer = styled.ul`
   width: 50%;
-  margin: auto;
+  margin: 1rem auto 0;
   list-style: none;
   border: 1px solid black;
-  border-top: 0;
+  border-radius: 0.5rem;
 `;
 
 const BookItem = styled.li`
   padding: 5px;
   cursor: pointer;
+  a {
+    display: block;
+  }
   :hover {
-    background-color: red;
+    font-size: 1.1rem;
   }
 `;
 
