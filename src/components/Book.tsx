@@ -85,9 +85,21 @@ function BookInfo({ book }: { book: IBook }) {
           )}
         </div>
         <div>
+          <BookCount isbn={book.isbn} />
           <button onClick={() => handleAddBook(book)}>+ 사내 도서 추가</button>
         </div>
       </InfoSection>
     </Article>
   );
+}
+
+function BookCount({ isbn }: { isbn: string }) {
+  const { data } = useQuery(
+    ['bookByIsbn', isbn],
+    async () => await supabase.from('book').select('id').eq('isbn', isbn)
+  );
+
+  if (!data || (data.data && data.data?.length < 1)) return null;
+
+  return <p>{data.data?.length}권 보유 중</p>;
 }
