@@ -17,3 +17,5 @@ export interface IBookResponse {
   start: number;
   total: number;
 }
+
+export type BookDTO = Pick<IBook, 'title' | 'author' | 'publisher' | 'isbn'>;
