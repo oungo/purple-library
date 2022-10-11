@@ -3,13 +3,14 @@ import { useQuery } from 'react-query';
 import { supabase } from '../utils/supabaseClient';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import { IBook } from '../types/book';
+import * as queryKeys from '../utils/queryKeys';
 
 interface IBooksProps {
   books: PostgrestResponse<IBook>;
 }
 export default function Books({ books }: IBooksProps) {
   const { data } = useQuery(
-    ['books'],
+    [queryKeys.BOOKS],
     async () => await supabase.from('book').select('*', { count: 'exact' }),
     {
       initialData: books,

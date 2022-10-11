@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { getBook } from '../controller/book';
 import { BookDTO, IBook, IBookResponse } from '../types/book';
 import { supabase } from '../utils/supabaseClient';
+import * as queryKeys from '../utils/queryKeys';
 
 const Article = styled.article`
   display: flex;
@@ -37,7 +38,7 @@ export default function Book({ book }: IBookProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error } = useQuery(['book', id], () => getBook(id), {
+  const { data, error } = useQuery([queryKeys.N_BOOK, id], () => getBook(id), {
     enabled: !!id,
     initialData: book,
   });
