@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import * as queryKeys from '@/utils/queryKeys';
 import { useKeywordStore } from '@/store/useKeywordStore';
-import { getBooks } from '@/controller/book';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useSearchResult } from '@/hooks/queries/useSearchResult';
 
 const BookContainer = styled.ul`
   width: 50%;
@@ -29,13 +27,7 @@ export default function SearchResult() {
   const keyword = useKeywordStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 1000);
 
-  const { data: books, error } = useQuery(
-    [queryKeys.N_BOOKS, newKeyword],
-    () => getBooks(newKeyword),
-    {
-      enabled: !!newKeyword,
-    }
-  );
+  const { data: books, error } = useSearchResult(newKeyword);
 
   if (!books || error) return null;
 
