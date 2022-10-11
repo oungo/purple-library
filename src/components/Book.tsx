@@ -2,10 +2,10 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { getBook } from '../controller/book';
-import { BookDTO, IBook, IBookResponse } from '../types/book';
-import { supabase } from '../utils/supabaseClient';
-import * as queryKeys from '../utils/queryKeys';
+import * as queryKeys from '@/utils/queryKeys';
+import { getBook } from '@/controller/book';
+import { supabase } from '@/utils/supabaseClient';
+import { BookDTO, IBook, IBookResponse } from '@/types/book';
 
 const Article = styled.article`
   display: flex;

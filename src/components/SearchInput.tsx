@@ -1,6 +1,6 @@
+import { useKeywordStore } from '@/store/useKeywordStore';
 import { KeyboardEvent } from 'react';
 import styled from 'styled-components';
-import { useKeywordStore } from '../store/useKeywordStore';
 
 const Input = styled.input`
   width: 50%;

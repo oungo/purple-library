@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next';
 import { useQuery } from 'react-query';
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '@/utils/supabaseClient';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
-import { IBook } from '../types/book';
-import * as queryKeys from '../utils/queryKeys';
+import { IBook } from '@/types/book';
+import * as queryKeys from '@/utils/queryKeys';
 
 interface IBooksProps {
   books: PostgrestResponse<IBook>;

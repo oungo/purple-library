@@ -1,7 +1,7 @@
+import Book from '@/components/Book';
+import { getBook } from '@/controller/book';
+import { IBookResponse } from '@/types/book';
 import { GetServerSideProps } from 'next';
-import Book from '../../components/Book';
-import { getBook } from '../../controller/book';
-import { IBookResponse } from '../../types/book';
 
 interface IBookInfoProps {
   book: IBookResponse;

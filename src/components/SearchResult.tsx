@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { getBooks } from '../controller/book';
-import { useDebounce } from '../hooks/use-debounce';
-import { useKeywordStore } from '../store/useKeywordStore';
-import * as queryKeys from '../utils/queryKeys';
+import * as queryKeys from '@/utils/queryKeys';
+import { useKeywordStore } from '@/store/useKeywordStore';
+import { getBooks } from '@/controller/book';
+import { useDebounce } from '@/hooks/use-debounce';
 
 const BookContainer = styled.ul`
   width: 50%;
