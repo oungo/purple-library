@@ -25,7 +25,7 @@ const BookItem = styled.li`
 
 export default function SearchResult() {
   const keyword = useKeywordStore((state) => state.keyword);
-  const newKeyword = useDebounce(keyword, 1000);
+  const newKeyword = useDebounce(keyword, 700);
 
   const { data: books, error } = useSearchResult(newKeyword);
 
