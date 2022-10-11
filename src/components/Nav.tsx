@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const NavList = styled.ul`
@@ -11,7 +12,9 @@ export default function Nav() {
   return (
     <nav>
       <NavList>
-        <li>전체</li>
+        <li>
+          <Link href="/books">전체</Link>
+        </li>
         <li>내 책</li>
       </NavList>
     </nav>
