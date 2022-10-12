@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
-  display: inline-block;
+  display: block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
+  margin: auto;
   div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 24px;
+    height: 24px;
     margin: 8px;
-    border: 8px solid red;
+    border: 4px solid red;
     border-radius: 50%;
     border-color: #a4c5ed transparent transparent transparent;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
