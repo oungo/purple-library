@@ -28,6 +28,7 @@ const ErrorText = styled.p`
   text-align: center;
   margin-top: 1rem;
 `;
+
 export default function SearchResult() {
   const keyword = useKeywordStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 700);
