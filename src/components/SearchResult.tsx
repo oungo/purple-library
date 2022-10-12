@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import { useKeywordStore } from '@/store/useKeywordStore';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
+import { Loading } from './Loading';
 
-const BookContainer = styled.ul`
+const Container = styled.ul`
   width: 50%;
   margin: 1rem auto 0;
   list-style: none;
   border-radius: 0.5rem;
 `;
 
-const BookItem = styled.li`
+const BookTitle = styled.li`
   cursor: pointer;
   padding: 5px;
   border-radius: 0.5rem;
@@ -30,23 +31,31 @@ const ErrorText = styled.p`
 `;
 
 export default function SearchResult() {
+  return (
+    <Container>
+      <BookTitleList />
+    </Container>
+  );
+}
+
+function BookTitleList() {
   const keyword = useKeywordStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 700);
 
-  const { data: books, error } = useSearchResult(newKeyword);
+  const { data: books, error, isLoading } = useSearchResult(newKeyword);
 
+  if (!books || isLoading) return <Loading />;
   if (error) return <ErrorText>데이터를 조회할 수 없습니다.</ErrorText>;
-  if (!books) return null;
 
   return (
-    <BookContainer>
-      {books.items.map((book) => {
+    <>
+      {books.map((book) => {
         return (
-          <BookItem key={book.isbn}>
+          <BookTitle key={book.isbn}>
             <Link href={{ pathname: `/book/${book.isbn}` }}>{book.title}</Link>
-          </BookItem>
+          </BookTitle>
         );
       })}
-    </BookContainer>
+    </>
   );
 }

@@ -10,5 +10,5 @@ export const getBooks = async (keyword: string) => {
     .get<IBookResponse>('/books', {
       params: { query: keyword },
     })
-    .then((response) => response.data);
+    .then((response) => response.data.items);
 };
