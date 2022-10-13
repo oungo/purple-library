@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PrimaryButton = styled.button`
-  background-color: rgb(32, 129, 226);
+  background-color: rgb(34, 127, 220);
   border: 2px solid rgb(32, 129, 226);
   color: #fff;
   padding: 1rem;
@@ -9,6 +9,10 @@ export const PrimaryButton = styled.button`
   font-weight: bold;
   :hover {
     opacity: 0.9;
+  }
+  :active {
+    background-color: rgb(26, 98, 170);
+    border-color: rgb(26, 98, 170);
   }
 `;
 
@@ -22,5 +26,8 @@ export const Button = styled.button`
   :hover {
     box-shadow: 0 8px 20px 1px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.2s;
+  }
+  :active {
+    background-color: #f3f3f3;
   }
 `;
