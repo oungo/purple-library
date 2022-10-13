@@ -9,14 +9,11 @@ import { BookDTO, IBook, IBookResponse } from '@/types/book';
 
 const Article = styled.article`
   display: flex;
-  justify-content: space-between;
-`;
-const CoverImageSection = styled.section`
-  width: 50%;
-  min-width: 30%;
+  gap: 1rem;
+  padding: 0 100px;
 `;
 const InfoSection = styled.section`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -31,6 +28,7 @@ const InfoWrapper = styled.dl`
   flex-direction: column;
   gap: 1rem;
 `;
+
 export interface IBookProps {
   book: IBookResponse;
 }
@@ -69,10 +67,10 @@ function BookInfo({ book }: { book: IBook }) {
 
   return (
     <Article>
-      <CoverImageSection>
+      <section>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={book.image} alt="책 이미지" />
-      </CoverImageSection>
+        <img src={book.image} alt="책 이미지" width={400} />
+      </section>
       <InfoSection>
         <InfoWrapper>
           <Title>{book.title}</Title>
