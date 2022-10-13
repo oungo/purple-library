@@ -11,14 +11,14 @@ const Article = styled.article`
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  width: 50%;
+  width: 70%;
   margin: auto;
 `;
 const CoverImageSection = styled.section`
   width: 50%;
   min-width: 30%;
 `;
-const InfoSection = styled.dl`
+const InfoSection = styled.section`
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,11 @@ const Title = styled.dt`
   font-size: x-large;
   font-weight: 900;
 `;
-
+const InfoWrapper = styled.dl`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 export interface IBookProps {
   book: IBookResponse;
 }
@@ -73,7 +77,7 @@ function BookInfo({ book }: { book: IBook }) {
         <img src={book.image} alt="책 이미지" />
       </CoverImageSection>
       <InfoSection>
-        <div>
+        <InfoWrapper>
           <Title>{book.title}</Title>
           {book.author && <dd>작가 {book.author}</dd>}
           {book.publisher && <dd>출판사 {book.publisher}</dd>}
@@ -84,10 +88,11 @@ function BookInfo({ book }: { book: IBook }) {
               </a>
             </dd>
           )}
-        </div>
+        </InfoWrapper>
         <div>
           <BookCount isbn={book.isbn} />
-          <button onClick={() => handleAddBook(book)}>+ 사내 도서 추가</button>
+          <button>구매 예정 도서 추가</button>
+          <button onClick={() => handleAddBook(book)}>사내 도서 추가</button>
         </div>
       </InfoSection>
     </Article>
