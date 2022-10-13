@@ -6,6 +6,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
 import { BookDTO, IBook, IBookResponse } from '@/types/book';
+import { Button } from './styled/Button';
 
 const Article = styled.article`
   display: flex;
@@ -84,10 +85,10 @@ function BookInfo({ book }: { book: IBook }) {
             </dd>
           )}
         </InfoWrapper>
+        <BookCount isbn={book.isbn} />
         <div>
-          <BookCount isbn={book.isbn} />
-          <button>구매 예정 도서 추가</button>
-          <button onClick={() => handleAddBook(book)}>사내 도서 추가</button>
+          <Button>구매 예정 도서 추가</Button>
+          <Button onClick={() => handleAddBook(book)}>사내 도서 추가</Button>
         </div>
       </InfoSection>
     </Article>
