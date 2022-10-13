@@ -10,9 +10,6 @@ import { BookDTO, IBook, IBookResponse } from '@/types/book';
 const Article = styled.article`
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
-  width: 70%;
-  margin: auto;
 `;
 const CoverImageSection = styled.section`
   width: 50%;
