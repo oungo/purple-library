@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
-export const PrimaryButton = styled.button`
+interface IButtonProps {
+  flex?: boolean;
+}
+
+export const PrimaryButton = styled.button<IButtonProps>`
+  flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: rgb(34, 127, 220);
   border: 2px solid rgb(32, 129, 226);
   color: #fff;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   border-radius: 1rem;
   font-weight: bold;
   :hover {
@@ -16,7 +21,8 @@ export const PrimaryButton = styled.button`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<IButtonProps>`
+  flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: #fff;
   border: 2px solid rgba(0, 0, 0, 0.1);
   color: rgb(32, 129, 226);

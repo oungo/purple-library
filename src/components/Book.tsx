@@ -96,8 +96,10 @@ function BookInfo({ book }: { book: IBook }) {
         <BookCount isbn={book.isbn} />
 
         <ButtonWrapper>
-          <PrimaryButton>구매 예정 도서 추가</PrimaryButton>
-          <Button onClick={() => handleAddBook(book)}>사내 도서 추가</Button>
+          <PrimaryButton flex>구매 예정 도서 추가</PrimaryButton>
+          <Button flex onClick={() => handleAddBook(book)}>
+            사내 도서 추가
+          </Button>
         </ButtonWrapper>
       </InfoSection>
     </Article>
