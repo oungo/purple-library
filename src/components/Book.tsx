@@ -29,6 +29,14 @@ const InfoWrapper = styled.dl`
   flex-direction: column;
   gap: 1rem;
 `;
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+const CoverImage = styled.img`
+  width: 400px;
+  box-shadow: 1px 1px 5px;
+`;
 
 export interface IBookProps {
   book: IBookResponse;
@@ -70,7 +78,7 @@ function BookInfo({ book }: { book: IBook }) {
     <Article>
       <section>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={book.image} alt="책 이미지" width={400} />
+        <CoverImage src={book.image} alt="책 이미지" />
       </section>
       <InfoSection>
         <InfoWrapper>
@@ -86,10 +94,11 @@ function BookInfo({ book }: { book: IBook }) {
           )}
         </InfoWrapper>
         <BookCount isbn={book.isbn} />
-        <div>
+
+        <ButtonWrapper>
           <PrimaryButton>구매 예정 도서 추가</PrimaryButton>
           <Button onClick={() => handleAddBook(book)}>사내 도서 추가</Button>
-        </div>
+        </ButtonWrapper>
       </InfoSection>
     </Article>
   );
