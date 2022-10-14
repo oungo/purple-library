@@ -1,11 +1,11 @@
 import create from 'zustand';
 
-interface IKeywordState {
+interface KeywordState {
   keyword: string;
   change: (keyword: string) => void;
 }
 
-export const useKeywordStore = create<IKeywordState>()((set) => ({
+export const useKeywordStore = create<KeywordState>()((set) => ({
   keyword: '',
   change: (value) => set(() => ({ keyword: value })),
 }));

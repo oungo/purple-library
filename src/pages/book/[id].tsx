@@ -1,13 +1,13 @@
 import Book from '@/components/Book';
 import { getBook } from '@/controller/book';
-import { IBookResponse } from '@/types/book';
+import { BookResponse } from '@/types/book';
 import { GetServerSideProps } from 'next';
 
-interface IBookInfoProps {
-  book: IBookResponse;
+interface BookInfoProps {
+  book: BookResponse;
 }
 
-export default function BookInfo({ book: initialData }: IBookInfoProps) {
+export default function BookInfo({ book: initialData }: BookInfoProps) {
   return <Book book={initialData} />;
 }
 

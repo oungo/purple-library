@@ -1,4 +1,4 @@
-export interface IBook {
+export interface Book {
   author: string;
   title: string;
   description: string;
@@ -10,12 +10,12 @@ export interface IBook {
   link: string;
 }
 
-export interface IBookResponse {
+export interface BookResponse {
   display: number;
-  items: IBook[];
+  items: Book[];
   lastBuildDate: string;
   start: number;
   total: number;
 }
 
-export type BookDTO = Pick<IBook, 'title' | 'author' | 'publisher' | 'isbn'>;
+export type BookDTO = Pick<Book, 'title' | 'author' | 'publisher' | 'isbn'>;

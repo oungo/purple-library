@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
 import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
-import { BookDTO, IBook, IBookResponse } from '@/types/book';
+import { BookDTO, Book, BookResponse } from '@/types/book';
 import { Button, PrimaryButton } from './styled/Button';
 
 const Article = styled.article`
@@ -38,11 +38,11 @@ const CoverImage = styled.img`
   box-shadow: 1px 1px 5px;
 `;
 
-export interface IBookProps {
-  book: IBookResponse;
+export interface BookProps {
+  book: BookResponse;
 }
 
-export default function Book({ book }: IBookProps) {
+export default function Book({ book }: BookProps) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -62,8 +62,8 @@ export default function Book({ book }: IBookProps) {
   );
 }
 
-function BookInfo({ book }: { book: IBook }) {
-  const handleAddBook = async (book: IBook) => {
+function BookInfo({ book }: { book: Book }) {
+  const handleAddBook = async (book: Book) => {
     const { title, author, publisher, isbn } = book;
     const bookDTO: BookDTO = {
       title,

@@ -1,10 +1,10 @@
 import Header from './Header';
 
-export interface ILayoutProps {
+export interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: ILayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Header />

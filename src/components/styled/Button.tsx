@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-interface IButtonProps {
+interface ButtonProps {
   flex?: boolean;
 }
 
-export const PrimaryButton = styled.button<IButtonProps>`
+export const PrimaryButton = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: rgb(34, 127, 220);
   border: 2px solid rgb(32, 129, 226);
@@ -21,7 +21,7 @@ export const PrimaryButton = styled.button<IButtonProps>`
   }
 `;
 
-export const Button = styled.button<IButtonProps>`
+export const Button = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: #fff;
   border: 2px solid rgba(0, 0, 0, 0.1);
