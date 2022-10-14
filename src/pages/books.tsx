@@ -2,11 +2,11 @@ import { GetServerSideProps } from 'next';
 import { useQuery } from 'react-query';
 import { supabase } from '@/utils/supabaseClient';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
-import { Book } from '@/types/book';
+import { NBook } from '@/types/book';
 import * as queryKeys from '@/utils/queryKeys';
 
 interface BooksProps {
-  books: PostgrestResponse<Book>;
+  books: PostgrestResponse<NBook>;
 }
 export default function Books({ books }: BooksProps) {
   const { data } = useQuery(

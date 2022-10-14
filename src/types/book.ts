@@ -1,21 +1,26 @@
-export interface Book {
-  author: string;
-  title: string;
-  description: string;
-  discount: string;
-  image: string;
-  isbn: string;
-  pubdate: string;
-  publisher: string;
-  link: string;
-}
-
-export interface BookResponse {
+export interface NBookResponse {
   display: number;
-  items: Book[];
+  items: NBook[];
   lastBuildDate: string;
   start: number;
   total: number;
 }
 
-export type BookDTO = Pick<Book, 'title' | 'author' | 'publisher' | 'isbn'>;
+export interface DefaultBook {
+  title: string;
+  author: string;
+  isbn: string;
+  publisher: string;
+}
+
+export interface NBook extends DefaultBook {
+  description: string;
+  discount: string;
+  image: string;
+  pubdate: string;
+  link: string;
+}
+
+export interface LibraryBook extends DefaultBook {
+  inStock: boolean;
+}

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
 import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
-import { BookDTO, Book, BookResponse } from '@/types/book';
+import { LibraryBook, NBook, NBookResponse } from '@/types/book';
 import { Button, PrimaryButton } from './styled/Button';
 
 const Article = styled.article`
@@ -39,7 +39,7 @@ const CoverImage = styled.img`
 `;
 
 export interface BookProps {
-  book: BookResponse;
+  book: NBookResponse;
 }
 
 export default function Book({ book }: BookProps) {
@@ -62,16 +62,17 @@ export default function Book({ book }: BookProps) {
   );
 }
 
-function BookInfo({ book }: { book: Book }) {
-  const handleAddBook = async (book: Book) => {
+function BookInfo({ book }: { book: NBook }) {
+  const handleAddBook = async (book: NBook) => {
     const { title, author, publisher, isbn } = book;
-    const bookDTO: BookDTO = {
+    const bookInfo: LibraryBook = {
       title,
       author,
       publisher,
       isbn,
+      inStock: true,
     };
-    await supabase.from('book').insert<BookDTO>(bookDTO).throwOnError();
+    await supabase.from('book').insert<LibraryBook>(bookInfo).throwOnError();
   };
 
   return (
