@@ -12,6 +12,6 @@ export default function Books({ books }: BooksProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const books = await supabase.from('book').select('*', { count: 'exact' });
+  const books = await supabase.from('book').select('*', { count: 'exact' }).range(0, 19);
   return { props: { books } };
 };

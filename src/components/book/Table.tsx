@@ -52,7 +52,7 @@ export interface TableProps {
 export default function Table({ books }: TableProps) {
   const { data } = useQuery(
     [queryKeys.BOOKS],
-    async () => await supabase.from('book').select('*', { count: 'exact' }),
+    async () => await supabase.from('book').select('*', { count: 'exact' }).range(0, 19),
     {
       initialData: books,
     }
