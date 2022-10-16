@@ -16,6 +16,7 @@ export default function Table({ books }: TableProps) {
       initialData: books,
     }
   );
+
   if (!data) return null;
 
   return (
@@ -25,6 +26,7 @@ export default function Table({ books }: TableProps) {
           <th>제목</th>
           <th>저자</th>
           <th>출판사</th>
+          <th>상태</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +36,7 @@ export default function Table({ books }: TableProps) {
               <td>{book.title}</td>
               <td>{book.author}</td>
               <td>{book.publisher}</td>
+              <td>{book.inStock ? '보유중' : '구매 예정'}</td>
             </tr>
           );
         })}
