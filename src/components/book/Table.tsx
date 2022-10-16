@@ -1,10 +1,10 @@
-import { supabase } from '@/utils/supabaseClient';
 import * as queryKeys from '@/utils/queryKeys';
 import { LibraryBook } from '@/types/book';
 import { useQuery } from 'react-query';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { getBooks } from '@/utils/book/getBooks';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -50,13 +50,9 @@ export interface TableProps {
 }
 
 export default function Table({ books }: TableProps) {
-  const { data } = useQuery(
-    [queryKeys.BOOKS],
-    async () => await supabase.from('book').select('*', { count: 'exact' }).range(0, 19),
-    {
-      initialData: books,
-    }
-  );
+  const { data } = useQuery([queryKeys.BOOKS], getBooks, {
+    initialData: books,
+  });
 
   if (!data) return null;
 

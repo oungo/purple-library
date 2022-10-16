@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
-import { supabase } from '@/utils/supabaseClient';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import { LibraryBook } from '@/types/book';
 import Table from '@/components/book/Table';
+import { getBooks } from '@/utils/book/getBooks';
 
 interface BooksProps {
   books: PostgrestResponse<LibraryBook>;
@@ -12,6 +12,6 @@ export default function Books({ books }: BooksProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const books = await supabase.from('book').select('*', { count: 'exact' }).range(0, 19);
+  const books = await getBooks();
   return { props: { books } };
 };
