@@ -6,8 +6,8 @@ interface ButtonProps {
 
 export const PrimaryButton = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
-  background-color: rgb(34, 127, 220);
-  border: 2px solid rgb(32, 129, 226);
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
   color: #fff;
   padding: 1.5rem 1rem;
   border-radius: 1rem;
@@ -24,8 +24,8 @@ export const PrimaryButton = styled.button<ButtonProps>`
 export const Button = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: #fff;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  color: rgb(32, 129, 226);
+  border: 2px solid var(--gray-color);
+  color: var(--primary-color);
   padding: 1rem;
   border-radius: 1rem;
   font-weight: bold;
@@ -34,6 +34,6 @@ export const Button = styled.button<ButtonProps>`
     transition: box-shadow 0.2s;
   }
   :active {
-    background-color: #f3f3f3;
+    background-color: var(--gray-color);
   }
 `;
