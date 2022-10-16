@@ -1,46 +1,14 @@
 import { GetServerSideProps } from 'next';
-import { useQuery } from 'react-query';
 import { supabase } from '@/utils/supabaseClient';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
-import { NBook } from '@/types/book';
-import * as queryKeys from '@/utils/queryKeys';
+import { LibraryBook } from '@/types/book';
+import Table from '@/components/book/Table';
 
 interface BooksProps {
-  books: PostgrestResponse<NBook>;
+  books: PostgrestResponse<LibraryBook>;
 }
 export default function Books({ books }: BooksProps) {
-  const { data } = useQuery(
-    [queryKeys.BOOKS],
-    async () => await supabase.from('book').select('*', { count: 'exact' }),
-    {
-      initialData: books,
-    }
-  );
-
-  if (!data) return null;
-
-  return (
-    <table border={1}>
-      <thead>
-        <tr>
-          <th>제목</th>
-          <th>저자</th>
-          <th>출판사</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.data?.map((book) => {
-          return (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.publisher}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+  return <Table books={books} />;
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
