@@ -7,6 +7,7 @@ import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
 import { LibraryBook, NBook, NBookResponse } from '@/types/book';
 import { Button, PrimaryButton } from './styled/Button';
+import { Loading } from './Loading';
 
 const Article = styled.article`
   display: flex;
@@ -46,11 +47,12 @@ export default function Book({ book }: BookProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error } = useQuery([queryKeys.N_BOOK, id], () => getBook(id), {
+  const { data, error, isFetching } = useQuery([queryKeys.N_BOOK, id], () => getBook(id), {
     enabled: !!id,
     initialData: book,
   });
 
+  if (isFetching) return <Loading />;
   if (!data || error) return null;
 
   return (
@@ -63,16 +65,18 @@ export default function Book({ book }: BookProps) {
 }
 
 function BookInfo({ book }: { book: NBook }) {
-  const handleAddBook = async (book: NBook) => {
-    const { title, author, publisher, isbn } = book;
-    const bookInfo: LibraryBook = {
-      title,
-      author,
-      publisher,
-      isbn,
-      inStock: true,
-    };
-    await supabase.from('book').insert<LibraryBook>(bookInfo).throwOnError();
+  const bookInfo = {
+    title: book.title,
+    author: book.author,
+    publisher: book.publisher,
+    isbn: book.isbn,
+  };
+
+  const handleAddBook = async (inStock: boolean) => {
+    await supabase
+      .from('book')
+      .insert<LibraryBook>({ ...bookInfo, inStock })
+      .throwOnError();
   };
 
   return (
@@ -97,8 +101,10 @@ function BookInfo({ book }: { book: NBook }) {
         <BookCount isbn={book.isbn} />
 
         <ButtonWrapper>
-          <PrimaryButton flex>구매 예정 도서 추가</PrimaryButton>
-          <Button flex onClick={() => handleAddBook(book)}>
+          <PrimaryButton flex onClick={() => handleAddBook(false)}>
+            구매 예정 도서 추가
+          </PrimaryButton>
+          <Button flex onClick={() => handleAddBook(true)}>
             사내 도서 추가
           </Button>
         </ButtonWrapper>
