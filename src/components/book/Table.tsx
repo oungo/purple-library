@@ -3,6 +3,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import { LibraryBook } from '@/types/book';
 import { useQuery } from 'react-query';
 import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
+import Link from 'next/link';
 
 export interface TableProps {
   books: PostgrestResponse<LibraryBook>;
@@ -33,7 +34,9 @@ export default function Table({ books }: TableProps) {
         {data.data?.map((book) => {
           return (
             <tr key={book.id}>
-              <td>{book.title}</td>
+              <td>
+                <Link href={`/book/${book.isbn}`}>{book.title}</Link>
+              </td>
               <td>{book.author}</td>
               <td>{book.publisher}</td>
               <td>{book.inStock ? '보유중' : '구매 예정'}</td>
