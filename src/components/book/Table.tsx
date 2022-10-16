@@ -13,6 +13,21 @@ const BookTable = styled.table`
   table-layout: fixed;
   width: 100%;
 `;
+const Caption = styled.caption`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+const THeadTr = styled.tr`
+  border-bottom: 1px solid black;
+`;
+const TBodyTr = styled.tr`
+  a {
+    display: block;
+  }
+  :hover {
+    background-color: var(--gray-color);
+  }
+`;
 const TableItem = styled.p`
   text-align: center;
   white-space: nowrap;
@@ -48,7 +63,7 @@ export default function Table({ books }: TableProps) {
   return (
     <TableWrapper>
       <BookTable>
-        <caption>전체 도서 목록</caption>
+        <Caption>전체 도서 목록</Caption>
         <colgroup>
           <col></col>
           <AuthorCol></AuthorCol>
@@ -56,17 +71,17 @@ export default function Table({ books }: TableProps) {
           <InStockCol></InStockCol>
         </colgroup>
         <thead>
-          <tr>
+          <THeadTr>
             <th>제목</th>
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
-          </tr>
+          </THeadTr>
         </thead>
         <tbody>
           {data.data?.map((book) => {
             return (
-              <tr key={book.id}>
+              <TBodyTr key={book.id}>
                 <td>
                   <TableItem>
                     <Link href={`/book/${book.isbn}`}>{book.title}</Link>
@@ -81,7 +96,7 @@ export default function Table({ books }: TableProps) {
                 <td>
                   <TableItem>{book.inStock ? '보유중' : '구매 예정'}</TableItem>
                 </td>
-              </tr>
+              </TBodyTr>
             );
           })}
         </tbody>
