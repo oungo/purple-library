@@ -5,6 +5,7 @@ import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getBooks } from '@/utils/book/getBooks';
+import { useRouter } from 'next/router';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -50,9 +51,16 @@ export interface TableProps {
 }
 
 export default function Table({ books }: TableProps) {
-  const { data } = useQuery([queryKeys.BOOKS], getBooks, {
-    initialData: books,
-  });
+  const router = useRouter();
+
+  const { data } = useQuery(
+    [queryKeys.BOOKS, router.query.page],
+    () => getBooks(Number(router.query.page || 1)),
+    {
+      initialData: books,
+      keepPreviousData: true,
+    }
+  );
 
   if (!data) return null;
 
