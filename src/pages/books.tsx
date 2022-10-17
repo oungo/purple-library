@@ -12,7 +12,7 @@ export default function Books({ books }: BooksProps) {
   return (
     <>
       <Table books={books} />
-      <Pagination total={books.count ?? 0} />
+      <Pagination total={books.count || 0} />
     </>
   );
 }
