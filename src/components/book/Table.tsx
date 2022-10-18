@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { getBooks } from '@/utils/book/getBooks';
 import { useRouter } from 'next/router';
+import { colors } from '@/styles/color';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -26,7 +27,7 @@ const TBodyTr = styled.tr`
     display: block;
   }
   :hover {
-    background-color: var(--gray-color);
+    background-color: ${colors.gray};
   }
 `;
 const TableItem = styled.p`

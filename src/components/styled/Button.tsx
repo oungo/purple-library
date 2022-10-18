@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import styled from 'styled-components';
 
 interface ButtonProps {
@@ -6,8 +7,8 @@ interface ButtonProps {
 
 export const PrimaryButton = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
-  background-color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  background-color: ${colors.primary};
+  border: 2px solid ${colors.primary};
   color: #fff;
   padding: 1.5rem 1rem;
   border-radius: 1rem;
@@ -24,8 +25,8 @@ export const PrimaryButton = styled.button<ButtonProps>`
 export const Button = styled.button<ButtonProps>`
   flex: ${(props) => (props.flex ? 1 : 'none')};
   background-color: #fff;
-  border: 2px solid var(--gray-color);
-  color: var(--primary-color);
+  border: 2px solid ${colors.gray};
+  color: ${colors.primary};
   padding: 1rem;
   border-radius: 1rem;
   font-weight: bold;
@@ -34,6 +35,6 @@ export const Button = styled.button<ButtonProps>`
     transition: box-shadow 0.2s;
   }
   :active {
-    background-color: var(--gray-color);
+    background-color: ${colors.gray};
   }
 `;

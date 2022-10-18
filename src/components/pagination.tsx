@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
 import { MouseEvent, useMemo } from 'react';
@@ -26,7 +27,7 @@ interface PageNumberProps {
   active: boolean;
 }
 const PageNumber = styled.a<PageNumberProps>`
-  background-color: ${(props) => (props.active ? 'var(--primary-color)' : 'white')};
+  background-color: ${(props) => (props.active ? `${colors.primary}` : 'white')};
   color: ${(props) => (props.active ? 'white' : 'black')};
   cursor: pointer;
   width: 30px;
