@@ -36,6 +36,14 @@ const TableItem = styled.p`
   text-overflow: ellipsis;
   padding: 5px;
 `;
+const Title = styled.a`
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+`;
 const AuthorCol = styled.col`
   width: 15%;
 `;
@@ -80,25 +88,29 @@ export default function Table({ books }: TableProps) {
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
+            <th>보유자</th>
           </THeadTr>
         </thead>
         <tbody>
           {data.data?.map((book) => {
             return (
               <TBodyTr key={book.id}>
-                <td>
-                  <TableItem>
-                    <Link href={`/book/${book.isbn}`}>{book.title}</Link>
-                  </TableItem>
+                <td title={book.title}>
+                  <Link href={`/book/${book.isbn}`}>
+                    <Title>{book.title}</Title>
+                  </Link>
                 </td>
                 <td>
                   <TableItem>{book.author}</TableItem>
                 </td>
-                <td>
+                <td title={book.publisher}>
                   <TableItem>{book.publisher}</TableItem>
                 </td>
                 <td>
                   <TableItem>{book.inStock ? '보유중' : '구매 예정'}</TableItem>
+                </td>
+                <td>
+                  <TableItem>김영호</TableItem>
                 </td>
               </TBodyTr>
             );
