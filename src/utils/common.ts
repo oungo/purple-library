@@ -4,4 +4,4 @@ export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
 });
 
-export const PAGE_SIZE = 2;
+export const PAGE_SIZE = 15;

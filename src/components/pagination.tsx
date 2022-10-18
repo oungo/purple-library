@@ -102,9 +102,8 @@ export function PrevPageArrow({ pageNumber }: ArrowProps) {
 interface NextArrowProps extends ArrowProps {
   lastPage: number;
 }
-export function NextPageArrow({ lastPage }: NextArrowProps) {
+export function NextPageArrow({ pageNumber, lastPage }: NextArrowProps) {
   const router = useRouter();
-  const pageNumber = useMemo(() => Number(router.query.page), [router.query.page]);
 
   const handleMoveNext = () => {
     if (pageNumber < lastPage) {
