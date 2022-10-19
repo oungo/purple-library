@@ -4,6 +4,7 @@ import { LibraryBook } from '@/types/book';
 import Table from '@/components/book/Table';
 import { getBooks } from '@/utils/book/getBooks';
 import Pagination from '@/components/Pagination';
+import Tabs from '@/components/Tabs';
 
 interface BooksProps {
   books: PostgrestResponse<LibraryBook>;
@@ -11,6 +12,7 @@ interface BooksProps {
 export default function Books({ books }: BooksProps) {
   return (
     <>
+      <Tabs />
       <Table books={books} />
       <Pagination total={books.count || 0} />
     </>
