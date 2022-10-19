@@ -3,7 +3,7 @@ import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import { LibraryBook } from '@/types/book';
 import Table from '@/components/book/Table';
 import { getBooks } from '@/utils/book/getBooks';
-import Pagination from '@/components/pagination';
+import Pagination from '@/components/Pagination';
 
 interface BooksProps {
   books: PostgrestResponse<LibraryBook>;
