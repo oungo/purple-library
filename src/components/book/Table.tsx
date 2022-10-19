@@ -18,6 +18,7 @@ const BookTable = styled.table`
 const Caption = styled.caption`
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 `;
 const THeadTr = styled.tr`
   border-bottom: 1px solid black;
@@ -76,7 +77,7 @@ export default function Table({ books }: TableProps) {
   return (
     <TableWrapper>
       <BookTable>
-        <Caption>전체 도서 목록</Caption>
+        <Caption>도서 목록</Caption>
         <colgroup>
           <col></col>
           <AuthorCol></AuthorCol>
