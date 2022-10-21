@@ -43,15 +43,13 @@ export default function Pagination({ total }: PaginationProps) {
   const router = useRouter();
   const pageNumber = useMemo(() => Number(router.query.page || 1), [router.query.page]);
 
-  const handleMovePage = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.target !== e.currentTarget) {
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          page: (e.target as HTMLDivElement).textContent,
-        },
-      });
-    }
+  const handleMovePage = (e: MouseEvent<HTMLAnchorElement>) => {
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        page: (e.target as HTMLAnchorElement).textContent,
+      },
+    });
   };
 
   if (!total) null;
@@ -59,11 +57,11 @@ export default function Pagination({ total }: PaginationProps) {
   return (
     <Container>
       <PrevPageArrow pageNumber={pageNumber} />
-      <PageNumbers onClick={handleMovePage}>
+      <PageNumbers>
         {getPageNumbers(total)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
-            <PageNumber key={page} active={pageNumber === page}>
+            <PageNumber key={page} active={pageNumber === page} onClick={handleMovePage}>
               {page}
             </PageNumber>
           ))}
