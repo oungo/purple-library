@@ -21,7 +21,6 @@ export default function Tabs() {
     const tabValue = target.dataset.tabValue;
 
     const query = { ...router.query, inStock: tabValue };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filteredQuery = Object.fromEntries(Object.entries(query).filter(([_, value]) => value));
 
     router.replace({
