@@ -49,7 +49,7 @@ export default function BookModal() {
 
   if (!isOpen || !id) return null;
   if (isLoading) return <Loading />;
-  if (!book && !isLoading) return <>조회불가</>;
+  if (!book?.data) return <>조회불가</>;
 
   return (
     <Container>
@@ -60,11 +60,11 @@ export default function BookModal() {
         </HeadSection>
 
         <BodySection>
-          <p>도서명 {book.data?.title}</p>
-          <p>저자 {book.data?.author}</p>
-          <p>출판사 {book.data?.publisher}</p>
+          <p>도서명 {book.data.title}</p>
+          <p>저자 {book.data.author}</p>
+          <p>출판사 {book.data.publisher}</p>
 
-          <BookForm book={book} />
+          <BookForm book={book.data} />
         </BodySection>
       </Content>
     </Container>
