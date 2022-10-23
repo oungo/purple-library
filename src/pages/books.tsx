@@ -5,6 +5,7 @@ import Table from '@/components/book/Table';
 import { getBooks } from '@/utils/book/getBooks';
 import Pagination from '@/components/Pagination';
 import Tabs from '@/components/Tabs';
+import { BOOK_MODAL_ID } from '@/utils/common';
 
 interface BooksProps {
   books: PostgrestResponse<LibraryBook>;
@@ -15,6 +16,8 @@ export default function Books({ books }: BooksProps) {
       <Tabs />
       <Table books={books} />
       <Pagination total={books.count || 0} />
+
+      <div id={BOOK_MODAL_ID} />
     </>
   );
 }
