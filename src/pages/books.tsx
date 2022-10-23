@@ -1,14 +1,16 @@
 import { GetServerSideProps } from 'next';
-import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
-import { LibraryBook } from '@/types/book';
 import Table from '@/components/book/Table';
 import { getBooks } from '@/utils/book/getBooks';
 import Pagination from '@/components/Pagination';
 import Tabs from '@/components/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
+import ModalPortal from '@/components/ModalPortal';
+import { PostgrestResponse } from '@supabase/supabase-js';
+import { definitions } from '@/types/supabase';
+import BookModal from '@/components/book/BookModal';
 
 interface BooksProps {
-  books: PostgrestResponse<LibraryBook>;
+  books: PostgrestResponse<definitions['book']>;
 }
 export default function Books({ books }: BooksProps) {
   return (
@@ -18,6 +20,9 @@ export default function Books({ books }: BooksProps) {
       <Pagination total={books.count || 0} />
 
       <div id={BOOK_MODAL_ID} />
+      <ModalPortal id={BOOK_MODAL_ID}>
+        <BookModal />
+      </ModalPortal>
     </>
   );
 }
