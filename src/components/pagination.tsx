@@ -47,6 +47,7 @@ export default function Pagination({ total }: PaginationProps) {
     router.replace({
       pathname: router.pathname,
       query: {
+        ...router.query,
         page: (e.target as HTMLAnchorElement).textContent,
       },
     });
@@ -90,6 +91,7 @@ export function PrevPageArrow({ pageNumber }: ArrowProps) {
       router.replace({
         pathname: router.pathname,
         query: {
+          ...router.query,
           page: pageNumber - 1,
         },
       });
@@ -109,6 +111,7 @@ export function NextPageArrow({ pageNumber, lastPage }: NextArrowProps) {
       router.replace({
         pathname: router.pathname,
         query: {
+          ...router.query,
           page: pageNumber + 1,
         },
       });
