@@ -7,6 +7,7 @@ import { getBooks } from '@/utils/book/getBooks';
 import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useModalStore } from '@/store/useModalStore';
 
 const TBodyTr = styled.tr`
   a {
@@ -44,6 +45,8 @@ export default function TableBody({ books }: ITableBodyProps) {
   const router = useRouter();
   const query = router.query;
 
+  const open = useModalStore((state) => state.open);
+
   const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
     initialData: books,
     keepPreviousData: true,
@@ -71,7 +74,7 @@ export default function TableBody({ books }: ITableBodyProps) {
               <TableItem>{book.inStock ? '보유중' : '구매 예정'}</TableItem>
             </td>
             <td>
-              <EditButton>수정</EditButton>
+              <EditButton onClick={open}>수정</EditButton>
             </td>
           </TBodyTr>
         );
