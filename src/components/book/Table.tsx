@@ -55,6 +55,10 @@ const PublisherCol = styled.col`
 const InStockCol = styled.col`
   width: 10%;
 `;
+const EditButton = styled.button`
+  cursor: pointer;
+  color: ${colors.primary};
+`;
 
 export interface TableProps {
   books: PostgrestResponse<LibraryBook>;
@@ -87,7 +91,7 @@ export default function Table({ books }: TableProps) {
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
-            <th>보유자</th>
+            <th></th>
           </THeadTr>
         </thead>
         <tbody>
@@ -109,7 +113,7 @@ export default function Table({ books }: TableProps) {
                   <TableItem>{book.inStock ? '보유중' : '구매 예정'}</TableItem>
                 </td>
                 <td>
-                  <TableItem>김영호</TableItem>
+                  <EditButton>수정</EditButton>
                 </td>
               </TBodyTr>
             );
