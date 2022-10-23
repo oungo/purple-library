@@ -20,6 +20,6 @@ export default function Books({ books }: BooksProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const books = await getBooks(Number(context.query.page || 1));
+  const books = await getBooks(context.query);
   return { props: { books } };
 };

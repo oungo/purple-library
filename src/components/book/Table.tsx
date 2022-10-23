@@ -62,15 +62,12 @@ export interface TableProps {
 
 export default function Table({ books }: TableProps) {
   const router = useRouter();
+  const query = router.query;
 
-  const { data } = useQuery(
-    [queryKeys.BOOKS, router.query.page],
-    () => getBooks(Number(router.query.page || 1)),
-    {
-      initialData: books,
-      keepPreviousData: true,
-    }
-  );
+  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
+    initialData: books,
+    keepPreviousData: true,
+  });
 
   if (!data) return null;
 
