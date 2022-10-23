@@ -4,7 +4,7 @@ import { getBooks } from '@/utils/book/getBooks';
 import Pagination from '@/components/book/Pagination';
 import Tabs from '@/components/book/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
-import ModalPortal from '@/components/ModalPortal';
+import ModalPortal from '@/components/common/ModalPortal';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { definitions } from '@/types/supabase';
 import BookModal from '@/components/book/BookModal';

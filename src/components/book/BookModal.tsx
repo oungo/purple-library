@@ -4,7 +4,7 @@ import { useModalStore } from '@/store/useModalStore';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getBook } from '@/utils/book/getBook';
-import { Loading } from '../Loading';
+import { Loading } from '../common/Loading';
 import React from 'react';
 import BookForm from './BookForm';
 

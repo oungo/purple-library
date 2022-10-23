@@ -7,7 +7,7 @@ import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
 import { NBook, NBookResponse } from '@/types/book';
 import { Button, PrimaryButton } from '../styled/Button';
-import { Loading } from '../Loading';
+import { Loading } from '../common/Loading';
 
 const Article = styled.article`
   display: flex;
