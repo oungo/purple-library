@@ -1,12 +1,12 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { LibraryBook } from '@/types/book';
+import { definitions } from '@/types/supabase';
 import { useQuery } from 'react-query';
-import { PostgrestResponse } from '@supabase/postgrest-js/src/types';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getBooks } from '@/utils/book/getBooks';
 import { useRouter } from 'next/router';
 import { colors } from '@/styles/color';
+import { PostgrestResponse } from '@supabase/supabase-js';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -61,7 +61,7 @@ const EditButton = styled.button`
 `;
 
 export interface TableProps {
-  books: PostgrestResponse<LibraryBook>;
+  books: PostgrestResponse<definitions['book']>;
 }
 
 export default function Table({ books }: TableProps) {
