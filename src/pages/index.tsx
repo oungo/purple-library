@@ -1,5 +1,5 @@
-import SearchInput from '@/components/SearchInput';
-import SearchResult from '@/components/SearchResult';
+import SearchInput from '@/components/book/SearchInput';
+import SearchResult from '@/components/book/SearchResult';
 
 function Index() {
   return (

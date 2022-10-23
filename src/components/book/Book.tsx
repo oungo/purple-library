@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
 import { getBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
-import { LibraryBook, NBook, NBookResponse } from '@/types/book';
-import { Button, PrimaryButton } from './styled/Button';
-import { Loading } from './Loading';
+import { NBook, NBookResponse } from '@/types/book';
+import { Button, PrimaryButton } from '../styled/Button';
+import { Loading } from '../Loading';
 
 const Article = styled.article`
   display: flex;
@@ -75,7 +75,7 @@ function BookInfo({ book }: { book: NBook }) {
   const handleAddBook = async (inStock: boolean) => {
     await supabase
       .from('book')
-      .insert<LibraryBook>({ ...bookInfo, inStock })
+      .insert({ ...bookInfo, inStock })
       .throwOnError();
   };
 

@@ -1,4 +1,4 @@
-import Book from '@/components/Book';
+import Book from '@/components/book/Book';
 import { getBook } from '@/controller/book';
 import { NBookResponse } from '@/types/book';
 import { GetServerSideProps } from 'next';

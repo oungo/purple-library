@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
 import Table from '@/components/book/Table';
 import { getBooks } from '@/utils/book/getBooks';
-import Pagination from '@/components/Pagination';
-import Tabs from '@/components/Tabs';
+import Pagination from '@/components/book/Pagination';
+import Tabs from '@/components/book/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import ModalPortal from '@/components/ModalPortal';
 import { PostgrestResponse } from '@supabase/supabase-js';
