@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getBook } from '@/utils/book/getBook';
 import { Loading } from '../Loading';
+import { getBookStatus } from '@/utils/common';
 
 const Container = styled.div`
   position: fixed;
@@ -50,7 +51,7 @@ export default function BookModal() {
   if (!book && !isLoading) return <>조회불가</>;
 
   return (
-    <Container onClick={close}>
+    <Container>
       <Content>
         <HeadSection>
           <Title>도서 수정</Title>
@@ -61,6 +62,7 @@ export default function BookModal() {
           <p>도서명 {book.data?.title}</p>
           <p>저자 {book.data?.author}</p>
           <p>출판사 {book.data?.publisher}</p>
+          <p>상태 {getBookStatus(book.data?.inStock)}</p>
         </BodySection>
       </Content>
     </Container>

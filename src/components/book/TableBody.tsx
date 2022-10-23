@@ -9,6 +9,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useModalStore } from '@/store/useModalStore';
 import { useBookIdStore } from '@/store/useBookIdStore';
+import { getBookStatus } from '@/utils/common';
 
 const TBodyTr = styled.tr`
   a {
@@ -78,7 +79,7 @@ export default function TableBody({ books }: ITableBodyProps) {
               <TableItem>{book.publisher}</TableItem>
             </td>
             <td>
-              <TableItem>{book.inStock ? '보유중' : '구매 예정'}</TableItem>
+              <TableItem>{getBookStatus(book.inStock)}</TableItem>
             </td>
             <td>
               <EditButton onClick={() => handleOpen(book.id)}>수정</EditButton>
