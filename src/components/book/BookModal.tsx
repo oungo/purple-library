@@ -5,7 +5,8 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getBook } from '@/utils/book/getBook';
 import { Loading } from '../Loading';
-import { getBookStatus } from '@/utils/common';
+import React from 'react';
+import BookForm from './BookForm';
 
 const Container = styled.div`
   position: fixed;
@@ -62,7 +63,8 @@ export default function BookModal() {
           <p>도서명 {book.data?.title}</p>
           <p>저자 {book.data?.author}</p>
           <p>출판사 {book.data?.publisher}</p>
-          <p>상태 {getBookStatus(book.data?.inStock)}</p>
+
+          <BookForm book={book} />
         </BodySection>
       </Content>
     </Container>
