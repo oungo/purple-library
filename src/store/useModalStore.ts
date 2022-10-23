@@ -6,7 +6,7 @@ interface ModalState {
   close: () => void;
 }
 
-export const useKeywordStore = create<ModalState>()((set) => ({
+export const useModalStore = create<ModalState>()((set) => ({
   isOpen: false,
   open: () => set(() => ({ isOpen: true })),
   close: () => set(() => ({ isOpen: false })),
