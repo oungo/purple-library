@@ -20,7 +20,7 @@ export default function Tabs() {
 
     const tabValue = target.dataset.tabValue;
 
-    const query = { ...router.query, inStock: tabValue };
+    const query = { ...router.query, inStock: tabValue, page: null };
     const filteredQuery = Object.fromEntries(Object.entries(query).filter(([_, value]) => value));
 
     router.replace({
