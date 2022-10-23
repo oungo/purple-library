@@ -12,7 +12,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0-rc.10",
+    "@supabase/supabase-js": "^1.35.7",
     "@types/react": "^18.0.21",
     "axios": "^0.27.2",
     "cors": "^2.8.5",
