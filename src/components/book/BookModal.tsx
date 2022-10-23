@@ -1,5 +1,10 @@
+import * as queryKeys from '@/utils/queryKeys';
+import { useBookIdStore } from '@/store/useBookIdStore';
 import { useModalStore } from '@/store/useModalStore';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { getBook } from '@/utils/book/getBook';
+import { Loading } from '../Loading';
 
 const Container = styled.div`
   position: fixed;
@@ -34,8 +39,15 @@ const BodySection = styled.div`
 
 export default function BookModal() {
   const { isOpen, close } = useModalStore();
+  const { id } = useBookIdStore();
 
-  if (!isOpen) return null;
+  const { data: book, isLoading } = useQuery([queryKeys.BOOKS, id], () => getBook(id), {
+    enabled: !!id,
+  });
+
+  if (!isOpen || !id) return null;
+  if (isLoading) return <Loading />;
+  if (!book && !isLoading) return <>조회불가</>;
 
   return (
     <Container onClick={close}>
@@ -46,9 +58,9 @@ export default function BookModal() {
         </HeadSection>
 
         <BodySection>
-          <p>도서명</p>
-          <p>저자</p>
-          <p>출판사</p>
+          <p>도서명 {book.data?.title}</p>
+          <p>저자 {book.data?.author}</p>
+          <p>출판사 {book.data?.publisher}</p>
         </BodySection>
       </Content>
     </Container>
