@@ -5,7 +5,7 @@ export const getNBook = async (id: string) => {
   return axiosInstance.get<NBookResponse>(`/book/${id}`).then((res) => res.data);
 };
 
-export const getBooks = async (keyword: string) => {
+export const getNBooks = async (keyword: string) => {
   return axiosInstance
     .get<NBookResponse>('/books', {
       params: { query: keyword },
