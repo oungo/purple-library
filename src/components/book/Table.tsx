@@ -48,7 +48,8 @@ export default function Table({ books }: TableProps) {
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
-            <th></th>
+            <th>수정</th>
+            <th>삭제</th>
           </THeadTr>
         </thead>
         <tbody>

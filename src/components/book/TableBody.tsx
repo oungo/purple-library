@@ -1,6 +1,6 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getBooks } from '@/utils/book/getBooks';
 import { colors } from '@/styles/color';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { useModalStore } from '@/store/useModalStore';
 import { useBookIdStore } from '@/store/useBookIdStore';
 import { getBookStatus } from '@/utils/common';
 import { BookResponse } from '@/types/book';
+import { deleteBook } from '@/utils/book/deleteBook';
 
 const TBodyTr = styled.tr`
   a {
@@ -17,9 +18,11 @@ const TBodyTr = styled.tr`
   :hover {
     background-color: ${colors.gray};
   }
+  td {
+    text-align: center;
+  }
 `;
 const TableItem = styled.p`
-  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -43,8 +46,15 @@ export interface ITableBodyProps {
 }
 
 export default function TableBody({ books }: ITableBodyProps) {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const query = router.query;
+
+  const { mutate } = useMutation(deleteBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([queryKeys.BOOKS]);
+    },
+  });
 
   const { open } = useModalStore();
   const { setId } = useBookIdStore();
@@ -52,6 +62,10 @@ export default function TableBody({ books }: ITableBodyProps) {
   const handleOpen = (id: number) => {
     setId(id);
     open();
+  };
+
+  const handleDelete = (id: number) => {
+    mutate(id);
   };
 
   const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
@@ -82,6 +96,9 @@ export default function TableBody({ books }: ITableBodyProps) {
             </td>
             <td>
               <EditButton onClick={() => handleOpen(book.id)}>수정</EditButton>
+            </td>
+            <td>
+              <EditButton onClick={() => handleDelete(book.id)}>삭제</EditButton>
             </td>
           </TBodyTr>
         );
