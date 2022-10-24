@@ -1,13 +1,13 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { definitions } from '@/types/supabase';
 import { updateBook, UpdateBookValues } from '@/utils/book/updateBook';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { useModalStore } from '@/store/useModalStore';
+import { Book } from '@/types/book';
 
 export interface IBookFormProps {
-  book: definitions['book'];
+  book: Book;
 }
 
 export default function BookForm({ book }: IBookFormProps) {

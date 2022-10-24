@@ -1,3 +1,5 @@
+import { definitions } from './supabase';
+
 export interface NBookResponse {
   display: number;
   items: NBook[];
@@ -6,14 +8,11 @@ export interface NBookResponse {
   total: number;
 }
 
-export interface DefaultBook {
+export interface NBook {
   title: string;
   author: string;
   isbn: string;
   publisher: string;
-}
-
-export interface NBook extends DefaultBook {
   description: string;
   discount: string;
   image: string;
@@ -21,6 +20,4 @@ export interface NBook extends DefaultBook {
   link: string;
 }
 
-export interface LibraryBook extends DefaultBook {
-  inStock: boolean;
-}
+export type Book = definitions['book'];

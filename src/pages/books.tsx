@@ -6,11 +6,11 @@ import Tabs from '@/components/book/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import ModalPortal from '@/components/common/ModalPortal';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { definitions } from '@/types/supabase';
 import BookModal from '@/components/book/BookModal';
+import { Book } from '@/types/book';
 
 interface BooksProps {
-  books: PostgrestResponse<definitions['book']>;
+  books: PostgrestResponse<Book>;
 }
 export default function Books({ books }: BooksProps) {
   return (

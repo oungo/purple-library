@@ -1,5 +1,4 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { definitions } from '@/types/supabase';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
@@ -10,6 +9,7 @@ import styled from 'styled-components';
 import { useModalStore } from '@/store/useModalStore';
 import { useBookIdStore } from '@/store/useBookIdStore';
 import { getBookStatus } from '@/utils/common';
+import { Book } from '@/types/book';
 
 const TBodyTr = styled.tr`
   a {
@@ -40,7 +40,7 @@ const EditButton = styled.button`
 `;
 
 export interface ITableBodyProps {
-  books: PostgrestResponse<definitions['book']>;
+  books: PostgrestResponse<Book>;
 }
 
 export default function TableBody({ books }: ITableBodyProps) {
