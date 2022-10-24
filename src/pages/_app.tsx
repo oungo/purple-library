@@ -9,6 +9,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     defaultOptions: {
       queries: {
         retry: 0,
+        refetchOnWindowFocus: false,
       },
     },
   });
