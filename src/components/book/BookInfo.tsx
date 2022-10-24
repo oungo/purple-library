@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import * as queryKeys from '@/utils/queryKeys';
 import StockBookCount from './StockBookCount';
+import ToPurchaseBookCount from './ToPurchaseBookCount';
 
 const Article = styled.article`
   display: flex;
@@ -46,6 +47,7 @@ export default function BookInfo({ book }: BookInfoProps) {
   const { mutate } = useMutation(addBook, {
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.STOCK_BOOK_COUNT]);
+      queryClient.invalidateQueries([queryKeys.TO_PURCHASE_BOOK_COUNT]);
     },
   });
 
@@ -74,6 +76,7 @@ export default function BookInfo({ book }: BookInfoProps) {
         </InfoWrapper>
 
         <StockBookCount isbn={book.isbn} />
+        <ToPurchaseBookCount isbn={book.isbn} />
 
         <ButtonWrapper>
           <Button color="primary" onClick={() => handleAddBook(false)}>
