@@ -1,7 +1,7 @@
 import { NBookResponse } from '@/types/book';
 import { axiosInstance } from '@/utils/common';
 
-export const getBook = async (id?: string | string[]) => {
+export const getNBook = async (id: string) => {
   return axiosInstance.get<NBookResponse>(`/book/${id}`).then((res) => res.data);
 };
 

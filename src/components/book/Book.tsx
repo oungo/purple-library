@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
-import { getBook } from '@/controller/book';
+import { getNBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
 import { NBook, NBookResponse } from '@/types/book';
 import { Button, PrimaryButton } from '../styled/Button';
@@ -47,10 +47,14 @@ export default function Book({ book }: BookProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error, isFetching } = useQuery([queryKeys.N_BOOK, id], () => getBook(id), {
-    enabled: !!id,
-    initialData: book,
-  });
+  const { data, error, isFetching } = useQuery(
+    [queryKeys.N_BOOK, id],
+    () => getNBook(id as string),
+    {
+      enabled: !!id,
+      initialData: book,
+    }
+  );
 
   if (isFetching) return <Loading />;
   if (!data || error) return null;

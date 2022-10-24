@@ -1,5 +1,5 @@
 import Book from '@/components/book/Book';
-import { getBook } from '@/controller/book';
+import { getNBook } from '@/controller/book';
 import { NBookResponse } from '@/types/book';
 import { GetServerSideProps } from 'next';
 
@@ -12,5 +12,5 @@ export default function BookInfo({ book: initialData }: BookInfoProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return { props: { book: await getBook(context.query.id) } };
+  return { props: { book: await getNBook(context.query.id as string) } };
 };
