@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import * as queryKeys from '@/utils/queryKeys';
-import BookCount from './BookCount';
+import StockBookCount from './StockBookCount';
 
 const Article = styled.article`
   display: flex;
@@ -73,7 +73,7 @@ export default function BookInfo({ book }: BookInfoProps) {
           )}
         </InfoWrapper>
 
-        <BookCount isbn={book.isbn} />
+        <StockBookCount isbn={book.isbn} />
 
         <ButtonWrapper>
           <Button color="primary" onClick={() => handleAddBook(false)}>
