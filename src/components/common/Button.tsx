@@ -1,17 +1,13 @@
 import { colors } from '@/styles/color';
+import React from 'react';
 import styled from 'styled-components';
 
-interface ButtonProps {
-  flex?: boolean;
-}
-
-export const PrimaryButton = styled.button<ButtonProps>`
-  flex: ${(props) => (props.flex ? 1 : 'none')};
+export const PrimaryButton = styled.button`
   background-color: ${colors.primary};
   border: 2px solid ${colors.primary};
   color: #fff;
-  padding: 1.5rem 1rem;
-  border-radius: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
   font-weight: bold;
   :hover {
     opacity: 0.9;
@@ -22,13 +18,12 @@ export const PrimaryButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = styled.button<ButtonProps>`
-  flex: ${(props) => (props.flex ? 1 : 'none')};
+export const DefaultButton = styled.button`
   background-color: #fff;
   border: 2px solid ${colors.gray};
   color: ${colors.primary};
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 10px;
   font-weight: bold;
   :hover {
     box-shadow: 0 8px 20px 1px rgba(0, 0, 0, 0.2);
@@ -38,3 +33,14 @@ export const Button = styled.button<ButtonProps>`
     background-color: ${colors.gray};
   }
 `;
+
+interface ButtonProps {
+  children: React.ReactNode;
+  color?: 'primary' | 'default';
+  onClick?: () => void;
+}
+
+export default function Button({ color = 'default', children, ...props }: ButtonProps) {
+  if (color === 'primary') return <PrimaryButton {...props}>{children}</PrimaryButton>;
+  return <DefaultButton {...props}>{children}</DefaultButton>;
+}

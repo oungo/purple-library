@@ -6,8 +6,8 @@ import * as queryKeys from '@/utils/queryKeys';
 import { getNBook } from '@/controller/book';
 import { supabase } from '@/utils/supabaseClient';
 import { NBook, NBookResponse } from '@/types/book';
-import { Button, PrimaryButton } from '../styled/Button';
 import { Loading } from '../common/Loading';
+import Button from '../common/Button';
 
 const Article = styled.article`
   display: flex;
@@ -105,12 +105,10 @@ function BookInfo({ book }: { book: NBook }) {
         <BookCount isbn={book.isbn} />
 
         <ButtonWrapper>
-          <PrimaryButton flex onClick={() => handleAddBook(false)}>
+          <Button color="primary" onClick={() => handleAddBook(false)}>
             구매 예정 도서 추가
-          </PrimaryButton>
-          <Button flex onClick={() => handleAddBook(true)}>
-            사내 도서 추가
           </Button>
+          <Button onClick={() => handleAddBook(true)}>사내 도서 추가</Button>
         </ButtonWrapper>
       </InfoSection>
     </Article>
