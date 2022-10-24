@@ -4,7 +4,11 @@ import { ParsedUrlQuery } from 'querystring';
 import { Book } from '@/types/book';
 
 export const getBooks = async (query: ParsedUrlQuery) => {
-  let supabaseQuery = supabase.from<Book>('book').select('*', { count: 'exact' });
+  let supabaseQuery = supabase
+    .from<Book>('book')
+    .select('*', { count: 'exact' })
+    .order('id', { ascending: false });
+
   for (const [key, value] of Object.entries(query)) {
     if (key === 'page') continue;
     supabaseQuery = supabaseQuery.eq(key as keyof Book, value as string);
