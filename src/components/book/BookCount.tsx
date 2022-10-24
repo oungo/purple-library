@@ -1,16 +1,13 @@
-import { supabase } from '@/utils/supabaseClient';
 import { useQuery } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
+import { getStockBookCount } from '@/utils/book/getStockBookCount';
 
 export interface BookCountProps {
   isbn: string;
 }
 
 export default function BookCount({ isbn }: BookCountProps) {
-  const { data } = useQuery(
-    [queryKeys.STOCK_BOOK_COUNT, isbn],
-    async () => await supabase.from('book').select('id').eq('isbn', isbn).eq('inStock', true)
-  );
+  const { data } = useQuery([queryKeys.STOCK_BOOK_COUNT, isbn], () => getStockBookCount(isbn));
 
   if (!data || (data.data && data.data?.length < 1)) return null;
 
