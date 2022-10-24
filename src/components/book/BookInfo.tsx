@@ -1,9 +1,10 @@
 import { NBook } from '@/types/book';
 import { addBook } from '@/utils/book/addBook';
-import { supabase } from '@/utils/supabaseClient';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import Button from '../common/Button';
+import * as queryKeys from '@/utils/queryKeys';
+import BookCount from './BookCount';
 
 const Article = styled.article`
   display: flex;
@@ -40,7 +41,13 @@ export interface BookInfoProps {
 }
 
 export default function BookInfo({ book }: BookInfoProps) {
-  const { mutate } = useMutation(addBook);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(addBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([queryKeys.STOCK_BOOK_COUNT]);
+    },
+  });
 
   const handleAddBook = async (inStock: boolean) => {
     mutate({ ...getBookData(book), inStock });
@@ -65,6 +72,7 @@ export default function BookInfo({ book }: BookInfoProps) {
             </dd>
           )}
         </InfoWrapper>
+
         <BookCount isbn={book.isbn} />
 
         <ButtonWrapper>
@@ -88,15 +96,4 @@ function getBookData(book: NBook) {
   }
 
   return bookData;
-}
-
-function BookCount({ isbn }: { isbn: string }) {
-  const { data } = useQuery(
-    ['bookByIsbn', isbn],
-    async () => await supabase.from('book').select('id').eq('isbn', isbn)
-  );
-
-  if (!data || (data.data && data.data?.length < 1)) return null;
-
-  return <p>{data.data?.length}권 보유 중</p>;
 }
