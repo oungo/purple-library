@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { PostgrestResponse } from '@supabase/supabase-js';
 import TableBody from './TableBody';
-import { Book } from '@/types/book';
+import { BookResponse } from '@/types/book';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -29,7 +28,7 @@ const InStockCol = styled.col`
 `;
 
 export interface TableProps {
-  books: PostgrestResponse<Book>;
+  books: BookResponse;
 }
 
 export default function Table({ books }: TableProps) {

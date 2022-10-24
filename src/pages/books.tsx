@@ -5,13 +5,13 @@ import Pagination from '@/components/book/Pagination';
 import Tabs from '@/components/book/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import ModalPortal from '@/components/common/ModalPortal';
-import { PostgrestResponse } from '@supabase/supabase-js';
 import BookModal from '@/components/book/BookModal';
-import { Book } from '@/types/book';
+import { BookResponse } from '@/types/book';
 
 interface BooksProps {
-  books: PostgrestResponse<Book>;
+  books: BookResponse;
 }
+
 export default function Books({ books }: BooksProps) {
   return (
     <>
