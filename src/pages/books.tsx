@@ -17,7 +17,7 @@ export default function Books({ books }: BooksProps) {
     <>
       <Tabs />
       <Table books={books} />
-      <Pagination total={books.count || 0} />
+      <Pagination books={books} />
 
       <div id={BOOK_MODAL_ID} />
       <ModalPortal id={BOOK_MODAL_ID}>

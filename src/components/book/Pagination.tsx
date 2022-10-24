@@ -1,8 +1,12 @@
 import { colors } from '@/styles/color';
+import { getBooks } from '@/utils/book/getBooks';
 import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
+import * as queryKeys from '@/utils/queryKeys';
 import { MouseEvent, useMemo } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { BookResponse } from '@/types/book';
 
 const Container = styled.div`
   display: flex;
@@ -36,30 +40,36 @@ const PageNumber = styled.a<PageNumberProps>`
 `;
 
 interface PaginationProps {
-  total: number;
+  books: BookResponse;
 }
 
-export default function Pagination({ total }: PaginationProps) {
+export default function Pagination({ books }: PaginationProps) {
   const router = useRouter();
-  const pageNumber = useMemo(() => Number(router.query.page || 1), [router.query.page]);
+  const query = router.query;
+
+  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
+    initialData: books,
+  });
+
+  const pageNumber = useMemo(() => Number(query.page || 1), [query.page]);
 
   const handleMovePage = (e: MouseEvent<HTMLAnchorElement>) => {
     router.replace({
       pathname: router.pathname,
       query: {
-        ...router.query,
+        ...query,
         page: (e.target as HTMLAnchorElement).textContent,
       },
     });
   };
 
-  if (!total) null;
+  if (!data?.count || data?.data?.length < 1) return null;
 
   return (
     <Container>
       <PrevPageArrow pageNumber={pageNumber} />
       <PageNumbers>
-        {getPageNumbers(total)
+        {getPageNumbers(data.count)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
             <PageNumber key={page} active={pageNumber === page} onClick={handleMovePage}>
@@ -67,7 +77,7 @@ export default function Pagination({ total }: PaginationProps) {
             </PageNumber>
           ))}
       </PageNumbers>
-      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(total).length} />
+      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(data.count).length} />
     </Container>
   );
 }
