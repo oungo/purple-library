@@ -40,6 +40,16 @@ const EditButton = styled.button`
   cursor: pointer;
   color: ${colors.primary};
 `;
+const DeleteButton = styled.button`
+  padding: 5px;
+  cursor: pointer;
+  color: #e75858;
+`;
+const EditTd = styled.td`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
 
 export interface ITableBodyProps {
   books: BookResponse;
@@ -65,7 +75,9 @@ export default function TableBody({ books }: ITableBodyProps) {
   };
 
   const handleDelete = (id: number) => {
-    mutate(id);
+    if (confirm('도서를 삭제하시겠습니까?')) {
+      mutate(id);
+    }
   };
 
   const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
@@ -94,12 +106,10 @@ export default function TableBody({ books }: ITableBodyProps) {
             <td>
               <TableItem>{getBookStatus(book.inStock)}</TableItem>
             </td>
-            <td>
+            <EditTd>
               <EditButton onClick={() => handleOpen(book.id)}>수정</EditButton>
-            </td>
-            <td>
-              <EditButton onClick={() => handleDelete(book.id)}>삭제</EditButton>
-            </td>
+              <DeleteButton onClick={() => handleDelete(book.id)}>삭제</DeleteButton>
+            </EditTd>
           </TBodyTr>
         );
       })}

@@ -26,6 +26,9 @@ const PublisherCol = styled.col`
 const InStockCol = styled.col`
   width: 10%;
 `;
+const UpdateCol = styled.col`
+  width: 10%;
+`;
 
 export interface TableProps {
   books: BookResponse;
@@ -41,6 +44,7 @@ export default function Table({ books }: TableProps) {
           <AuthorCol></AuthorCol>
           <PublisherCol></PublisherCol>
           <InStockCol></InStockCol>
+          <UpdateCol></UpdateCol>
         </colgroup>
         <thead>
           <THeadTr>
@@ -48,8 +52,7 @@ export default function Table({ books }: TableProps) {
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
-            <th>수정</th>
-            <th>삭제</th>
+            <th></th>
           </THeadTr>
         </thead>
         <tbody>
