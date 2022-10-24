@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
 import { getNBook } from '@/controller/book';
@@ -8,6 +8,7 @@ import { supabase } from '@/utils/supabaseClient';
 import { NBook, NBookResponse } from '@/types/book';
 import { Loading } from '../common/Loading';
 import Button from '../common/Button';
+import { addBook } from '@/utils/book/addBook';
 
 const Article = styled.article`
   display: flex;
@@ -68,19 +69,23 @@ export default function Book({ book }: BookProps) {
   );
 }
 
+const unnecessaryKeys = ['description', 'link', 'discount', 'pubdate'];
+function getBookData(book: NBook) {
+  const bookData: { [key in keyof Partial<NBook>]: string } = {};
+
+  for (const key in book) {
+    if (unnecessaryKeys.includes(key)) continue;
+    bookData[key as keyof NBook] = book[key as keyof NBook];
+  }
+
+  return bookData;
+}
+
 function BookInfo({ book }: { book: NBook }) {
-  const bookInfo = {
-    title: book.title,
-    author: book.author,
-    publisher: book.publisher,
-    isbn: book.isbn,
-  };
+  const { mutate } = useMutation(addBook);
 
   const handleAddBook = async (inStock: boolean) => {
-    await supabase
-      .from('book')
-      .insert({ ...bookInfo, inStock })
-      .throwOnError();
+    mutate({ ...getBookData(book), inStock });
   };
 
   return (
