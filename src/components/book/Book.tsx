@@ -14,7 +14,7 @@ export default function Book({ book }: BookProps) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     [queryKeys.N_BOOK, id],
     () => getNBook(id as string),
     {
@@ -23,7 +23,7 @@ export default function Book({ book }: BookProps) {
     }
   );
 
-  if (isFetching) return <Loading />;
+  if (isLoading) return <Loading />;
   if (!data || error) return null;
 
   return (
