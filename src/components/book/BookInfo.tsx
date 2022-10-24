@@ -51,7 +51,7 @@ export default function BookInfo({ book }: BookInfoProps) {
     },
   });
 
-  const handleAddBook = async (inStock: boolean) => {
+  const handleAddBook = (inStock: boolean) => {
     mutate({ ...getBookData(book), inStock });
   };
 
