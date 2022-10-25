@@ -22,7 +22,7 @@ export default function BookForm({ book }: IBookFormProps) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([queryKeys.BOOKS, router.query]);
-        close;
+        close();
       },
     }
   );
