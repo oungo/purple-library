@@ -1,4 +1,4 @@
-import { useKeywordStore } from '@/store/keywordSlice';
+import { useBoundStore } from '@/store/useBoundStore';
 import { KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
@@ -14,10 +14,10 @@ const Input = styled.input`
 `;
 
 export default function SearchInput() {
-  const store = useKeywordStore();
+  const change = useBoundStore((state) => state.change);
 
   const handleKeyup = (e: KeyboardEvent<HTMLInputElement>) => {
-    store.change(e.currentTarget.value);
+    change(e.currentTarget.value);
   };
 
   return <Input onKeyUp={handleKeyup} placeholder="검색" />;

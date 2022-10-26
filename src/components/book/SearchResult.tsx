@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useKeywordStore } from '@/store/keywordSlice';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
+import { useBoundStore } from '@/store/useBoundStore';
 
 const Container = styled.ul`
   width: 50%;
@@ -38,7 +38,7 @@ export default function SearchResult() {
 }
 
 function BookTitleList() {
-  const keyword = useKeywordStore((state) => state.keyword);
+  const keyword = useBoundStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 700);
 
   const { data: books, error } = useSearchResult(newKeyword);
