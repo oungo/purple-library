@@ -3,10 +3,10 @@ import { getBooks } from '@/utils/book/getBooks';
 import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
 import * as queryKeys from '@/utils/queryKeys';
-import { MouseEvent, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { BookResponse } from '@/types/book';
+import Link from 'next/link';
 
 const Container = styled.div`
   display: flex;
@@ -47,21 +47,11 @@ export default function Pagination({ books }: PaginationProps) {
   const router = useRouter();
   const query = router.query;
 
+  const pageNumber = Number(query.page || 1);
+
   const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
     initialData: books,
   });
-
-  const pageNumber = useMemo(() => Number(query.page || 1), [query.page]);
-
-  const handleMovePage = (e: MouseEvent<HTMLAnchorElement>) => {
-    router.replace({
-      pathname: router.pathname,
-      query: {
-        ...query,
-        page: (e.target as HTMLAnchorElement).textContent,
-      },
-    });
-  };
 
   if (!data?.count || data?.data?.length < 1) return null;
 
@@ -72,9 +62,9 @@ export default function Pagination({ books }: PaginationProps) {
         {getPageNumbers(data.count)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
-            <PageNumber key={page} active={pageNumber === page} onClick={handleMovePage}>
-              {page}
-            </PageNumber>
+            <Link key={page} href={{ pathname: router.pathname, query: { ...query, page } }}>
+              <PageNumber active={pageNumber === page}>{page}</PageNumber>
+            </Link>
           ))}
       </PageNumbers>
       <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(data.count).length} />
