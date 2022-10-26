@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useKeywordStore } from '@/store/useKeywordStore';
+import { useKeywordStore } from '@/store/keywordSlice';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
 

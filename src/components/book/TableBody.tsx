@@ -5,11 +5,10 @@ import { getBooks } from '@/utils/book/getBooks';
 import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useModalStore } from '@/store/useModalStore';
-import { useBookIdStore } from '@/store/useBookIdStore';
 import { getBookStatus } from '@/utils/common';
 import { BookResponse } from '@/types/book';
 import { deleteBook } from '@/utils/book/deleteBook';
+import { useBoundStore } from '@/store/useBoundStore';
 
 const TBodyTr = styled.tr`
   a {
@@ -66,8 +65,8 @@ export default function TableBody({ books }: ITableBodyProps) {
     },
   });
 
-  const { open } = useModalStore();
-  const { setId } = useBookIdStore();
+  const open = useBoundStore((state) => state.open);
+  const setId = useBoundStore((state) => state.setId);
 
   const handleOpen = (id: number) => {
     setId(id);

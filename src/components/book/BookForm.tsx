@@ -3,8 +3,8 @@ import { updateBook, UpdateBookValues } from '@/utils/book/updateBook';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { useModalStore } from '@/store/useModalStore';
 import { Book } from '@/types/book';
+import { useBoundStore } from '@/store/useBoundStore';
 
 export interface IBookFormProps {
   book: Book;
@@ -14,7 +14,7 @@ export default function BookForm({ book }: IBookFormProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { close } = useModalStore();
+  const close = useBoundStore((state) => state.close);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { mutate } = useMutation<PostgrestResponse<any>, unknown, Partial<UpdateBookValues>>(

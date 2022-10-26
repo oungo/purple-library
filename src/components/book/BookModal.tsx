@@ -1,8 +1,7 @@
-import { useModalStore } from '@/store/useModalStore';
 import styled from 'styled-components';
 import React from 'react';
-import { useBookIdStore } from '@/store/useBookIdStore';
 import BookModalContent from './BookModalContent';
+import { useBoundStore } from '@/store/useBoundStore';
 
 const Container = styled.div`
   position: fixed;
@@ -36,8 +35,9 @@ const BodySection = styled.div`
 `;
 
 export default function BookModal() {
-  const { id } = useBookIdStore();
-  const { isOpen, close } = useModalStore();
+  const id = useBoundStore((state) => state.id);
+  const isOpen = useBoundStore((state) => state.isOpen);
+  const close = useBoundStore((state) => state.close);
 
   if (!isOpen || !id) return null;
 

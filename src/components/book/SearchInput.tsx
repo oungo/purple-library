@@ -1,4 +1,4 @@
-import { useKeywordStore } from '@/store/useKeywordStore';
+import { useKeywordStore } from '@/store/keywordSlice';
 import { KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
