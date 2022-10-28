@@ -6,6 +6,7 @@ const TabList = styled.ul`
   display: flex;
   list-style: none;
   gap: 1rem;
+  padding: 0 4rem;
 `;
 const TabItem = styled.li`
   cursor: pointer;
