@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { Loading } from '../common/Loading';
 import BookForm from './BookForm';
 import * as queryKeys from '@/utils/queryKeys';
 import { getBook } from '@/utils/book/getBook';
 import { useBoundStore } from '@/store/useBoundStore';
+import Loading from '../common/Loading';
 
 export default function BookModalContent() {
   const id = useBoundStore((state) => state.id);

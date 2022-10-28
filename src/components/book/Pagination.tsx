@@ -25,8 +25,6 @@ const Arrow = styled.div`
   text-align: center;
 `;
 
-const PAGE_COUNT = 10;
-
 interface PageNumberProps {
   active: boolean;
 }
@@ -42,6 +40,8 @@ const PageNumber = styled.a<PageNumberProps>`
 interface PaginationProps {
   books: BookResponse;
 }
+
+const PAGE_COUNT = 10;
 
 export default function Pagination({ books }: PaginationProps) {
   const router = useRouter();
@@ -117,6 +117,7 @@ export function NextPageArrow({ pageNumber, lastPage }: NextArrowProps) {
       });
     }
   };
+
   return <Arrow onClick={handleMoveNext}> &#62;</Arrow>;
 }
 

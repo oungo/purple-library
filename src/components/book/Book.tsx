@@ -3,8 +3,8 @@ import { useQuery } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
 import { getNBook } from '@/controller/book';
 import { NBookResponse } from '@/types/book';
-import { Loading } from '../common/Loading';
 import BookInfo from './BookInfo';
+import Loading from '../common/Loading';
 
 export interface BookProps {
   book: NBookResponse;

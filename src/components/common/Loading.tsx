@@ -37,7 +37,7 @@ const LoadingWrapper = styled.div`
   }
 `;
 
-export function Loading() {
+export default function Loading() {
   return (
     <LoadingWrapper className="lds-ring">
       <div></div>
