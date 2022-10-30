@@ -6,8 +6,9 @@ export const PrimaryButton = styled.button`
   background-color: ${colors.primary};
   border: 2px solid ${colors.primary};
   color: #fff;
-  padding: 1rem;
+  padding: 5px 20px;
   border-radius: 10px;
+  font-size: small;
   font-weight: bold;
   :hover {
     opacity: 0.9;
@@ -22,8 +23,9 @@ export const DefaultButton = styled.button`
   background-color: #fff;
   border: 2px solid ${colors.gray};
   color: ${colors.primary};
-  padding: 1rem;
+  padding: 5px 20px;
   border-radius: 10px;
+  font-size: small;
   font-weight: bold;
   :hover {
     box-shadow: 0 8px 20px 1px rgba(0, 0, 0, 0.2);

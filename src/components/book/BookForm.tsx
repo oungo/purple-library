@@ -5,6 +5,13 @@ import { PostgrestResponse } from '@supabase/supabase-js';
 import { Book } from '@/types/book';
 import { useBoundStore } from '@/store/useBoundStore';
 import { updateBook, UpdateBookValues } from 'api/books';
+import Button from '../common/Button';
+import styled from 'styled-components';
+
+const SaveButton = styled(Button)`
+  display: block;
+  margin: auto;
+`;
 
 export interface IBookFormProps {
   book: Book;
@@ -45,7 +52,7 @@ export default function BookForm({ book }: IBookFormProps) {
         구매 예정
       </label>
 
-      <button>저장</button>
+      <SaveButton color="primary">저장</SaveButton>
     </form>
   );
 }
