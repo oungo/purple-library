@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
@@ -8,8 +9,9 @@ const TabList = styled.ul`
   gap: 1rem;
   padding: 0 4rem;
 `;
-const TabItem = styled.li`
+const TabItem = styled.li<{ active: boolean }>`
   cursor: pointer;
+  color: ${(props) => (props.active ? colors.black : colors.darkGray)};
 `;
 
 export default function Tabs() {
@@ -32,9 +34,15 @@ export default function Tabs() {
 
   return (
     <TabList onClick={handleClickTab}>
-      <TabItem data-tab-value={null}>전체</TabItem>
-      <TabItem data-tab-value={false}>구매 예정</TabItem>
-      <TabItem data-tab-value={true}>보유 도서</TabItem>
+      <TabItem active={!router.query.inStock} data-tab-value={null}>
+        전체
+      </TabItem>
+      <TabItem active={router.query.inStock === 'false'} data-tab-value={false}>
+        구매 예정
+      </TabItem>
+      <TabItem active={router.query.inStock === 'true'} data-tab-value={true}>
+        보유 도서
+      </TabItem>
     </TabList>
   );
 }
