@@ -7,6 +7,9 @@ import { BOOK_MODAL_ID } from '@/utils/common';
 import ModalPortal from '@/components/common/ModalPortal';
 import BookModal from '@/components/book/BookModal';
 import { BookResponse } from '@/types/book';
+import { dehydrate, QueryClient } from 'react-query';
+import * as queryKeys from '@/utils/queryKeys';
+import { DehydratedStateProps } from '@/types/common';
 
 interface BooksProps {
   books: BookResponse;
@@ -27,7 +30,9 @@ export default function Books({ books }: BooksProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const books = await getBooks(context.query);
-  return { props: { books } };
+export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
+  const queryClient = new QueryClient();
+  await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
 };
