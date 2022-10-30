@@ -4,18 +4,18 @@ import { supabase } from '@/utils/supabaseClient';
 import { ParsedUrlQuery } from 'querystring';
 
 export interface UpdateBookValues {
-  inStock: string;
+  inStock: boolean;
 }
 
 export const getBooks = async (query: ParsedUrlQuery = {}) => {
   let supabaseQuery = supabase
-    .from<Book>('book')
+    .from('book')
     .select('*', { count: 'exact' })
     .order('id', { ascending: false });
 
   for (const [key, value] of Object.entries(query)) {
     if (key === 'page') continue;
-    supabaseQuery = supabaseQuery.eq(key as keyof Book, value as string);
+    supabaseQuery = supabaseQuery.eq(key, value as string);
   }
 
   const start = (Number(query.page || 1) - 1) * PAGE_SIZE;
@@ -25,7 +25,7 @@ export const getBooks = async (query: ParsedUrlQuery = {}) => {
 };
 
 export const getBook = async (id?: number) => {
-  return supabase.from<Book>('book').select('*', { count: 'exact' }).eq('id', id).single();
+  return supabase.from('book').select('*', { count: 'exact' }).eq('id', id).single();
 };
 
 export const addBook = async (book: Partial<Book>) => {

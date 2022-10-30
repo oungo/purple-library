@@ -92,7 +92,7 @@ export default function TableBody() {
             <td>
               <TableItem>{book.author}</TableItem>
             </td>
-            <td title={book.publisher}>
+            <td title={book.publisher || ''}>
               <TableItem>{book.publisher}</TableItem>
             </td>
             <td>
