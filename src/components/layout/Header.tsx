@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
 import Search from '../book/Search';
@@ -8,6 +9,7 @@ const Head = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${colors.gray};
 `;
 
 export default function Header() {
