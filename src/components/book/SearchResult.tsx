@@ -4,6 +4,8 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Container = styled.ul`
   position: absolute;
@@ -46,13 +48,33 @@ export default function SearchResult() {
 }
 
 function BookTitleList() {
+  const router = useRouter();
   const keyword = useBoundStore((state) => state.keyword);
   const newKeyword = useDebounce(keyword, 700);
 
+  const [isShowList, setIsShowList] = useState(true);
+
   const { data: books, error } = useSearchResult(newKeyword);
 
+  useEffect(() => {
+    const handleChangeIsShowList = () => {
+      setIsShowList(false);
+    };
+
+    router.events.on('routeChangeStart', handleChangeIsShowList);
+    return () => {
+      router.events.off('routeChangeStart', handleChangeIsShowList);
+    };
+  }, [router]);
+
+  useEffect(() => {
+    if (books) {
+      setIsShowList(true);
+    }
+  }, [books]);
+
   if (error) return <ErrorText>데이터를 조회할 수 없습니다.</ErrorText>;
-  if (!books) return null;
+  if (!isShowList || !books) return null;
 
   return (
     <>
