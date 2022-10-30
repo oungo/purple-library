@@ -58,7 +58,6 @@ export default function BookInfo({ book }: BookInfoProps) {
   return (
     <Article>
       <section>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <CoverImage src={book.image} alt="책 이미지" />
       </section>
       <InfoSection>

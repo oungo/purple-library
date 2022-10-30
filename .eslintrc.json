@@ -13,7 +13,8 @@
       {
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "@next/next/no-img-element": "off"
   },
   "ignorePatterns": ["**/*.js"]
 }

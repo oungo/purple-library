@@ -36,7 +36,6 @@ export default function BookModalContent() {
     <>
       <Section>
         <ImageWrapper>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={book.data.image} alt="도서 이미지" width={300} height={350} />
         </ImageWrapper>
 
