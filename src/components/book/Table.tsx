@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import TableBody from './TableBody';
-import { BookResponse } from '@/types/book';
 
 const TableWrapper = styled.div`
   padding: 0 100px;
@@ -30,11 +29,7 @@ const UpdateCol = styled.col`
   width: 10%;
 `;
 
-export interface TableProps {
-  books: BookResponse;
-}
-
-export default function Table({ books }: TableProps) {
+export default function Table() {
   return (
     <TableWrapper>
       <BookTable>
@@ -56,7 +51,7 @@ export default function Table({ books }: TableProps) {
           </THeadTr>
         </thead>
         <tbody>
-          <TableBody books={books} />
+          <TableBody />
         </tbody>
       </BookTable>
     </TableWrapper>

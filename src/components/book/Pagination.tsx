@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import * as queryKeys from '@/utils/queryKeys';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { BookResponse } from '@/types/book';
 import Link from 'next/link';
 
 const Container = styled.div`
@@ -37,21 +36,15 @@ const PageNumber = styled.a<PageNumberProps>`
   border-radius: 5px;
 `;
 
-interface PaginationProps {
-  books: BookResponse;
-}
-
 const PAGE_COUNT = 10;
 
-export default function Pagination({ books }: PaginationProps) {
+export default function Pagination() {
   const router = useRouter();
   const query = router.query;
 
   const pageNumber = Number(query.page || 1);
 
-  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
-    initialData: books,
-  });
+  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query));
 
   if (!data?.count || data?.data?.length < 1) return null;
 

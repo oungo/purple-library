@@ -6,7 +6,6 @@ import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getBookStatus } from '@/utils/common';
-import { BookResponse } from '@/types/book';
 import { deleteBook } from '@/utils/book/deleteBook';
 import { useBoundStore } from '@/store/useBoundStore';
 
@@ -50,11 +49,7 @@ const EditTd = styled.td`
   gap: 5px;
 `;
 
-export interface ITableBodyProps {
-  books: BookResponse;
-}
-
-export default function TableBody({ books }: ITableBodyProps) {
+export default function TableBody() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const query = router.query;
@@ -80,7 +75,6 @@ export default function TableBody({ books }: ITableBodyProps) {
   };
 
   const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
-    initialData: books,
     keepPreviousData: true,
   });
 
