@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import BookModalContent from './BookModalContent';
 import { useBoundStore } from '@/store/useBoundStore';
+import { colors } from '@/styles/color';
 
 const Container = styled.div`
   position: fixed;
@@ -15,7 +16,7 @@ const Container = styled.div`
 const Content = styled.div`
   border-radius: 10px;
   position: relative;
-  background-color: white;
+  background-color: ${colors.white};
   top: 25%;
   width: 50%;
   margin: auto;

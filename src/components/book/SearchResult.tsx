@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
 import { useBoundStore } from '@/store/useBoundStore';
+import { colors } from '@/styles/color';
 
 const Container = styled.ul`
   position: absolute;
-  background-color: white;
+  background-color: ${colors.white};
   width: 50%;
   margin: 3.5rem auto 0;
   list-style: none;
@@ -31,7 +32,7 @@ const BookTitle = styled.li`
   }
 `;
 const ErrorText = styled.p`
-  color: red;
+  color: ${colors.red};
   text-align: center;
   margin-top: 1rem;
 `;

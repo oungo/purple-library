@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const PrimaryButton = styled.button`
   background-color: ${colors.primary};
   border: 2px solid ${colors.primary};
-  color: #fff;
+  color: ${colors.white};
   padding: 5px 20px;
   border-radius: 10px;
   font-size: small;
@@ -20,7 +20,7 @@ export const PrimaryButton = styled.button`
 `;
 
 export const DefaultButton = styled.button`
-  background-color: #fff;
+  background-color: ${colors.white};
   border: 2px solid ${colors.gray};
   color: ${colors.primary};
   padding: 5px 20px;

@@ -40,7 +40,7 @@ const EditButton = styled.button`
 const DeleteButton = styled.button`
   padding: 5px;
   cursor: pointer;
-  color: #e75858;
+  color: ${colors.red};
 `;
 const EditTd = styled.td`
   display: flex;
