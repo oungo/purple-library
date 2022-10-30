@@ -4,6 +4,8 @@ import SearchResult from './SearchResult';
 
 const Container = styled.div`
   position: relative;
+  text-align: center;
+  flex: 1;
 `;
 
 export default function Search() {

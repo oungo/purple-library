@@ -6,7 +6,7 @@ import { useBoundStore } from '@/store/useBoundStore';
 
 const Container = styled.ul`
   position: absolute;
-  background-color: gray;
+  background-color: white;
   width: 50%;
   margin: 3.5rem auto 0;
   list-style: none;
@@ -14,6 +14,7 @@ const Container = styled.ul`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 `;
 
 const BookTitle = styled.li`

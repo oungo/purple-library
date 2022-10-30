@@ -9,13 +9,10 @@ import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import Search from '@/components/book/Search';
 
 export default function Index() {
   return (
     <>
-      <Search />
-
       <Tabs />
       <Table />
       <Pagination />
