@@ -8,13 +8,11 @@
 :after,
 :before {
   box-sizing: border-box;
-  flex-shrink: 0;
 }
 :root {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  cursor: default;
   line-height: 1.5;
   overflow-wrap: break-word;
   -moz-tab-size: 4;
