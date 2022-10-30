@@ -4,6 +4,23 @@ import * as queryKeys from '@/utils/queryKeys';
 import { useBoundStore } from '@/store/useBoundStore';
 import Loading from '../common/Loading';
 import { getBook } from 'api/books';
+import styled from 'styled-components';
+
+const Section = styled.section`
+  display: flex;
+  gap: 1rem;
+`;
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 300px;
+  height: 350px;
+  box-shadow: 1px 1px 5px;
+`;
+const DescriptionList = styled.dl`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 export default function BookModalContent() {
   const id = useBoundStore((state) => state.id);
@@ -17,11 +34,22 @@ export default function BookModalContent() {
 
   return (
     <>
-      <p>도서명 {book.data.title}</p>
-      <p>저자 {book.data.author}</p>
-      <p>출판사 {book.data.publisher}</p>
+      <Section>
+        <ImageWrapper>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={book.data.image} alt="도서 이미지" width={300} height={350} />
+        </ImageWrapper>
 
-      <BookForm book={book.data} />
+        <div>
+          <DescriptionList>
+            <dt>{book.data.title}</dt>
+            {book.data.author && <dd>{book.data.author}</dd>}
+            {book.data.publisher && <dd>{book.data.publisher}</dd>}
+          </DescriptionList>
+
+          <BookForm book={book.data} />
+        </div>
+      </Section>
     </>
   );
 }
