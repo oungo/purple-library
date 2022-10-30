@@ -1,5 +1,4 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { Book } from '@/types/book';
@@ -25,7 +24,6 @@ export interface IBookFormProps {
 }
 
 export default function BookForm({ book }: IBookFormProps) {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const close = useBoundStore((state) => state.close);
@@ -35,7 +33,7 @@ export default function BookForm({ book }: IBookFormProps) {
     (value) => updateBook(book.id, value),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.BOOKS, router.query]);
+        queryClient.invalidateQueries([queryKeys.BOOKS]);
         close();
       },
     }
