@@ -9,8 +9,15 @@ import Button from '../common/Button';
 import styled from 'styled-components';
 
 const SaveButton = styled(Button)`
+  position: absolute;
   display: block;
-  margin: auto;
+  bottom: 0;
+  right: 0;
+  margin: 1rem;
+`;
+const Form = styled.form`
+  display: flex;
+  gap: 1rem;
 `;
 
 export interface IBookFormProps {
@@ -42,7 +49,7 @@ export default function BookForm({ book }: IBookFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <label>
         <input type="radio" name="inStock" value="true" defaultChecked={book.inStock} />
         보유중
@@ -53,6 +60,6 @@ export default function BookForm({ book }: IBookFormProps) {
       </label>
 
       <SaveButton color="primary">저장</SaveButton>
-    </form>
+    </Form>
   );
 }
