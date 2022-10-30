@@ -7,18 +7,11 @@ const Head = styled.header`
   justify-content: space-between;
   padding: 1rem 4rem;
 `;
-const Anchor = styled.a`
-  cursor: pointer;
-`;
 
 export default function Header() {
   return (
     <Head>
-      <Link href="/">
-        <Anchor>
-          홈{/* <Image src="/images/book.png" alt="아이콘" width={50} height={50} /> */}
-        </Anchor>
-      </Link>
+      <Link href="/">홈</Link>
       <Nav />
     </Head>
   );
