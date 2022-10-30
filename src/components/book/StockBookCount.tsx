@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import { getStockBookCount } from '@/utils/book/getStockBookCount';
+import { getStockBookCount } from 'api/books';
 
 export interface BookCountProps {
   isbn: string;

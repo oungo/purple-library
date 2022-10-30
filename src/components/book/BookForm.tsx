@@ -1,10 +1,10 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { updateBook, UpdateBookValues } from '@/utils/book/updateBook';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { Book } from '@/types/book';
 import { useBoundStore } from '@/store/useBoundStore';
+import { updateBook, UpdateBookValues } from 'api/books';
 
 export interface IBookFormProps {
   book: Book;

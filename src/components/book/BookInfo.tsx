@@ -1,11 +1,11 @@
 import { NBook } from '@/types/book';
-import { addBook } from '@/utils/book/addBook';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import * as queryKeys from '@/utils/queryKeys';
 import StockBookCount from './StockBookCount';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
+import { addBook } from 'api/books';
 
 const Article = styled.article`
   display: flex;

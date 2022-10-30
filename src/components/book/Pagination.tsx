@@ -1,11 +1,11 @@
 import { colors } from '@/styles/color';
-import { getBooks } from '@/utils/book/getBooks';
 import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
 import * as queryKeys from '@/utils/queryKeys';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { getBooks } from 'api/books';
 
 const Container = styled.div`
   display: flex;

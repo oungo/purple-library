@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next';
 import Table from '@/components/book/Table';
-import { getBooks } from '@/utils/book/getBooks';
 import Pagination from '@/components/book/Pagination';
 import Tabs from '@/components/book/Tabs';
 import { BOOK_MODAL_ID } from '@/utils/common';
@@ -9,6 +8,7 @@ import BookModal from '@/components/book/BookModal';
 import { dehydrate, QueryClient } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
 import { DehydratedStateProps } from '@/types/common';
+import { getBooks } from 'api/books';
 
 export default function Books() {
   return (

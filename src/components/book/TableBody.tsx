@@ -1,13 +1,12 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getBooks } from '@/utils/book/getBooks';
 import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getBookStatus } from '@/utils/common';
-import { deleteBook } from '@/utils/book/deleteBook';
 import { useBoundStore } from '@/store/useBoundStore';
+import { deleteBook, getBooks } from 'api/books';
 
 const TBodyTr = styled.tr`
   a {
