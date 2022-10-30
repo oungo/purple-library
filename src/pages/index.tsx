@@ -9,8 +9,14 @@ import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
+import { useSession } from '@supabase/auth-helpers-react';
+import AuthGuard from '@/components/AuthGuard';
 
 export default function Index() {
+  const session = useSession();
+
+  if (!session) return <AuthGuard />;
+
   return (
     <>
       <Tabs />
