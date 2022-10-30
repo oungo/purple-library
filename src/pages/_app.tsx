@@ -5,6 +5,12 @@ import '@/styles/global.css';
 import Layout from '@/components/layout/Layout';
 import { useState } from 'react';
 import { DehydratedStateProps } from '@/types/common';
+import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+
+interface PageProps extends DehydratedStateProps {
+  initialSession: Session;
+}
 
 const config: QueryClientConfig = {
   defaultOptions: {
@@ -15,16 +21,22 @@ const config: QueryClientConfig = {
   },
 };
 
-export default function MyApp({ Component, pageProps }: AppProps<DehydratedStateProps>) {
+export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   const [queryClient] = useState(() => new QueryClient(config));
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Hydrate>
-    </QueryClientProvider>
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Hydrate>
+      </QueryClientProvider>
+    </SessionContextProvider>
   );
 }
