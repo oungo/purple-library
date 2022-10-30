@@ -23,6 +23,7 @@ export interface paths {
           publisher?: parameters['rowFilter.book.publisher'];
           isbn?: parameters['rowFilter.book.isbn'];
           inStock?: parameters['rowFilter.book.inStock'];
+          image?: parameters['rowFilter.book.image'];
           /** Filtering Columns */
           select?: parameters['select'];
           /** Ordering */
@@ -80,6 +81,7 @@ export interface paths {
           publisher?: parameters['rowFilter.book.publisher'];
           isbn?: parameters['rowFilter.book.isbn'];
           inStock?: parameters['rowFilter.book.inStock'];
+          image?: parameters['rowFilter.book.image'];
         };
         header: {
           /** Preference */
@@ -101,6 +103,7 @@ export interface paths {
           publisher?: parameters['rowFilter.book.publisher'];
           isbn?: parameters['rowFilter.book.isbn'];
           inStock?: parameters['rowFilter.book.inStock'];
+          image?: parameters['rowFilter.book.image'];
         };
         body: {
           /** book */
@@ -145,6 +148,8 @@ export interface definitions {
      * @default false
      */
     inStock: boolean;
+    /** Format: text */
+    image?: string;
   };
 }
 
@@ -197,4 +202,6 @@ export interface parameters {
   'rowFilter.book.isbn': string;
   /** Format: boolean */
   'rowFilter.book.inStock': string;
+  /** Format: text */
+  'rowFilter.book.image': string;
 }
