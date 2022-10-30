@@ -21,6 +21,7 @@ const BookTitle = styled.li`
   cursor: pointer;
   padding: 5px;
   border-radius: 0.5rem;
+  text-align: left;
   a {
     display: block;
   }
