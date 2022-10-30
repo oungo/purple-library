@@ -7,7 +7,7 @@ export interface UpdateBookValues {
   inStock: string;
 }
 
-export const getBooks = async (query: ParsedUrlQuery) => {
+export const getBooks = async (query: ParsedUrlQuery = {}) => {
   let supabaseQuery = supabase
     .from<Book>('book')
     .select('*', { count: 'exact' })
