@@ -1,7 +1,5 @@
 import BookModal from '@/components/book/BookModal';
 import Pagination from '@/components/book/Pagination';
-import SearchInput from '@/components/book/SearchInput';
-import SearchResult from '@/components/book/SearchResult';
 import Table from '@/components/book/Table';
 import Tabs from '@/components/book/Tabs';
 import ModalPortal from '@/components/common/ModalPortal';
@@ -11,12 +9,12 @@ import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
+import Search from '@/components/book/Search';
 
 export default function Index() {
   return (
     <>
-      <SearchInput />
-      <SearchResult />
+      <Search />
 
       <Tabs />
       <Table />

@@ -5,10 +5,15 @@ import { useSearchResult } from '@/hooks/queries/useSearchResult';
 import { useBoundStore } from '@/store/useBoundStore';
 
 const Container = styled.ul`
+  position: absolute;
+  background-color: gray;
   width: 50%;
-  margin: 1rem auto 0;
+  margin: 3.5rem auto 0;
   list-style: none;
   border-radius: 0.5rem;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const BookTitle = styled.li`
