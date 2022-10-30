@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import TableBody from './TableBody';
 
@@ -14,7 +15,11 @@ const Caption = styled.caption`
   margin-bottom: 1rem;
 `;
 const THeadTr = styled.tr`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${colors.darkGray};
+  background-color: ${colors.gray};
+  th {
+    padding: 10px 0;
+  }
 `;
 const AuthorCol = styled.col`
   width: 15%;
