@@ -5,8 +5,9 @@ import { Appearance, I18nVariables } from '@supabase/auth-ui-react/dist/esm/src/
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 30%;
+  width: 500px;
   margin: auto;
+  padding-top: 200px;
 `;
 
 const appearance: Appearance = {
