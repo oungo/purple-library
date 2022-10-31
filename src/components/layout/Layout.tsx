@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 
@@ -16,4 +17,8 @@ export default function Layout({ children }: LayoutProps) {
       <Main>{children}</Main>
     </>
   );
+}
+
+export function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
 }
