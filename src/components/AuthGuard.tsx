@@ -2,6 +2,8 @@ import { colors } from '@/styles/color';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { Appearance, I18nVariables } from '@supabase/auth-ui-react/dist/esm/src/types';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -45,10 +47,20 @@ const localizationVariables: I18nVariables = {
 
 export default function AuthGuard() {
   const supabase = useSupabaseClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    supabase.auth.getSession().then((res) => {
+      if (res.data.session) {
+        router.push('/');
+      }
+    });
+  }, [supabase, router]);
 
   return (
     <Container>
       <Auth
+        redirectTo="/"
         supabaseClient={supabase}
         appearance={appearance}
         localization={{ variables: localizationVariables }}
