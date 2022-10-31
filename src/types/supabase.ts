@@ -13,6 +13,7 @@ export interface Database {
           isbn: string;
           inStock: boolean;
           image: string | null;
+          lenderEmail: string | null;
         };
         Insert: {
           id?: number;
@@ -23,6 +24,7 @@ export interface Database {
           isbn: string;
           inStock?: boolean;
           image?: string | null;
+          lenderEmail?: string | null;
         };
         Update: {
           id?: number;
@@ -33,6 +35,7 @@ export interface Database {
           isbn?: string;
           inStock?: boolean;
           image?: string | null;
+          lenderEmail?: string | null;
         };
       };
     };
