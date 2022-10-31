@@ -2,15 +2,23 @@ import type { AppProps } from 'next/app';
 import { Hydrate, QueryClient, QueryClientConfig, QueryClientProvider } from 'react-query';
 import '@/styles/reset.css';
 import '@/styles/global.css';
-import Layout from '@/components/layout/Layout';
-import { useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import { DehydratedStateProps } from '@/types/common';
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { NextPage } from 'next';
 
 interface PageProps extends DehydratedStateProps {
   initialSession: Session;
 }
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps<PageProps> & {
+  Component: NextPageWithLayout<PageProps>;
+};
 
 const config: QueryClientConfig = {
   defaultOptions: {
@@ -21,9 +29,11 @@ const config: QueryClientConfig = {
   },
 };
 
-export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient(config));
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <SessionContextProvider
@@ -32,9 +42,7 @@ export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
     >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {getLayout(<Component {...pageProps} />)}
         </Hydrate>
       </QueryClientProvider>
     </SessionContextProvider>
