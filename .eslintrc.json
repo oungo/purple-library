@@ -14,7 +14,8 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/ban-types": "off"
   },
   "ignorePatterns": ["**/*.js"]
 }
