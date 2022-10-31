@@ -1,12 +1,25 @@
+import { colors } from '@/styles/color';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
-import { I18nVariables } from '@supabase/auth-ui-react/dist/esm/src/types';
+import { Appearance, I18nVariables } from '@supabase/auth-ui-react/dist/esm/src/types';
 import styled from 'styled-components';
 
 const Container = styled.div`
   width: 30%;
   margin: auto;
 `;
+
+const appearance: Appearance = {
+  theme: ThemeSupa,
+  variables: {
+    default: {
+      colors: {
+        brand: colors.brand,
+        brandAccent: colors.brandAccent,
+      },
+    },
+  },
+};
 
 const localizationVariables: I18nVariables = {
   sign_in: {
@@ -36,7 +49,7 @@ export default function AuthGuard() {
     <Container>
       <Auth
         supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
+        appearance={appearance}
         localization={{ variables: localizationVariables }}
       />
     </Container>
