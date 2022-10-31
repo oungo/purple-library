@@ -35,7 +35,7 @@ const Title = styled.a`
 `;
 const EditButton = styled.button`
   cursor: pointer;
-  color: ${colors.primary};
+  color: ${colors.brand};
 `;
 const DeleteButton = styled.button`
   padding: 5px;
