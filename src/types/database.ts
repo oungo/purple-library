@@ -13,7 +13,6 @@ export interface Database {
           isbn: string;
           inStock: boolean;
           image: string | null;
-          lenderEmail: string | null;
           discount: string | null;
           buyer: string | null;
           buyDate: string | null;
@@ -27,7 +26,6 @@ export interface Database {
           isbn: string;
           inStock?: boolean;
           image?: string | null;
-          lenderEmail?: string | null;
           discount?: string | null;
           buyer?: string | null;
           buyDate?: string | null;
@@ -41,7 +39,6 @@ export interface Database {
           isbn?: string;
           inStock?: boolean;
           image?: string | null;
-          lenderEmail?: string | null;
           discount?: string | null;
           buyer?: string | null;
           buyDate?: string | null;
