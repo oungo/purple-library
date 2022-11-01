@@ -1,11 +1,9 @@
-import * as queryKeys from '@/utils/queryKeys';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
 import { colors } from '@/styles/color';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getBookStatus } from '@/utils/common';
-import { getBooks } from 'api/books';
+import { useBooks } from '@/hooks/queries/book';
 
 const Tr = styled.tr`
   :hover {
@@ -34,17 +32,14 @@ const EditButton = styled.button`
 
 export default function TableBody() {
   const router = useRouter();
-  const query = router.query;
 
-  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query), {
-    keepPreviousData: true,
-  });
+  const { data: books } = useBooks(router.query);
 
-  if (!data) return null;
+  if (!books) return null;
 
   return (
     <>
-      {data.data?.map((book) => {
+      {books.data?.map((book) => {
         return (
           <Tr key={book.id}>
             <Td title={book.title}>
