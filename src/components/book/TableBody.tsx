@@ -4,10 +4,8 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { getBookStatus } from '@/utils/common';
 import { useBooks } from '@/hooks/queries/book';
-import { useQueryClient } from 'react-query';
-import * as queryKeys from '@/utils/queryKeys';
-import { useBookInStockMutation } from '@/hooks/mutations/book';
 import Loading from '../common/Loading';
+import EditBookStatusButton from './EditBookStatusButton';
 
 const Tr = styled.tr`
   :hover {
@@ -29,22 +27,11 @@ const Title = styled.a`
   text-overflow: ellipsis;
   padding: 5px;
 `;
-const EditButton = styled.button`
-  cursor: pointer;
-  color: ${colors.brand};
-`;
 
 export default function TableBody() {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { data: books, isLoading } = useBooks(router.query);
-
-  const { mutate } = useBookInStockMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries([queryKeys.BOOKS]);
-    },
-  });
 
   if (isLoading) return <Loading />;
   if (!books?.data) return null;
@@ -65,7 +52,7 @@ export default function TableBody() {
             <Td>{book.discount}</Td>
             <Td>{book.buyer}</Td>
             <Td>
-              <EditButton onClick={() => mutate(book.id)}>보유 도서로 이동</EditButton>
+              <EditBookStatusButton id={book.id} />
             </Td>
           </Tr>
         );
