@@ -45,6 +45,7 @@ const DeleteButton = styled.button`
 const EditTd = styled.td`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 `;
 
@@ -97,6 +98,12 @@ export default function TableBody() {
             </td>
             <td>
               <TableItem>{getBookStatus(book.inStock)}</TableItem>
+            </td>
+            <td>
+              <TableItem>{book.discount}</TableItem>
+            </td>
+            <td>
+              <TableItem>{book.buyer}</TableItem>
             </td>
             <EditTd>
               <EditButton onClick={() => handleOpen(book.id)}>수정</EditButton>

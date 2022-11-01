@@ -33,6 +33,12 @@ const InStockCol = styled.col`
 const UpdateCol = styled.col`
   width: 10%;
 `;
+const PriceCol = styled.col`
+  width: 8%;
+`;
+const BuyerCol = styled.col`
+  width: 7%;
+`;
 
 export default function Table() {
   return (
@@ -44,6 +50,8 @@ export default function Table() {
           <AuthorCol></AuthorCol>
           <PublisherCol></PublisherCol>
           <InStockCol></InStockCol>
+          <PriceCol></PriceCol>
+          <BuyerCol></BuyerCol>
           <UpdateCol></UpdateCol>
         </colgroup>
         <thead>
@@ -52,6 +60,8 @@ export default function Table() {
             <th>저자</th>
             <th>출판사</th>
             <th>상태</th>
+            <th>단가</th>
+            <th>구매자</th>
             <th></th>
           </THeadTr>
         </thead>
