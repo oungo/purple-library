@@ -1,11 +1,9 @@
 import { colors } from '@/styles/color';
 import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
-import * as queryKeys from '@/utils/queryKeys';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { getBooks } from 'api/books';
+import { useBooks } from '@/hooks/queries/book';
 
 const Container = styled.div`
   display: flex;
@@ -44,15 +42,15 @@ export default function Pagination() {
 
   const pageNumber = Number(query.page || 1);
 
-  const { data } = useQuery([queryKeys.BOOKS, query], () => getBooks(query));
+  const { data: books } = useBooks(query);
 
-  if (!data?.count || data?.data?.length < 1) return null;
+  if (!books?.count || books?.data?.length < 1) return null;
 
   return (
     <Container>
       <PrevPageArrow pageNumber={pageNumber} />
       <PageNumbers>
-        {getPageNumbers(data.count)
+        {getPageNumbers(books.count)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
             <Link key={page} href={{ pathname: router.pathname, query: { ...query, page } }}>
@@ -60,7 +58,7 @@ export default function Pagination() {
             </Link>
           ))}
       </PageNumbers>
-      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(data.count).length} />
+      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(books.count).length} />
     </Container>
   );
 }
