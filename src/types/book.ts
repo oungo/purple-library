@@ -1,5 +1,4 @@
-import { PostgrestResponse } from '@supabase/supabase-js';
-import { definitions } from './supabase';
+import { Database } from './database';
 
 export interface NBookResponse {
   display: number;
@@ -21,5 +20,4 @@ export interface NBook {
   link: string;
 }
 
-export type Book = definitions['book'];
-export type BookResponse = PostgrestResponse<Book>;
+export type Book = Database['public']['Tables']['book']['Row'];

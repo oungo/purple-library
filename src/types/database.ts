@@ -14,6 +14,9 @@ export interface Database {
           inStock: boolean;
           image: string | null;
           lenderEmail: string | null;
+          discount: string | null;
+          buyer: string | null;
+          buyDate: string | null;
         };
         Insert: {
           id?: number;
@@ -25,6 +28,9 @@ export interface Database {
           inStock?: boolean;
           image?: string | null;
           lenderEmail?: string | null;
+          discount?: string | null;
+          buyer?: string | null;
+          buyDate?: string | null;
         };
         Update: {
           id?: number;
@@ -36,6 +42,9 @@ export interface Database {
           inStock?: boolean;
           image?: string | null;
           lenderEmail?: string | null;
+          discount?: string | null;
+          buyer?: string | null;
+          buyDate?: string | null;
         };
       };
     };
