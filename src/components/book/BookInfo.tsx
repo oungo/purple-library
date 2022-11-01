@@ -1,4 +1,4 @@
-import { NBook } from '@/types/book';
+import { BookData, NBook } from '@/types/book';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import Button from '../common/Button';
@@ -6,6 +6,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import StockBookCount from './StockBookCount';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
 import { addBook } from 'api/books';
+import { useUser } from '@supabase/auth-helpers-react';
 
 const Article = styled.article`
   display: flex;
@@ -43,6 +44,7 @@ export interface BookInfoProps {
 
 export default function BookInfo({ book }: BookInfoProps) {
   const queryClient = useQueryClient();
+  const user = useUser();
 
   const { mutate } = useMutation(addBook, {
     onSuccess: () => {
@@ -52,7 +54,19 @@ export default function BookInfo({ book }: BookInfoProps) {
   });
 
   const handleAddBook = (inStock: boolean) => {
-    mutate({ ...getBookData(book), inStock });
+    const { title, author, publisher, isbn, image, discount } = book;
+    const bookData: BookData = {
+      title,
+      author,
+      publisher,
+      isbn,
+      image,
+      discount,
+      inStock,
+      buyer: user?.email || '',
+    };
+
+    mutate(bookData);
   };
 
   return (
@@ -86,16 +100,4 @@ export default function BookInfo({ book }: BookInfoProps) {
       </InfoSection>
     </Article>
   );
-}
-
-const unnecessaryKeys = ['description', 'link', 'discount', 'pubdate'];
-function getBookData(book: NBook) {
-  const bookData: { [key in keyof Partial<NBook>]: string } = {};
-
-  for (const key in book) {
-    if (unnecessaryKeys.includes(key)) continue;
-    bookData[key as keyof NBook] = book[key as keyof NBook];
-  }
-
-  return bookData;
 }

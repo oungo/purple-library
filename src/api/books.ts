@@ -1,4 +1,4 @@
-import { Book } from '@/types/book';
+import { BookData } from '@/types/book';
 import { PAGE_SIZE } from '@/utils/common';
 import { supabase } from '@/utils/supabaseClient';
 import { ParsedUrlQuery } from 'querystring';
@@ -28,7 +28,7 @@ export const getBook = async (id?: number) => {
   return supabase.from('book').select('*', { count: 'exact' }).eq('id', id).single();
 };
 
-export const addBook = async (book: Partial<Book>) => {
+export const addBook = async (book: BookData) => {
   return await supabase.from('book').insert(book);
 };
 
