@@ -16,6 +16,7 @@ export interface Database {
           discount: string | null;
           buyer: string | null;
           buyDate: string | null;
+          lender: string | null;
         };
         Insert: {
           id?: number;
@@ -29,6 +30,7 @@ export interface Database {
           discount?: string | null;
           buyer?: string | null;
           buyDate?: string | null;
+          lender?: string | null;
         };
         Update: {
           id?: number;
@@ -42,6 +44,7 @@ export interface Database {
           discount?: string | null;
           buyer?: string | null;
           buyDate?: string | null;
+          lender?: string | null;
         };
       };
     };
