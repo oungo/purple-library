@@ -1,6 +1,5 @@
 import { useBookInStockMutation } from '@/hooks/mutations/book';
 import { colors } from '@/styles/color';
-import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
@@ -12,10 +11,10 @@ const Button = styled.button`
 
 interface EditBookStatusButtonProps {
   id: number;
+  inStock: boolean;
 }
 
-export default function EditBookStatusButton({ id }: EditBookStatusButtonProps) {
-  const router = useRouter();
+export default function EditBookStatusButton({ id, inStock }: EditBookStatusButtonProps) {
   const queryClient = useQueryClient();
 
   const { mutate } = useBookInStockMutation({
@@ -24,7 +23,7 @@ export default function EditBookStatusButton({ id }: EditBookStatusButtonProps) 
     },
   });
 
-  if (router.query.inStock === 'true') {
+  if (inStock) {
     return <Button>대여</Button>;
   }
 

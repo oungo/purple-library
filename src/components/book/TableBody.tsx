@@ -52,7 +52,7 @@ export default function TableBody() {
             <Td>{book.discount}</Td>
             <Td>{book.buyer}</Td>
             <Td>
-              <EditBookStatusButton id={book.id} />
+              <EditBookStatusButton id={book.id} inStock={book.inStock} />
             </Td>
           </Tr>
         );
