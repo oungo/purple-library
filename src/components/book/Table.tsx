@@ -101,14 +101,14 @@ export default function Table() {
             <th>상태</th>
             <th>단가</th>
             <th>구매자</th>
-            <th>대여자</th>
+            <th>보유자</th>
             <th></th>
           </THeadTr>
         </thead>
         <tbody>
-          {books.data.map((book) => {
-            return <TableItem key={book.id} book={book} />;
-          })}
+          {books.data.map((book) => (
+            <TableItem key={book.id} book={book} />
+          ))}
         </tbody>
       </BookTable>
     </TableWrapper>
@@ -133,9 +133,9 @@ function TableItem({ book }: TableItemProps) {
         <Td>{getBookStatus(book.inStock)}</Td>
         <Td>{book.discount}</Td>
         <Td>{book.buyer}</Td>
-        <Td>{book.lender}</Td>
+        <Td>{book.lender || '공용서가'}</Td>
         <Td>
-          <EditBookStatusButton id={book.id} inStock={book.inStock} />
+          <EditBookStatusButton id={book.id} inStock={book.inStock} lender={book.lender} />
         </Td>
       </Tr>
     </>

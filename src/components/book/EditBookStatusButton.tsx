@@ -4,18 +4,34 @@ import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
 import { useUser } from '@supabase/auth-helpers-react';
+import { Book } from '@/types/book';
 
-const Button = styled.button`
+interface ButtonProps {
+  action: 'lend' | 'return' | 'own';
+}
+const Button = styled.button<ButtonProps>`
   cursor: pointer;
-  color: ${colors.brand};
+  color: ${(props) => {
+    switch (props.action) {
+      case 'lend':
+        return colors.primary;
+      case 'return':
+        return colors.fourth;
+      case 'own':
+        return colors.second;
+      default:
+        return;
+    }
+  }};
 `;
 
 interface EditBookStatusButtonProps {
   id: number;
   inStock: boolean;
+  lender?: Book['lender'];
 }
 
-export default function EditBookStatusButton({ id, inStock }: EditBookStatusButtonProps) {
+export default function EditBookStatusButton({ id, inStock, lender }: EditBookStatusButtonProps) {
   const user = useUser();
   const queryClient = useQueryClient();
 
@@ -26,8 +42,23 @@ export default function EditBookStatusButton({ id, inStock }: EditBookStatusButt
   });
 
   if (inStock) {
-    return <Button onClick={() => mutate({ lender: user?.email })}>대여</Button>;
+    if (user?.email === lender) {
+      return (
+        <Button action="return" onClick={() => mutate({ lender: '' })}>
+          반납
+        </Button>
+      );
+    }
+    return (
+      <Button action="lend" onClick={() => mutate({ lender: user?.email })}>
+        대여
+      </Button>
+    );
   }
 
-  return <Button onClick={() => mutate({ inStock: true })}>보유 도서로 이동</Button>;
+  return (
+    <Button action="own" onClick={() => mutate({ inStock: true })}>
+      보유 도서로 이동
+    </Button>
+  );
 }
