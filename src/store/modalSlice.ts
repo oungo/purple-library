@@ -3,12 +3,10 @@ import { SliceType } from './useBoundStore';
 
 export interface ModalSlice {
   isOpen: boolean;
-  open: () => void;
-  close: () => void;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 export const createModalSlice: StateCreator<SliceType, [], [], ModalSlice> = (set) => ({
   isOpen: false,
-  open: () => set(() => ({ isOpen: true })),
-  close: () => set(() => ({ isOpen: false })),
+  setIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
 });

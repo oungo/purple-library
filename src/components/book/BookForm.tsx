@@ -26,7 +26,7 @@ export interface IBookFormProps {
 export default function BookForm({ book }: IBookFormProps) {
   const queryClient = useQueryClient();
 
-  const close = useBoundStore((state) => state.close);
+  const setIsOpen = useBoundStore((state) => state.setIsOpen);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { mutate } = useMutation<PostgrestResponse<any>, unknown, Partial<UpdateBookValues>>(
@@ -34,7 +34,7 @@ export default function BookForm({ book }: IBookFormProps) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([queryKeys.BOOKS]);
-        close();
+        setIsOpen(false);
       },
     }
   );

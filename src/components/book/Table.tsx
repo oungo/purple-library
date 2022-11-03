@@ -115,12 +115,12 @@ interface TableItemProps {
 }
 
 function TableItem({ book }: TableItemProps) {
-  const open = useBoundStore((state) => state.open);
+  const setIsOpen = useBoundStore((state) => state.setIsOpen);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const handleClickTitle = () => {
     setSelectedBookId(book.id);
-    open();
+    setIsOpen(true);
   };
 
   return (
