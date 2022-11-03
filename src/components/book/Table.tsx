@@ -1,7 +1,14 @@
+import { useBooks } from '@/hooks/queries/book';
 import { colors } from '@/styles/color';
+import { Book } from '@/types/book';
+import { getBookStatus } from '@/utils/common';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import TableBody from './TableBody';
+import Loading from '../common/Loading';
+import EditBookStatusButton from './EditBookStatusButton';
 
+//#region
 const TableWrapper = styled.div`
   padding: 0 100px;
 `;
@@ -42,8 +49,36 @@ const BuyerCol = styled.col`
 const LenderCol = styled.col`
   width: 7%;
 `;
+const Tr = styled.tr`
+  :hover {
+    background-color: ${colors.gray};
+  }
+`;
+const Td = styled.td`
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+`;
+const Title = styled.a`
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+`;
+//#endregion
 
 export default function Table() {
+  const router = useRouter();
+
+  const { data: books, isLoading } = useBooks(router.query);
+
+  if (isLoading) return <Loading />;
+  if (!books?.data) return null;
+
   return (
     <TableWrapper>
       <BookTable>
@@ -71,9 +106,38 @@ export default function Table() {
           </THeadTr>
         </thead>
         <tbody>
-          <TableBody />
+          {books.data.map((book) => {
+            return <TableItem key={book.id} book={book} />;
+          })}
         </tbody>
       </BookTable>
     </TableWrapper>
+  );
+}
+
+interface TableItemProps {
+  book: Book;
+}
+
+function TableItem({ book }: TableItemProps) {
+  return (
+    <>
+      <Tr key={book.id}>
+        <Td title={book.title}>
+          <Link href={`/book/${book.isbn}`}>
+            <Title>{book.title}</Title>
+          </Link>
+        </Td>
+        <Td>{book.author}</Td>
+        <Td title={book.publisher || ''}>{book.publisher}</Td>
+        <Td>{getBookStatus(book.inStock)}</Td>
+        <Td>{book.discount}</Td>
+        <Td>{book.buyer}</Td>
+        <Td>{book.lender}</Td>
+        <Td>
+          <EditBookStatusButton id={book.id} inStock={book.inStock} />
+        </Td>
+      </Tr>
+    </>
   );
 }
