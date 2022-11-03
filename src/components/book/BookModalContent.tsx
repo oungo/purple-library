@@ -27,11 +27,15 @@ const FormWrapper = styled.div`
 `;
 
 export default function BookModalContent() {
-  const id = useBoundStore((state) => state.id);
+  const selectedBookId = useBoundStore((state) => state.selectedBookId);
 
-  const { data: book, isLoading } = useQuery([queryKeys.BOOKS, id], () => getBook(id), {
-    enabled: !!id,
-  });
+  const { data: book, isLoading } = useQuery(
+    [queryKeys.BOOKS, selectedBookId],
+    () => getBook(selectedBookId),
+    {
+      enabled: !!selectedBookId,
+    }
+  );
 
   if (isLoading) return <Loading />;
   if (!book?.data) return <>조회불가</>;
@@ -40,7 +44,7 @@ export default function BookModalContent() {
     <>
       <Section>
         <ImageWrapper>
-          <img src={book.data.image} alt="도서 이미지" width={250} height={350} />
+          <img src={book.data.image || ''} alt="도서 이미지" width={250} height={350} />
         </ImageWrapper>
 
         <div>

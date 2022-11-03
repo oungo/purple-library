@@ -36,11 +36,11 @@ const BodySection = styled.div`
 `;
 
 export default function BookModal() {
-  const id = useBoundStore((state) => state.id);
+  const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const isOpen = useBoundStore((state) => state.isOpen);
   const close = useBoundStore((state) => state.close);
 
-  if (!isOpen || !id) return null;
+  if (!isOpen || !selectedBookId) return null;
 
   return (
     <Container>

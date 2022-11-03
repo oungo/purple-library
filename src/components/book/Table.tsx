@@ -1,8 +1,8 @@
 import { useBooks } from '@/hooks/queries/book';
+import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
 import { getBookStatus } from '@/utils/common';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Loading from '../common/Loading';
@@ -63,11 +63,6 @@ const Td = styled.td`
 `;
 const Title = styled.a`
   cursor: pointer;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 5px;
 `;
 //#endregion
 
@@ -120,13 +115,19 @@ interface TableItemProps {
 }
 
 function TableItem({ book }: TableItemProps) {
+  const open = useBoundStore((state) => state.open);
+  const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
+
+  const handleClickTitle = () => {
+    setSelectedBookId(book.id);
+    open();
+  };
+
   return (
     <>
       <Tr key={book.id}>
-        <Td title={book.title}>
-          <Link href={`/book/${book.isbn}`}>
-            <Title>{book.title}</Title>
-          </Link>
+        <Td title={book.title} onClick={handleClickTitle}>
+          <Title>{book.title}</Title>
         </Td>
         <Td>{book.author}</Td>
         <Td title={book.publisher || ''}>{book.publisher}</Td>
