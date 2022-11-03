@@ -39,6 +39,9 @@ const PriceCol = styled.col`
 const BuyerCol = styled.col`
   width: 7%;
 `;
+const LenderCol = styled.col`
+  width: 7%;
+`;
 
 export default function Table() {
   return (
@@ -52,6 +55,7 @@ export default function Table() {
           <InStockCol></InStockCol>
           <PriceCol></PriceCol>
           <BuyerCol></BuyerCol>
+          <LenderCol></LenderCol>
           <UpdateCol></UpdateCol>
         </colgroup>
         <thead>
@@ -62,6 +66,7 @@ export default function Table() {
             <th>상태</th>
             <th>단가</th>
             <th>구매자</th>
+            <th>대여자</th>
             <th></th>
           </THeadTr>
         </thead>

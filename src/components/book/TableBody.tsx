@@ -51,6 +51,7 @@ export default function TableBody() {
             <Td>{getBookStatus(book.inStock)}</Td>
             <Td>{book.discount}</Td>
             <Td>{book.buyer}</Td>
+            <Td>{book.lender}</Td>
             <Td>
               <EditBookStatusButton id={book.id} inStock={book.inStock} />
             </Td>
