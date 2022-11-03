@@ -3,6 +3,7 @@ import { colors } from '@/styles/color';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import * as queryKeys from '@/utils/queryKeys';
+import { useUser } from '@supabase/auth-helpers-react';
 
 const Button = styled.button`
   cursor: pointer;
@@ -15,6 +16,7 @@ interface EditBookStatusButtonProps {
 }
 
 export default function EditBookStatusButton({ id, inStock }: EditBookStatusButtonProps) {
+  const user = useUser();
   const queryClient = useQueryClient();
 
   const { mutate } = useBookMutation(id, {
@@ -24,7 +26,7 @@ export default function EditBookStatusButton({ id, inStock }: EditBookStatusButt
   });
 
   if (inStock) {
-    return <Button>대여</Button>;
+    return <Button onClick={() => mutate({ lender: user?.email })}>대여</Button>;
   }
 
   return <Button onClick={() => mutate({ inStock: true })}>보유 도서로 이동</Button>;
