@@ -1,11 +1,16 @@
+import { PartialBook } from '@/types/book';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { updateBook } from 'api/books';
-import { useMutation } from 'react-query';
+import { useMutation, UseMutationOptions } from 'react-query';
 
-export const useBookInStockMutation = (options = {}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return useMutation<PostgrestResponse<any>, unknown, number>(
-    (id) => updateBook(id, { inStock: true }),
+type MutationOptions = Omit<
+  UseMutationOptions<PostgrestResponse<undefined>, unknown, PartialBook, unknown>,
+  'mutationFn'
+>;
+
+export const useBookMutation = (id: number, options?: MutationOptions) => {
+  return useMutation<PostgrestResponse<undefined>, unknown, PartialBook>(
+    (value) => updateBook(id, value),
     options
   );
 };

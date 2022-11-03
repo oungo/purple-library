@@ -1,4 +1,4 @@
-import { useBookInStockMutation } from '@/hooks/mutations/book';
+import { useBookMutation } from '@/hooks/mutations/book';
 import { colors } from '@/styles/color';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ interface EditBookStatusButtonProps {
 export default function EditBookStatusButton({ id, inStock }: EditBookStatusButtonProps) {
   const queryClient = useQueryClient();
 
-  const { mutate } = useBookInStockMutation({
+  const { mutate } = useBookMutation(id, {
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);
     },
@@ -27,5 +27,5 @@ export default function EditBookStatusButton({ id, inStock }: EditBookStatusButt
     return <Button>대여</Button>;
   }
 
-  return <Button onClick={() => mutate(id)}>보유 도서로 이동</Button>;
+  return <Button onClick={() => mutate({ inStock: true })}>보유 도서로 이동</Button>;
 }
