@@ -26,7 +26,7 @@ interface PageNumberProps {
   active: boolean;
 }
 const PageNumber = styled.a<PageNumberProps>`
-  background-color: ${(props) => (props.active ? colors.brand : colors.white)};
+  background-color: ${(props) => (props.active ? colors.primary : colors.white)};
   color: ${(props) => (props.active ? colors.white : colors.black)};
   cursor: pointer;
   width: 30px;

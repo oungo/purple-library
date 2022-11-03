@@ -17,8 +17,8 @@ const appearance: Appearance = {
   variables: {
     default: {
       colors: {
-        brand: colors.brand,
-        brandAccent: colors.brandAccent,
+        brand: colors.primary,
+        brandAccent: colors.primaryVariant,
       },
     },
   },

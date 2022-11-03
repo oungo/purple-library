@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const PrimaryButton = styled.button`
-  background-color: ${colors.brand};
-  border: 2px solid ${colors.brand};
+  background-color: ${colors.primary};
+  border: 2px solid ${colors.primary};
   color: ${colors.white};
   padding: 5px 20px;
   border-radius: 10px;
@@ -14,15 +14,15 @@ export const PrimaryButton = styled.button`
     opacity: 0.9;
   }
   :active {
-    background-color: ${colors.brandAccent};
-    border-color: ${colors.brandAccent};
+    background-color: ${colors.primaryVariant};
+    border-color: ${colors.primaryVariant};
   }
 `;
 
 export const DefaultButton = styled.button`
   background-color: ${colors.white};
   border: 2px solid ${colors.gray};
-  color: ${colors.brand};
+  color: ${colors.primary};
   padding: 5px 20px;
   border-radius: 10px;
   font-size: small;
