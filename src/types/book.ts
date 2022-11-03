@@ -22,3 +22,8 @@ export interface NBook {
 
 export type Book = Database['public']['Tables']['book']['Row'];
 export type BookData = Omit<Book, 'id' | 'createdAt' | 'buyDate'>;
+
+type RemoveNull<Type> = {
+  [Property in keyof Type]: NonNullable<Type[Property]>;
+};
+export type PartialBook = Partial<RemoveNull<Book>>;
