@@ -9,16 +9,13 @@ import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import { useSession } from '@supabase/auth-helpers-react';
 import AuthGuard from '@/components/AuthGuard';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
+import { User, withPageAuth } from '@supabase/auth-helpers-nextjs';
 
-const Index: NextPageWithLayout = () => {
-  const session = useSession();
-
-  if (!session) return <AuthGuard />;
+const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
+  if (!user) return <AuthGuard />;
 
   return (
     <>
