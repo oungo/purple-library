@@ -41,24 +41,22 @@ export default function BookModalContent() {
   if (!book?.data) return <>조회불가</>;
 
   return (
-    <>
-      <Section>
-        <ImageWrapper>
-          <img src={book.data.image || ''} alt="도서 이미지" width={250} height={350} />
-        </ImageWrapper>
+    <Section>
+      <ImageWrapper>
+        <img src={book.data.image || ''} alt="도서 이미지" width={250} height={350} />
+      </ImageWrapper>
 
-        <div>
-          <DescriptionList>
-            <dt>{book.data.title}</dt>
-            {book.data.author && <dd>작가 {book.data.author}</dd>}
-            {book.data.publisher && <dd>출판사 {book.data.publisher}</dd>}
-          </DescriptionList>
+      <div>
+        <DescriptionList>
+          <dt>{book.data.title}</dt>
+          {book.data.author && <dd>작가 {book.data.author}</dd>}
+          {book.data.publisher && <dd>출판사 {book.data.publisher}</dd>}
+        </DescriptionList>
 
-          <FormWrapper>
-            <BookForm book={book.data} />
-          </FormWrapper>
-        </div>
-      </Section>
-    </>
+        <FormWrapper>
+          <BookForm book={book.data} />
+        </FormWrapper>
+      </div>
+    </Section>
   );
 }
