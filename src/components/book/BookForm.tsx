@@ -49,12 +49,12 @@ export default function BookForm({ book }: IBookFormProps) {
   return (
     <Form onSubmit={handleSubmit}>
       <label>
-        <input type="radio" name="inStock" value="true" defaultChecked={book.inStock} />
-        보유중
+        구매자
+        <input name="buyer" defaultValue={book.buyer || ''} />
       </label>
       <label>
-        <input type="radio" name="inStock" value="false" defaultChecked={!book.inStock} />
-        구매 예정
+        보유자
+        <input name="lender" defaultValue={book.lender || ''} />
       </label>
 
       <SaveButton color="primary">저장</SaveButton>
