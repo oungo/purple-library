@@ -5,6 +5,7 @@ import { useBoundStore } from '@/store/useBoundStore';
 import Loading from '../common/Loading';
 import { getBook } from 'api/books';
 import styled from 'styled-components';
+import { colors } from '@/styles/color';
 
 const Section = styled.section`
   display: flex;
@@ -17,13 +18,21 @@ const ImageWrapper = styled.div`
   min-height: 350px;
   box-shadow: 1px 1px 5px;
 `;
-const DescriptionList = styled.dl`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
 const FormWrapper = styled.div`
   margin-top: 1rem;
+`;
+const Title = styled.p`
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 1rem;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+const DT = styled.dt`
+  color: ${colors.fourth};
 `;
 
 export default function BookModalContent() {
@@ -47,11 +56,21 @@ export default function BookModalContent() {
       </ImageWrapper>
 
       <div>
-        <DescriptionList>
-          <dt>{book.data.title}</dt>
-          {book.data.author && <dd>작가 {book.data.author}</dd>}
-          {book.data.publisher && <dd>출판사 {book.data.publisher}</dd>}
-        </DescriptionList>
+        <dl>
+          <Title>{book.data.title}</Title>
+          {book.data.author && (
+            <Wrapper>
+              <DT>작가</DT>
+              <dd>{book.data.author}</dd>
+            </Wrapper>
+          )}
+          {book.data.publisher && (
+            <Wrapper>
+              <DT>출판사</DT>
+              <dd>{book.data.publisher}</dd>
+            </Wrapper>
+          )}
+        </dl>
 
         <FormWrapper>
           <BookForm book={book.data} />
