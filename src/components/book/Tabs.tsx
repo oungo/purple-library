@@ -34,6 +34,9 @@ export default function Tabs() {
 
   return (
     <TabList onClick={handleClickTab}>
+      <TabItem active={!router.query.inStock} data-tab-value={null}>
+        전체
+      </TabItem>
       <TabItem active={router.query.inStock === 'false'} data-tab-value={false}>
         구매 예정
       </TabItem>
