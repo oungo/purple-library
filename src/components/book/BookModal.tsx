@@ -46,7 +46,7 @@ export default function BookModal() {
     <Container>
       <Content>
         <HeadSection>
-          <Title>도서 수정</Title>
+          <Title>도서 정보</Title>
           <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
         </HeadSection>
 
