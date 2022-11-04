@@ -11,7 +11,7 @@ const TabList = styled.ul`
 `;
 const TabItem = styled.li<{ active: boolean }>`
   cursor: pointer;
-  color: ${(props) => (props.active ? colors.black : colors.darkGray)};
+  color: ${(props) => (props.active ? colors.primary : colors.darkGray)};
 `;
 
 export default function Tabs() {
@@ -34,9 +34,6 @@ export default function Tabs() {
 
   return (
     <TabList onClick={handleClickTab}>
-      <TabItem active={!router.query.inStock} data-tab-value={null}>
-        전체
-      </TabItem>
       <TabItem active={router.query.inStock === 'false'} data-tab-value={false}>
         구매 예정
       </TabItem>
