@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
@@ -6,6 +7,8 @@ const LoadingWrapper = styled.div`
   width: 40px;
   height: 40px;
   margin: auto;
+  top: 50%;
+  transform: translateY(-20px);
   div {
     box-sizing: border-box;
     display: block;
@@ -13,9 +16,9 @@ const LoadingWrapper = styled.div`
     width: 24px;
     height: 24px;
     margin: 8px;
-    border: 4px solid red;
+    border: 4px solid ${colors.primary};
     border-radius: 50%;
-    border-color: #a4c5ed transparent transparent transparent;
+    border-color: ${colors.primary} transparent transparent transparent;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     :nth-child(1) {
       animation-delay: -0.45s;
