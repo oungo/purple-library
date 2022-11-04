@@ -30,7 +30,7 @@ export default function BookModalContent() {
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
 
   const { data: book, isLoading } = useQuery(
-    [queryKeys.BOOKS, selectedBookId],
+    [queryKeys.BOOK, selectedBookId],
     () => getBook(selectedBookId),
     {
       enabled: !!selectedBookId,
