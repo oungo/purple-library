@@ -148,7 +148,7 @@ function TableItem({ book }: TableItemProps) {
         <Td>{getBookStatus(book.inStock)}</Td>
         <Td>{book.discount}</Td>
         <Td>{book.buyer}</Td>
-        <Td>{book.lender || '공용서가'}</Td>
+        <Td>{book.inStock ? book.lender || '공용서가' : ''}</Td>
         <Td>
           <EditBookStatusButton id={book.id} inStock={book.inStock} lender={book.lender} />
         </Td>
