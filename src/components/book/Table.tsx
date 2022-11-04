@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Loading from '../common/Loading';
 import EditBookStatusButton from './EditBookStatusButton';
+import Pagination from './Pagination';
 
 //#region
 const TableWrapper = styled.div`
@@ -75,38 +76,42 @@ export default function Table() {
   if (!books?.data) return null;
 
   return (
-    <TableWrapper>
-      <BookTable>
-        <Caption>도서 목록</Caption>
-        <colgroup>
-          <col></col>
-          <AuthorCol></AuthorCol>
-          <PublisherCol></PublisherCol>
-          <InStockCol></InStockCol>
-          <PriceCol></PriceCol>
-          <BuyerCol></BuyerCol>
-          <LenderCol></LenderCol>
-          <UpdateCol></UpdateCol>
-        </colgroup>
-        <thead>
-          <THeadTr>
-            <th>제목</th>
-            <th>저자</th>
-            <th>출판사</th>
-            <th>상태</th>
-            <th>단가</th>
-            <th>구매자</th>
-            <th>보유자</th>
-            <th></th>
-          </THeadTr>
-        </thead>
-        <tbody>
-          {books.data.map((book) => (
-            <TableItem key={book.id} book={book} />
-          ))}
-        </tbody>
-      </BookTable>
-    </TableWrapper>
+    <>
+      <TableWrapper>
+        <BookTable>
+          <Caption>도서 목록</Caption>
+          <colgroup>
+            <col></col>
+            <AuthorCol></AuthorCol>
+            <PublisherCol></PublisherCol>
+            <InStockCol></InStockCol>
+            <PriceCol></PriceCol>
+            <BuyerCol></BuyerCol>
+            <LenderCol></LenderCol>
+            <UpdateCol></UpdateCol>
+          </colgroup>
+          <thead>
+            <THeadTr>
+              <th>제목</th>
+              <th>저자</th>
+              <th>출판사</th>
+              <th>상태</th>
+              <th>단가</th>
+              <th>구매자</th>
+              <th>보유자</th>
+              <th></th>
+            </THeadTr>
+          </thead>
+          <tbody>
+            {books.data.map((book) => (
+              <TableItem key={book.id} book={book} />
+            ))}
+          </tbody>
+        </BookTable>
+      </TableWrapper>
+
+      <Pagination />
+    </>
   );
 }
 

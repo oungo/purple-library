@@ -1,5 +1,4 @@
 import BookModal from '@/components/book/BookModal';
-import Pagination from '@/components/book/Pagination';
 import Table from '@/components/book/Table';
 import Tabs from '@/components/book/Tabs';
 import ModalPortal from '@/components/common/ModalPortal';
@@ -21,7 +20,6 @@ const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
     <>
       <Tabs />
       <Table />
-      <Pagination />
 
       <div id={BOOK_MODAL_ID} />
       <ModalPortal id={BOOK_MODAL_ID}>
