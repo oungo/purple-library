@@ -65,6 +65,9 @@ const Td = styled.td`
 const Title = styled.a`
   cursor: pointer;
 `;
+const LoadingWrapper = styled.div`
+  height: 100px;
+`;
 //#endregion
 
 export default function Table() {
@@ -72,7 +75,13 @@ export default function Table() {
 
   const { data: books, isLoading } = useBooks(router.query);
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <LoadingWrapper>
+        <Loading />
+      </LoadingWrapper>
+    );
+
   if (!books?.data) return null;
 
   return (
