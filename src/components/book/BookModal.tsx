@@ -18,9 +18,10 @@ const Content = styled.div`
   position: relative;
   background-color: ${colors.white};
   top: 25%;
-  width: 50%;
   margin: auto;
   padding: 1rem;
+  max-width: 700px;
+  width: 100%;
 `;
 const HeadSection = styled.section`
   display: flex;
