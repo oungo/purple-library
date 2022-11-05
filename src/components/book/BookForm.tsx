@@ -28,8 +28,7 @@ export default function BookForm({ book }: IBookFormProps) {
 
   const setIsOpen = useBoundStore((state) => state.setIsOpen);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { mutate } = useMutation<PostgrestResponse<any>, unknown, Partial<UpdateBookValues>>(
+  const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, Partial<UpdateBookValues>>(
     (value) => updateBook(book.id, value),
     {
       onSuccess: () => {
