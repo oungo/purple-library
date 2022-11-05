@@ -16,7 +16,11 @@ const SaveButton = styled(Button)`
 `;
 const Form = styled.form`
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+  input {
+    margin-left: 1rem;
+  }
 `;
 
 export interface IBookFormProps {
