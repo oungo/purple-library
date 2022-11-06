@@ -12,7 +12,7 @@ import AuthGuard from '@/components/AuthGuard';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
 import { User } from '@supabase/auth-helpers-nextjs';
-import { getServerSession } from 'api/auth';
+import { getServerSession, redirect } from 'api/auth';
 
 const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
   if (!user) return <AuthGuard />;
@@ -33,14 +33,7 @@ const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
   const session = await getServerSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
+  if (!session) return redirect();
 
   const queryClient = new QueryClient();
 

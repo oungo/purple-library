@@ -2,7 +2,7 @@ import Book from '@/components/book/Book';
 import { getLayout } from '@/components/layout/Layout';
 import { getNBook } from '@/controller/book';
 import { NBookResponse } from '@/types/book';
-import { getServerSession } from 'api/auth';
+import { getServerSession, redirect } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
 
@@ -17,13 +17,7 @@ const BookInfo: NextPageWithLayout<BookInfoProps> = ({ book }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context);
 
-  if (!session)
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
+  if (!session) return redirect();
 
   return { props: { book: await getNBook(context.query.id as string) } };
 };

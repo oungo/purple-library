@@ -10,3 +10,10 @@ export const getServerSession = async (context: GetServerSidePropsContext) => {
 
   return session;
 };
+
+export const redirect = () => ({
+  redirect: {
+    destination: '/login',
+    permanent: false,
+  },
+});
