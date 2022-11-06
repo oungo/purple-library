@@ -11,7 +11,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import AuthGuard from '@/components/AuthGuard';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
-import { User, withPageAuth } from '@supabase/auth-helpers-nextjs';
+import { createServerSupabaseClient, User } from '@supabase/auth-helpers-nextjs';
 
 const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
   if (!user) return <AuthGuard />;
@@ -29,15 +29,29 @@ const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = withPageAuth({
-  redirectTo: '/login',
-  async getServerSideProps(context) {
-    const queryClient = new QueryClient();
-    await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
+export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
+  const supabase = createServerSupabaseClient(context);
 
-    return { props: { dehydratedState: dehydrate(queryClient) } };
-  },
-});
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+  const queryClient = new QueryClient();
+
+  await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
+
+  return {
+    props: { dehydratedState: dehydrate(queryClient), initialSession: session, user: session.user },
+  };
+};
 
 Index.getLayout = getLayout;
 
