@@ -8,15 +8,11 @@ import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import AuthGuard from '@/components/AuthGuard';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
-import { User } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirect } from 'api/auth';
 
-const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
-  if (!user) return <AuthGuard />;
-
+const Index: NextPageWithLayout = () => {
   return (
     <>
       <Tabs />
@@ -36,11 +32,10 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   if (!session) return redirect();
 
   const queryClient = new QueryClient();
-
   await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
 
   return {
-    props: { dehydratedState: dehydrate(queryClient), initialSession: session, user: session.user },
+    props: { dehydratedState: dehydrate(queryClient) },
   };
 };
 
