@@ -1,3 +1,4 @@
+import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from './database';
 
 export interface NBookResponse {
@@ -27,3 +28,5 @@ type RemoveNull<Type> = {
   [Property in keyof Type]: NonNullable<Type[Property]>;
 };
 export type PartialBook = Partial<RemoveNull<Book>>;
+
+export type BookClient = SupabaseClient<Database>;

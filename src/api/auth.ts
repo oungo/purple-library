@@ -1,12 +1,9 @@
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { GetServerSidePropsContext } from 'next';
+import { BookClient } from '@/types/book';
 
-export const getServerSession = async (context: GetServerSidePropsContext) => {
-  const supabase = createServerSupabaseClient(context);
-
+export const getServerSession = async (supabaseClient: BookClient) => {
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabaseClient.auth.getSession();
 
   return session;
 };

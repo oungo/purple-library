@@ -11,6 +11,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
 import { getServerSession, redirect } from 'api/auth';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
 const Index: NextPageWithLayout = () => {
   return (
@@ -27,7 +28,8 @@ const Index: NextPageWithLayout = () => {
 };
 
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
-  const session = await getServerSession(context);
+  const supabaseClient = createServerSupabaseClient(context);
+  const session = await getServerSession(supabaseClient);
 
   if (!session) return redirect();
 
