@@ -11,7 +11,8 @@ import * as queryKeys from '@/utils/queryKeys';
 import AuthGuard from '@/components/AuthGuard';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
-import { createServerSupabaseClient, User } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/auth-helpers-nextjs';
+import { getServerSession } from 'api/auth';
 
 const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
   if (!user) return <AuthGuard />;
@@ -30,11 +31,7 @@ const Index: NextPageWithLayout<{ user: User }> = ({ user }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
-  const supabase = createServerSupabaseClient(context);
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const session = await getServerSession(context);
 
   if (!session) {
     return {
@@ -44,6 +41,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
       },
     };
   }
+
   const queryClient = new QueryClient();
 
   await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
