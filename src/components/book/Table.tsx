@@ -44,6 +44,9 @@ const BuyerCol = styled.col`
 const LenderCol = styled.col`
   width: 7%;
 `;
+const TBody = styled.tbody`
+  position: relative;
+`;
 
 //#endregion
 
@@ -75,9 +78,9 @@ export default function Table() {
               <th></th>
             </THeadTr>
           </thead>
-          <tbody>
+          <TBody>
             <TableBody />
-          </tbody>
+          </TBody>
         </BookTable>
       </TableWrapper>
 

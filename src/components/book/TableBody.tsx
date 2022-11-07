@@ -24,13 +24,22 @@ const Td = styled.td`
 const Title = styled.a`
   cursor: pointer;
 `;
+const LoadingWrapper = styled.tr`
+  position: absolute;
+  width: 100%;
+`;
 
 const TableBody: FunctionComponent = () => {
   const router = useRouter();
 
   const { data: books, isLoading } = useBooks(router.query);
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <LoadingWrapper>
+        <Loading />
+      </LoadingWrapper>
+    );
 
   if (!books?.data) return null;
 
