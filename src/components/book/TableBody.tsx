@@ -24,9 +24,12 @@ const Td = styled.td`
 const Title = styled.a`
   cursor: pointer;
 `;
-const LoadingWrapper = styled.td`
+const Wrapper = styled.td`
   position: absolute;
   width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: ${colors.darkGray};
 `;
 
 const TableBody: FunctionComponent = () => {
@@ -36,14 +39,13 @@ const TableBody: FunctionComponent = () => {
 
   if (isLoading)
     return (
-      <tr>
-        <LoadingWrapper>
-          <Loading />
-        </LoadingWrapper>
-      </tr>
+      <TableItemWrapper>
+        <Loading />
+      </TableItemWrapper>
     );
 
-  if (!books?.data) return <>데이터가 없습니다</>;
+  if (!books?.data || books.count === 0)
+    return <TableItemWrapper>조회된 데이터가 없습니다</TableItemWrapper>;
 
   return (
     <>
@@ -51,6 +53,14 @@ const TableBody: FunctionComponent = () => {
         <TableItem key={book.id} book={book} />
       ))}
     </>
+  );
+};
+
+const TableItemWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <tr>
+      <Wrapper>{children}</Wrapper>
+    </tr>
   );
 };
 
