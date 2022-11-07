@@ -7,8 +7,6 @@ const LoadingWrapper = styled.div`
   width: 40px;
   height: 40px;
   margin: auto;
-  top: 50%;
-  transform: translateY(-20px);
   div {
     box-sizing: border-box;
     display: block;
