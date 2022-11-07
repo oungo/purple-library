@@ -6,6 +6,8 @@ import Loading from '../common/Loading';
 import { getBook } from 'api/books';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
+import { getUser } from 'api/user';
+import { useUser } from '@supabase/auth-helpers-react';
 
 const Section = styled.section`
   display: flex;
@@ -37,6 +39,11 @@ const DT = styled.dt`
 
 export default function BookModalContent() {
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
+  const authUser = useUser();
+
+  const { data: user } = useQuery([queryKeys.USER], () => getUser(authUser?.id), {
+    enabled: !!authUser?.id,
+  });
 
   const { data: book, isLoading } = useQuery(
     [queryKeys.BOOK, selectedBookId],
@@ -72,9 +79,11 @@ export default function BookModalContent() {
           )}
         </dl>
 
-        <FormWrapper>
-          <BookForm book={book.data} />
-        </FormWrapper>
+        {user?.data?.role === 'admin' && (
+          <FormWrapper>
+            <BookForm book={book.data} />
+          </FormWrapper>
+        )}
       </div>
     </Section>
   );
