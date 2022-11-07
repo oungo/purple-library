@@ -24,7 +24,7 @@ const Td = styled.td`
 const Title = styled.a`
   cursor: pointer;
 `;
-const LoadingWrapper = styled.tr`
+const LoadingWrapper = styled.td`
   position: absolute;
   width: 100%;
 `;
@@ -36,12 +36,14 @@ const TableBody: FunctionComponent = () => {
 
   if (isLoading)
     return (
-      <LoadingWrapper>
-        <Loading />
-      </LoadingWrapper>
+      <tr>
+        <LoadingWrapper>
+          <Loading />
+        </LoadingWrapper>
+      </tr>
     );
 
-  if (!books?.data) return null;
+  if (!books?.data) return <>데이터가 없습니다</>;
 
   return (
     <>
