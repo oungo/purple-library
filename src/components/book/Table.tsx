@@ -2,6 +2,7 @@ import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Pagination from './Pagination';
 import TableBody from './TableBody';
+import Tabs from './Tabs';
 
 //#region
 const TableWrapper = styled.div`
@@ -53,6 +54,8 @@ const TBody = styled.tbody`
 export default function Table() {
   return (
     <>
+      <Tabs />
+
       <TableWrapper>
         <BookTable>
           <Caption>도서 목록</Caption>

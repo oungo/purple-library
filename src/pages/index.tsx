@@ -1,6 +1,5 @@
 import BookModal from '@/components/book/BookModal';
 import Table from '@/components/book/Table';
-import Tabs from '@/components/book/Tabs';
 import ModalPortal from '@/components/common/ModalPortal';
 import { DehydratedStateProps } from '@/types/common';
 import { BOOK_MODAL_ID } from '@/utils/common';
@@ -16,7 +15,6 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 const Index: NextPageWithLayout = () => {
   return (
     <>
-      <Tabs />
       <Table />
 
       <div id={BOOK_MODAL_ID} />
