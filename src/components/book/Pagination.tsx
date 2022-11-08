@@ -42,9 +42,9 @@ export default function Pagination() {
 
   const pageNumber = Number(query.page || 1);
 
-  const { data: books, isLoading } = useBooks(query);
+  const { data: books } = useBooks(query);
 
-  if (isLoading || !books?.count || books?.data?.length < 1) return null;
+  if (!books?.count || books?.data?.length < 1) return null;
 
   return (
     <Container>

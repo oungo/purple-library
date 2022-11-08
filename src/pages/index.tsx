@@ -11,11 +11,15 @@ import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
 import { getServerSession, redirect } from 'api/auth';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import SSRSafeSuspence from '@/components/SSRSafeSuspense';
+import Loading from '@/components/common/Loading';
 
 const Index: NextPageWithLayout = () => {
   return (
     <>
-      <Table />
+      <SSRSafeSuspence fallback={<Loading />}>
+        <Table />
+      </SSRSafeSuspence>
 
       <div id={BOOK_MODAL_ID} />
       <ModalPortal id={BOOK_MODAL_ID}>

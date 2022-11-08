@@ -6,7 +6,6 @@ import { getBookStatus } from '@/utils/common';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import Loading from '../common/Loading';
 import EditBookStatusButton from './EditBookStatusButton';
 
 const Tr = styled.tr`
@@ -35,14 +34,7 @@ const Wrapper = styled.td`
 const TableBody: FunctionComponent = () => {
   const router = useRouter();
 
-  const { data: books, isLoading } = useBooks(router.query);
-
-  if (isLoading)
-    return (
-      <TableItemWrapper>
-        <Loading />
-      </TableItemWrapper>
-    );
+  const { data: books } = useBooks(router.query);
 
   if (!books?.data || books.count === 0)
     return <TableItemWrapper>조회된 데이터가 없습니다</TableItemWrapper>;
