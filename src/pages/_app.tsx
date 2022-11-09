@@ -25,6 +25,8 @@ const config: QueryClientConfig = {
     queries: {
       retry: 0,
       refetchOnWindowFocus: false,
+      useErrorBoundary: true,
+      suspense: true,
     },
   },
 };
