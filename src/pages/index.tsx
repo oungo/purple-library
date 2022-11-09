@@ -13,8 +13,15 @@ import { getServerSession, redirect } from 'api/auth';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import Loading from '@/components/common/Loading';
+import Error from '@/components/common/Error';
 
-const Index: NextPageWithLayout = () => {
+interface IndexProps {
+  isError: boolean;
+}
+
+const Index: NextPageWithLayout<IndexProps> = ({ isError }) => {
+  if (isError) return <Error />;
+
   return (
     <>
       <SSRSafeSuspence fallback={<Loading />}>
@@ -36,10 +43,17 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   if (!session) return redirect();
 
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
+
+  let isError = false;
+
+  try {
+    await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
+  } catch (error) {
+    isError = true;
+  }
 
   return {
-    props: { dehydratedState: dehydrate(queryClient) },
+    props: { isError, dehydratedState: dehydrate(queryClient) },
   };
 };
 
