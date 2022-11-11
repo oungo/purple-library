@@ -1,36 +1,38 @@
+import { PostgrestError } from '@supabase/supabase-js';
 import React, { ErrorInfo } from 'react';
 
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-  fallbackRender: any;
+export interface ErrorType extends PostgrestError, Error {}
+
+interface RenderFallbackProps {
+  error: ErrorType;
 }
 
+type ErrorBoundaryProps = {
+  children: React.ReactNode;
+  renderFallback: (props: RenderFallbackProps) => React.ReactNode;
+};
+
 interface ErrorBoundaryState {
-  hasError: boolean;
+  error: ErrorType | null;
 }
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { error: null };
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: ErrorType) {
+    return { error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // You can also log the error to an error reporting service
-    console.log(1, error);
-    console.log(2, errorInfo);
-
-    // logErrorToMyService(error, errorInfo);
+  componentDidCatch(error: ErrorType, errorInfo: ErrorInfo) {
+    console.log(error, errorInfo);
   }
 
   render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+    if (this.state.error) {
+      return this.props.renderFallback({ error: this.state.error });
     }
 
     return this.props.children;
