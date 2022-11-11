@@ -36,12 +36,11 @@ const TableBody: FunctionComponent = () => {
 
   const { data: books } = useBooks(router.query);
 
-  if (!books?.data || books.count === 0)
-    return <TableItemWrapper>조회된 데이터가 없습니다</TableItemWrapper>;
+  if (books?.count === 0) return <TableItemWrapper>조회된 데이터가 없습니다</TableItemWrapper>;
 
   return (
     <>
-      {books.data.map((book) => (
+      {books?.data?.map((book) => (
         <TableItem key={book.id} book={book} />
       ))}
     </>
