@@ -14,19 +14,22 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import Loading from '@/components/common/Loading';
 import Error from '@/components/common/Error';
+import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 
 interface IndexProps {
-  isError: boolean;
+  error: ErrorType;
 }
 
-const Index: NextPageWithLayout<IndexProps> = ({ isError }) => {
-  if (isError) return <Error />;
+const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
+  if (error) return <Error error={error} />;
 
   return (
     <>
-      <SSRSafeSuspence fallback={<Loading />}>
-        <Table />
-      </SSRSafeSuspence>
+      <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+        <SSRSafeSuspence fallback={<Loading />}>
+          <Table />
+        </SSRSafeSuspence>
+      </ErrorBoundary>
 
       <div id={BOOK_MODAL_ID} />
       <ModalPortal id={BOOK_MODAL_ID}>
@@ -44,16 +47,16 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
 
   const queryClient = new QueryClient();
 
-  let isError = false;
+  let error = null;
 
   try {
     await queryClient.fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query));
-  } catch (error) {
-    isError = true;
+  } catch (err) {
+    error = err;
   }
 
   return {
-    props: { isError, dehydratedState: dehydrate(queryClient) },
+    props: { error, dehydratedState: dehydrate(queryClient) },
   };
 };
 
