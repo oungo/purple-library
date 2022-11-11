@@ -1,5 +1,6 @@
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
+import { ErrorType } from '../ErrorBoundary';
 
 const ErrorText = styled.p`
   text-align: center;
@@ -7,6 +8,10 @@ const ErrorText = styled.p`
   color: ${colors.darkGray};
 `;
 
-export default function Error() {
-  return <ErrorText>에러가 발생했습니다</ErrorText>;
+interface Props {
+  error: ErrorType;
+}
+
+export default function Error({ error }: Props) {
+  return <ErrorText>에러가 발생했습니다. {error.message}</ErrorText>;
 }
