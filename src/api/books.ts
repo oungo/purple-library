@@ -11,7 +11,8 @@ export const getBooks = async (query: ParsedUrlQuery = {}) => {
   let supabaseQuery = supabase
     .from('book')
     .select('*', { count: 'exact' })
-    .order('id', { ascending: false });
+    .order('id', { ascending: false })
+    .throwOnError();
 
   for (const [key, value] of Object.entries(query)) {
     if (key === 'page') continue;
