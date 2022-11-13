@@ -1,8 +1,11 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { Suspense } from 'react';
 import BookModalContent from './BookModalContent';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
+import Loading from '../common/Loading';
+import ErrorBoundary from '../ErrorBoundary';
+import Error from '../common/Error';
 
 const Container = styled.div`
   position: fixed;
@@ -52,7 +55,11 @@ export default function BookModal() {
         </HeadSection>
 
         <BodySection>
-          <BookModalContent />
+          <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+            <Suspense fallback={<Loading />}>
+              <BookModalContent />
+            </Suspense>
+          </ErrorBoundary>
         </BodySection>
       </Content>
     </Container>
