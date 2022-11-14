@@ -26,25 +26,35 @@ export const getBooks = async (query: ParsedUrlQuery = {}) => {
 };
 
 export const getBook = async (id?: number) => {
-  return supabase.from('book').select('*', { count: 'exact' }).eq('id', id).single();
+  return supabase.from('book').select('*', { count: 'exact' }).eq('id', id).throwOnError().single();
 };
 
 export const addBook = async (book: BookData) => {
-  return await supabase.from('book').insert(book);
+  return await supabase.from('book').insert(book).throwOnError();
 };
 
 export const updateBook = async (id: number, values: PartialBook) => {
-  return await supabase.from('book').update(values).eq('id', id);
+  return await supabase.from('book').update(values).eq('id', id).throwOnError();
 };
 
 export const deleteBook = async (id: number) => {
-  return await supabase.from('book').delete().eq('id', id);
+  return await supabase.from('book').delete().eq('id', id).throwOnError();
 };
 
 export const getToPurchaseBookCount = async (isbn: string) => {
-  return await supabase.from('book').select('id').eq('isbn', isbn).eq('inStock', false);
+  return await supabase
+    .from('book')
+    .select('id')
+    .eq('isbn', isbn)
+    .eq('inStock', false)
+    .throwOnError();
 };
 
 export const getStockBookCount = async (isbn: string) => {
-  return await supabase.from('book').select('id').eq('isbn', isbn).eq('inStock', true);
+  return await supabase
+    .from('book')
+    .select('id')
+    .eq('isbn', isbn)
+    .eq('inStock', true)
+    .throwOnError();
 };
