@@ -4,8 +4,11 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Loading from '../common/Loading';
+import ErrorBoundary from '../ErrorBoundary';
+import Error from '../common/Error';
 
 const Container = styled.ul`
   position: absolute;
@@ -18,8 +21,8 @@ const Container = styled.ul`
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  z-index: 1;
 `;
-
 const BookTitle = styled.li`
   cursor: pointer;
   padding: 5px;
@@ -31,18 +34,18 @@ const BookTitle = styled.li`
   :hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     transition: box-shadow 0.2s;
+    background-color: ${colors.gray};
   }
-`;
-const ErrorText = styled.p`
-  color: ${colors.red};
-  text-align: center;
-  margin-top: 1rem;
 `;
 
 export default function SearchResult() {
   return (
     <Container>
-      <BookTitleList />
+      <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+        <Suspense fallback={<Loading />}>
+          <BookTitleList />
+        </Suspense>
+      </ErrorBoundary>
     </Container>
   );
 }
@@ -54,7 +57,7 @@ function BookTitleList() {
 
   const [isShowList, setIsShowList] = useState(true);
 
-  const { data: books, error } = useSearchResult(newKeyword);
+  const { data: books } = useSearchResult(newKeyword);
 
   useEffect(() => {
     const handleChangeIsShowList = () => {
@@ -73,12 +76,11 @@ function BookTitleList() {
     }
   }, [books]);
 
-  if (error) return <ErrorText>데이터를 조회할 수 없습니다.</ErrorText>;
-  if (!isShowList || !books) return null;
+  if (!isShowList) return null;
 
   return (
     <>
-      {books.map((book) => {
+      {books?.map((book) => {
         return (
           <BookTitle key={book.isbn}>
             <Link href={{ pathname: `/book/${book.isbn}` }}>{book.title}</Link>
