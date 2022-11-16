@@ -1,27 +1,58 @@
 import Book from '@/components/book/Book';
+import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import { getLayout } from '@/components/layout/Layout';
 import { getNBook } from '@/controller/book';
-import { NBookResponse } from '@/types/book';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirect } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
+import Error from '@/components/common/Error';
+import * as queryKeys from '@/utils/queryKeys';
+import { dehydrate, QueryClient } from 'react-query';
+import { DehydratedStateProps } from '@/types/common';
+import Loading from '@/components/common/Loading';
+import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 
 interface BookInfoProps {
-  book: NBookResponse;
+  error: ErrorType;
 }
 
-const BookInfo: NextPageWithLayout<BookInfoProps> = ({ book }) => {
-  return <Book book={book} />;
+const BookInfo: NextPageWithLayout<BookInfoProps> = ({ error }) => {
+  if (error) return <Error error={error} />;
+
+  return (
+    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+      <SSRSafeSuspence fallback={<Loading />}>
+        <Book />
+      </SSRSafeSuspence>
+    </ErrorBoundary>
+  );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
 
   if (!session) return redirect();
 
-  return { props: { book: await getNBook(context.query.id as string) } };
+  const queryClient = new QueryClient();
+
+  let error = null;
+
+  try {
+    await queryClient.fetchQuery([queryKeys.N_BOOK, context.query], () =>
+      getNBook(context.query.id as string)
+    );
+  } catch (err) {
+    error = err;
+  }
+
+  return {
+    props: {
+      error: JSON.parse(JSON.stringify(error)),
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 BookInfo.getLayout = getLayout;
