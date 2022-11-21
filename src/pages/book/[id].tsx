@@ -39,13 +39,9 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
 
   let error = null;
 
-  try {
-    await queryClient.fetchQuery([queryKeys.N_BOOK, context.query], () =>
-      getNBook(context.query.id as string)
-    );
-  } catch (err) {
-    error = err;
-  }
+  await queryClient
+    .fetchQuery([queryKeys.N_BOOK, context.query], () => getNBook(context.query.id as string))
+    .catch((err) => (error = err));
 
   return {
     props: {
