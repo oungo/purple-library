@@ -1,19 +1,13 @@
 import { NBookResponse } from '@/types/book';
+import { axiosServerInstance } from '@/utils/api';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const axiosInstance = axios.create({
-  headers: {
-    'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID || '',
-    'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET || '',
-  },
-});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { query } = req.query;
 
   try {
-    const response = await axiosInstance.get<NBookResponse>(
+    const response = await axiosServerInstance.get<NBookResponse>(
       process.env.NAVER_BOOK_LIST_API_ENDPOINT || '',
       {
         params: { query },
