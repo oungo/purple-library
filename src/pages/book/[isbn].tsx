@@ -1,7 +1,6 @@
 import Book from '@/components/book/Book';
 import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import { getLayout } from '@/components/layout/Layout';
-import { getNBook } from '@/controller/book';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirect } from 'api/auth';
 import { GetServerSideProps } from 'next';
@@ -12,6 +11,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import { DehydratedStateProps } from '@/types/common';
 import Loading from '@/components/common/Loading';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
+import { getNBook } from 'api/naverBook';
 
 interface BookInfoProps {
   error: ErrorType;
