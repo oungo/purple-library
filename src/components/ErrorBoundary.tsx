@@ -1,7 +1,10 @@
 import { PostgrestError } from '@supabase/supabase-js';
 import React, { ErrorInfo } from 'react';
 
-export interface ErrorType extends PostgrestError, Error {}
+export interface ErrorType extends PostgrestError, Error {
+  errorCode?: string;
+  errorMessage?: string;
+}
 
 interface RenderFallbackProps {
   error: ErrorType;

@@ -13,5 +13,11 @@ interface Props {
 }
 
 export default function Error({ error }: Props) {
-  return <ErrorText>에러가 발생했습니다. {error.message}</ErrorText>;
+  return (
+    <ErrorText>
+      <p>에러가 발생했습니다. </p>
+      <p>{error.message || error.errorMessage}</p>
+      <p>Code: {error.code || error.errorCode}</p>
+    </ErrorText>
+  );
 }

@@ -6,10 +6,10 @@ import BookInfo from './BookInfo';
 
 export default function Book() {
   const router = useRouter();
-  const { id } = router.query;
+  const { isbn } = router.query;
 
-  const { data } = useQuery([queryKeys.N_BOOK, id], () => getNBook(id as string), {
-    enabled: !!id,
+  const { data } = useQuery([queryKeys.N_BOOK, isbn], () => getNBook(isbn as string), {
+    enabled: !!isbn,
   });
 
   return (
