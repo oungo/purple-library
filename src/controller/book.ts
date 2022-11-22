@@ -7,7 +7,7 @@ export const getNBook = async (isbn: string) => {
 
 export const getNBooks = async (keyword: string) => {
   return axiosInstance
-    .get<NBookResponse>('/books', {
+    .get<NBookResponse>('/api/books', {
       params: { query: keyword },
     })
     .then((response) => response.data.items);
