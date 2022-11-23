@@ -8,7 +8,7 @@ export const getServerSession = async (supabaseClient: BookClient) => {
   return session;
 };
 
-export const redirect = () => ({
+export const redirectLoginPage = () => ({
   redirect: {
     destination: '/login',
     permanent: false,

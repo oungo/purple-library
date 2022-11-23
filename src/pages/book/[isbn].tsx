@@ -2,7 +2,7 @@ import Book from '@/components/book/Book';
 import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import { getLayout } from '@/components/layout/Layout';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { getServerSession, redirect } from 'api/auth';
+import { getServerSession, redirectLoginPage } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
 import Error from '@/components/common/Error';
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
 
-  if (!session) return redirect();
+  if (!session) return redirectLoginPage();
 
   const queryClient = new QueryClient();
 

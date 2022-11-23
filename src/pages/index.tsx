@@ -9,7 +9,7 @@ import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
 import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
-import { getServerSession, redirect } from 'api/auth';
+import { getServerSession, redirectLoginPage } from 'api/auth';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import Loading from '@/components/common/Loading';
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
 
-  if (!session) return redirect();
+  if (!session) return redirectLoginPage();
 
   const queryClient = new QueryClient();
 
