@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   let error = null;
 
   await queryClient
-    .fetchQuery([queryKeys.N_BOOK, context.query], () => getNBook(context.query.isbn as string))
+    .fetchQuery([queryKeys.NAVER_BOOK, context.query], () => getNBook(context.query.isbn as string))
     .catch((err) => (error = err.response.data));
 
   return {
