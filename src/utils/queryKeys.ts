@@ -1,4 +1,4 @@
-export const N_BOOKS = 'naverBooks';
+export const NAVER_BOOKS = 'naverBooks';
 export const NAVER_BOOK = 'naverBook';
 export const BOOKS = 'books';
 export const BOOK = 'book';
