@@ -1,5 +1,5 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Label from '../common/Label';
@@ -11,6 +11,8 @@ interface ResetPasswordFormProps {
 }
 
 export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
+  const [successSendMail, setSuccessSendEmail] = useState(false);
+
   const supabase = useSupabaseClient();
 
   const handleSubmit = async (e: MouseEvent<HTMLFormElement>) => {
@@ -18,7 +20,10 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
     const formData = new FormData(e.target as HTMLFormElement);
     const formValue = Object.fromEntries(formData) as AuthFormValue;
 
-    const { error } = await supabase.auth.resetPasswordForEmail(formValue.email);
+    const { data, error } = await supabase.auth.resetPasswordForEmail(formValue.email);
+    if (data) {
+      setSuccessSendEmail(true);
+    }
     if (error) {
       onError(error.message);
     }
@@ -34,6 +39,8 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
       <Button buttonType="primary" type="submit" fullWidth>
         이메일로 비밀번호 재설정 안내
       </Button>
+
+      {successSendMail && <p>비밀번호 재설정 안내 메일을 발송했습니다. 메일을 확인해주세요.</p>}
     </form>
   );
 }
