@@ -1,48 +1,54 @@
 import { colors } from '@/styles/color';
-import React from 'react';
-import styled from 'styled-components';
+import React, { ButtonHTMLAttributes } from 'react';
+import styled, { css } from 'styled-components';
 
-export const PrimaryButton = styled.button`
-  background-color: ${colors.primary};
-  border: 2px solid ${colors.primary};
-  color: ${colors.white};
+type ButtonType = 'primary' | 'default';
+const ButtonComponent = styled.button<{ buttonType?: ButtonType }>`
+  ${(props) => {
+    switch (props.buttonType) {
+      case 'primary':
+        return css`
+          background-color: ${colors.primary};
+          border: 1px solid ${colors.primary};
+          color: ${colors.white};
+          :hover {
+            opacity: 0.8;
+          }
+          :active {
+            background-color: ${colors.primaryVariant};
+            border-color: ${colors.primaryVariant};
+          }
+        `;
+      default:
+        return css`
+          background-color: ${colors.white};
+          border: 1px solid ${colors.gray};
+          color: ${colors.black};
+          :hover {
+            border-color: ${colors.primary};
+            color: ${colors.primary};
+          }
+          :active {
+            border-color: ${colors.primaryVariant};
+            color: ${colors.primaryVariant};
+          }
+        `;
+    }
+  }}
   padding: 5px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: small;
-  font-weight: bold;
-  :hover {
-    opacity: 0.9;
-  }
-  :active {
-    background-color: ${colors.primaryVariant};
-    border-color: ${colors.primaryVariant};
-  }
 `;
 
-export const DefaultButton = styled.button`
-  background-color: ${colors.white};
-  border: 2px solid ${colors.gray};
-  color: ${colors.primary};
-  padding: 5px 20px;
-  border-radius: 10px;
-  font-size: small;
-  font-weight: bold;
-  :hover {
-    box-shadow: 0 8px 20px 1px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.2s;
-  }
-  :active {
-    background-color: ${colors.gray};
-  }
-`;
-
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
   children: React.ReactNode;
-  color?: 'primary' | 'default';
-  onClick?: () => void;
+  buttonType?: ButtonType;
 }
 
-export default function Button({ color = 'default', children, ...props }: ButtonProps) {
-  if (color === 'primary') return <PrimaryButton {...props}>{children}</PrimaryButton>;
-  return <DefaultButton {...props}>{children}</DefaultButton>;
+export default function Button({ buttonType, children, ...props }: ButtonProps) {
+  return (
+    <ButtonComponent buttonType={buttonType} {...props}>
+      {children}
+    </ButtonComponent>
+  );
 }
