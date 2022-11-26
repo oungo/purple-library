@@ -12,10 +12,12 @@ interface SignUpFormProps {
 
 export default function SignUpForm({ onError }: SignUpFormProps) {
   const [successSendAuthMail, setSuccessSendAuthMail] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const supabase = useSupabaseClient();
 
   const handleSubmit = async (e: MouseEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const formValue = Object.fromEntries(formData) as AuthFormValue;
@@ -27,6 +29,7 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
     if (error) {
       onError(error.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -39,7 +42,8 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
         <Label htmlFor="password">Password</Label>
         <Input type="password" name="password" fullWidth />
       </FormItem>
-      <Button fullWidth buttonType="primary" type="submit">
+
+      <Button buttonType="primary" type="submit" loading={loading} fullWidth>
         회원 가입
       </Button>
 

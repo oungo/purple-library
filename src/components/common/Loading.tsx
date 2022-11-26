@@ -1,12 +1,11 @@
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 
-const LoadingWrapper = styled.div`
+export const LoadingWrapper = styled.div`
   display: block;
   position: relative;
   width: 40px;
   height: 40px;
-  margin: auto;
   div {
     box-sizing: border-box;
     display: block;

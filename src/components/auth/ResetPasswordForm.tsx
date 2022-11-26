@@ -12,10 +12,12 @@ interface ResetPasswordFormProps {
 
 export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
   const [successSendMail, setSuccessSendEmail] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const supabase = useSupabaseClient();
 
   const handleSubmit = async (e: MouseEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const formValue = Object.fromEntries(formData) as AuthFormValue;
@@ -27,6 +29,7 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
     if (error) {
       onError(error.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -36,7 +39,7 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
         <Input type="text" name="email" id="email" fullWidth />
       </FormItem>
 
-      <Button buttonType="primary" type="submit" fullWidth>
+      <Button buttonType="primary" type="submit" loading={loading} fullWidth>
         이메일로 비밀번호 재설정 안내
       </Button>
 
