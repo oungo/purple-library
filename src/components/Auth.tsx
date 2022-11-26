@@ -34,9 +34,11 @@ export default function Auth() {
       {formType === 'signUp' && <SignUpForm onError={onError} />}
 
       <ButtonGroup>
-        <button onClick={() => setFormType('signUp')}>회원가입</button>
-        <button onClick={() => setFormType('resetPassword')}>비밀번호 찾기</button>
-        <button onClick={() => setFormType('login')}>로그인</button>
+        {formType !== 'signUp' && <button onClick={() => setFormType('signUp')}>회원가입</button>}
+        {formType !== 'login' && <button onClick={() => setFormType('login')}>로그인</button>}
+        {formType !== 'resetPassword' && (
+          <button onClick={() => setFormType('resetPassword')}>비밀번호 찾기</button>
+        )}
       </ButtonGroup>
 
       {errorMessage}
