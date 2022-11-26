@@ -32,6 +32,11 @@ export default function Auth() {
     setErrorMessage(errorMessage);
   };
 
+  const handleChangeFormType = (value: FormType) => {
+    setFormType(value);
+    setErrorMessage('');
+  };
+
   return (
     <Container>
       {formType === 'login' && <LoginForm onError={onError} />}
@@ -39,10 +44,14 @@ export default function Auth() {
       {formType === 'signUp' && <SignUpForm onError={onError} />}
 
       <ButtonGroup>
-        {formType !== 'signUp' && <button onClick={() => setFormType('signUp')}>회원가입</button>}
-        {formType !== 'login' && <button onClick={() => setFormType('login')}>로그인</button>}
+        {formType !== 'signUp' && (
+          <button onClick={() => handleChangeFormType('signUp')}>회원가입</button>
+        )}
+        {formType !== 'login' && (
+          <button onClick={() => handleChangeFormType('login')}>로그인</button>
+        )}
         {formType !== 'resetPassword' && (
-          <button onClick={() => setFormType('resetPassword')}>비밀번호 찾기</button>
+          <button onClick={() => handleChangeFormType('resetPassword')}>비밀번호 찾기</button>
         )}
       </ButtonGroup>
 
