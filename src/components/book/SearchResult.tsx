@@ -6,9 +6,9 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Spinner from '../common/Spinner';
 import ErrorBoundary from '../ErrorBoundary';
 import Error from '../common/Error';
+import Loading from '../common/Loading';
 
 const Container = styled.ul`
   position: absolute;
@@ -42,7 +42,7 @@ export default function SearchResult() {
   return (
     <Container>
       <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Loading />}>
           <BookTitleList />
         </Suspense>
       </ErrorBoundary>
