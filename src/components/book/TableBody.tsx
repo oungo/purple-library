@@ -10,7 +10,7 @@ import EditBookStatusButton from './EditBookStatusButton';
 
 const Tr = styled.tr`
   :hover {
-    background-color: ${colors.gray};
+    background-color: ${colors.lightGray};
   }
 `;
 const Td = styled.td`
