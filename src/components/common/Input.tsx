@@ -2,7 +2,8 @@ import { colors } from '@/styles/color';
 import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-const InputComponent = styled.input`
+const InputComponent = styled.input<{ fullWidth?: boolean }>`
+  width: ${(props) => props.fullWidth && '100%'};
   padding: 10px;
   border: 1px solid ${colors.gray};
   border-radius: 5px;
@@ -15,8 +16,10 @@ const InputComponent = styled.input`
   }
 `;
 
-interface InputProps extends InputHTMLAttributes<HTMLElement> {}
+interface InputProps extends InputHTMLAttributes<HTMLElement> {
+  fullWidth?: boolean;
+}
 
-export default function Input({ ...props }: InputProps) {
-  return <InputComponent {...props} />;
+export default function Input({ fullWidth, ...props }: InputProps) {
+  return <InputComponent fullWidth={fullWidth} {...props} />;
 }

@@ -3,7 +3,12 @@ import React, { ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 type ButtonType = 'primary' | 'default';
-const ButtonComponent = styled.button<{ buttonType?: ButtonType }>`
+interface ButtonComponentProps {
+  buttonType?: ButtonType;
+  fullWidth?: boolean;
+}
+const ButtonComponent = styled.button<ButtonComponentProps>`
+  width: ${(props) => props.fullWidth && '100%'};
   ${(props) => {
     switch (props.buttonType) {
       case 'primary':
@@ -35,7 +40,7 @@ const ButtonComponent = styled.button<{ buttonType?: ButtonType }>`
         `;
     }
   }}
-  padding: 5px 20px;
+  padding: 10px 20px;
   border-radius: 5px;
   font-size: small;
 `;
@@ -43,11 +48,12 @@ const ButtonComponent = styled.button<{ buttonType?: ButtonType }>`
 interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
   children: React.ReactNode;
   buttonType?: ButtonType;
+  fullWidth?: boolean;
 }
 
-export default function Button({ buttonType, children, ...props }: ButtonProps) {
+export default function Button({ buttonType, fullWidth, children, ...props }: ButtonProps) {
   return (
-    <ButtonComponent buttonType={buttonType} {...props}>
+    <ButtonComponent buttonType={buttonType} fullWidth={fullWidth} {...props}>
       {children}
     </ButtonComponent>
   );
