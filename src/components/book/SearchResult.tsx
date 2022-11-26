@@ -6,7 +6,7 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Loading from '../common/Loading';
+import Spinner from '../common/Spinner';
 import ErrorBoundary from '../ErrorBoundary';
 import Error from '../common/Error';
 
@@ -42,7 +42,7 @@ export default function SearchResult() {
   return (
     <Container>
       <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Spinner />}>
           <BookTitleList />
         </Suspense>
       </ErrorBoundary>

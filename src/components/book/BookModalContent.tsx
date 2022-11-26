@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import BookForm from './BookForm';
 import * as queryKeys from '@/utils/queryKeys';
 import { useBoundStore } from '@/store/useBoundStore';
-import Loading from '../common/Loading';
+import Spinner from '../common/Spinner';
 import { getBook } from 'api/books';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
@@ -53,7 +53,7 @@ export default function BookModalContent() {
     }
   );
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Spinner />;
   if (!book?.data) return <>조회불가</>;
 
   return (

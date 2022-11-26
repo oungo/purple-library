@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import BookModalContent from './BookModalContent';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
-import Loading from '../common/Loading';
+import Spinner from '../common/Spinner';
 import ErrorBoundary from '../ErrorBoundary';
 import Error from '../common/Error';
 
@@ -56,7 +56,7 @@ export default function BookModal() {
 
         <BodySection>
           <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Spinner />}>
               <BookModalContent />
             </Suspense>
           </ErrorBoundary>

@@ -1,7 +1,7 @@
 import { colors } from '@/styles/color';
 import React, { ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import Loading, { LoadingWrapper } from './Loading';
+import Spinner, { SpinnerContainer } from './Spinner';
 
 const ButtonComponent = styled.button<ButtonComponentProps>`
   width: ${(props) => props.fullWidth && '100%'};
@@ -53,7 +53,7 @@ const ButtonComponent = styled.button<ButtonComponentProps>`
 const LoadingContainer = styled.div`
   position: absolute;
   top: 0;
-  ${LoadingWrapper} {
+  ${SpinnerContainer} {
     div {
       border-color: ${colors.white} transparent transparent transparent;
     }
@@ -84,7 +84,7 @@ export default function Button({
     >
       {loading && (
         <LoadingContainer>
-          <Loading />
+          <Spinner />
         </LoadingContainer>
       )}
 

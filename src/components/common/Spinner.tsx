@@ -1,7 +1,7 @@
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 
-export const LoadingWrapper = styled.div`
+export const SpinnerContainer = styled.div`
   display: block;
   position: relative;
   width: 40px;
@@ -37,13 +37,13 @@ export const LoadingWrapper = styled.div`
   }
 `;
 
-export default function Loading() {
+export default function Spinner() {
   return (
-    <LoadingWrapper className="lds-ring">
+    <SpinnerContainer>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
-    </LoadingWrapper>
+    </SpinnerContainer>
   );
 }

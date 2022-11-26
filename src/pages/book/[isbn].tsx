@@ -9,7 +9,7 @@ import Error from '@/components/common/Error';
 import * as queryKeys from '@/utils/queryKeys';
 import { dehydrate, QueryClient } from 'react-query';
 import { DehydratedStateProps } from '@/types/common';
-import Loading from '@/components/common/Loading';
+import Spinner from '@/components/common/Spinner';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import { getNBook } from 'api/naverBook';
 
@@ -22,7 +22,7 @@ const BookInfo: NextPageWithLayout<BookInfoProps> = ({ error }) => {
 
   return (
     <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-      <SSRSafeSuspence fallback={<Loading />}>
+      <SSRSafeSuspence fallback={<Spinner />}>
         <Book />
       </SSRSafeSuspence>
     </ErrorBoundary>
