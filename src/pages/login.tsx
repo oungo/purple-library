@@ -1,5 +1,5 @@
-import AuthGuard from '@/components/AuthGuard';
+import Auth from '@/components/Auth';
 
 export default function Login() {
-  return <AuthGuard />;
+  return <Auth />;
 }
