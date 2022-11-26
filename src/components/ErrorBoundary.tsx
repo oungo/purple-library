@@ -1,5 +1,5 @@
 import { PostgrestError } from '@supabase/supabase-js';
-import React, { ErrorInfo } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 export interface ErrorType extends PostgrestError, Error {
   errorCode?: string;
@@ -11,8 +11,8 @@ interface RenderFallbackProps {
 }
 
 type ErrorBoundaryProps = {
-  children: React.ReactNode;
-  renderFallback: (props: RenderFallbackProps) => React.ReactNode;
+  children: ReactNode;
+  renderFallback: (props: RenderFallbackProps) => ReactNode;
 };
 
 interface ErrorBoundaryState {

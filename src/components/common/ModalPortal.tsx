@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface IModalPortalProps {
   id: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function ModalPortal({ id, children }: IModalPortalProps) {

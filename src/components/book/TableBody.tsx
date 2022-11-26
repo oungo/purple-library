@@ -4,6 +4,7 @@ import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
 import { getBookStatus } from '@/utils/common';
 import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import EditBookStatusButton from './EditBookStatusButton';
 
@@ -46,7 +47,7 @@ const TableBody = () => {
   );
 };
 
-const TableItemWrapper = ({ children }: { children: React.ReactNode }) => {
+const TableItemWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <tr>
       <Wrapper>{children}</Wrapper>

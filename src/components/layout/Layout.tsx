@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 
 export interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Main = styled.main`
