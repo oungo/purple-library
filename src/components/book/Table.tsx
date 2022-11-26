@@ -18,8 +18,8 @@ const Caption = styled.caption`
   margin-bottom: 1rem;
 `;
 const THeadTr = styled.tr`
-  border-bottom: 1px solid ${colors.darkGray};
-  background-color: ${colors.gray};
+  border-bottom: 1px solid ${colors.gray};
+  background-color: ${colors.lightGray};
   th {
     padding: 10px 0;
   }
