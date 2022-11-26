@@ -1,5 +1,7 @@
 import { colors } from '@/styles/color';
-import { useState } from 'react';
+import { useUser } from '@supabase/auth-helpers-react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LoginForm from './auth/LoginForm';
 import ResetPasswordForm from './auth/ResetPasswordForm';
@@ -25,6 +27,15 @@ const ErrorText = styled.p`
 type FormType = 'signUp' | 'login' | 'resetPassword';
 
 export default function Auth() {
+  const user = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
+
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [formType, setFormType] = useState<FormType>('login');
 
