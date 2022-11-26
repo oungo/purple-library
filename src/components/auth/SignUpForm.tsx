@@ -1,5 +1,9 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { MouseEvent } from 'react';
+import Button from '../common/Button';
+import Input from '../common/Input';
+import Label from '../common/Label';
+import { FormItem } from './styled';
 import { AuthFormValue } from './types';
 
 interface SignUpFormProps {
@@ -22,12 +26,19 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email</label>
-      <input type="text" name="email" id="email" />
-      <label htmlFor="password">Password</label>
-      <input type="password" name="password" />
+      <FormItem>
+        <Label htmlFor="email">Email</Label>
+        <Input type="text" name="email" id="email" fullWidth />
+      </FormItem>
 
-      <button type="submit">회원 가입</button>
+      <FormItem>
+        <Label htmlFor="password">Password</Label>
+        <Input type="password" name="password" fullWidth />
+      </FormItem>
+
+      <Button fullWidth buttonType="primary" type="submit">
+        회원 가입
+      </Button>
     </form>
   );
 }

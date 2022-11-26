@@ -28,15 +28,15 @@ export default function LoginForm({ onError }: LoginFormProps) {
     <form onSubmit={handleSubmit}>
       <FormItem>
         <Label htmlFor="email">Email</Label>
-        <Input fullWidth type="text" name="email" id="email" />
+        <Input type="text" name="email" id="email" fullWidth />
       </FormItem>
 
       <FormItem>
         <Label htmlFor="password">Password</Label>
-        <Input fullWidth type="password" name="password" />
+        <Input type="password" name="password" fullWidth />
       </FormItem>
 
-      <Button fullWidth buttonType="primary" type="submit">
+      <Button buttonType="primary" type="submit" fullWidth>
         로그인
       </Button>
     </form>

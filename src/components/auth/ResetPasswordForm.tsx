@@ -1,5 +1,9 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { MouseEvent } from 'react';
+import Button from '../common/Button';
+import Input from '../common/Input';
+import Label from '../common/Label';
+import { FormItem } from './styled';
 import { AuthFormValue } from './types';
 
 interface ResetPasswordFormProps {
@@ -22,10 +26,14 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email</label>
-      <input type="text" name="email" id="email" />
+      <FormItem>
+        <Label htmlFor="email">Email</Label>
+        <Input type="text" name="email" id="email" fullWidth />
+      </FormItem>
 
-      <button type="submit">이메일로 비밀번호 재설정 안내</button>
+      <Button buttonType="primary" type="submit" fullWidth>
+        이메일로 비밀번호 재설정 안내
+      </Button>
     </form>
   );
 }
