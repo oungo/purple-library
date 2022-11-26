@@ -1,3 +1,4 @@
+import { colors } from '@/styles/color';
 import { useState } from 'react';
 import styled from 'styled-components';
 import LoginForm from './auth/LoginForm';
@@ -9,11 +10,15 @@ const Container = styled.div`
   margin: auto;
   padding-top: 200px;
 `;
-
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top: 1rem;
+`;
+const ErrorText = styled.p`
+  color: ${colors.red};
+  text-align: center;
   margin-top: 1rem;
 `;
 
@@ -41,7 +46,7 @@ export default function Auth() {
         )}
       </ButtonGroup>
 
-      {errorMessage}
+      <ErrorText>{errorMessage}</ErrorText>
     </Container>
   );
 }
