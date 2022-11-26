@@ -2,10 +2,12 @@ import { useBooks } from '@/hooks/queries/book';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
-import { getBookStatus } from '@/utils/common';
+import { BOOK_MODAL_ID, getBookStatus } from '@/utils/common';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
+import ModalPortal from '../common/ModalPortal';
+import BookModal from './BookModal';
 import EditBookStatusButton from './EditBookStatusButton';
 
 const Tr = styled.tr`
@@ -43,6 +45,11 @@ const TableBody = () => {
       {books?.data?.map((book) => (
         <TableItem key={book.id} book={book} />
       ))}
+
+      <div id={BOOK_MODAL_ID} />
+      <ModalPortal id={BOOK_MODAL_ID}>
+        <BookModal />
+      </ModalPortal>
     </>
   );
 };
@@ -59,12 +66,10 @@ interface TableItemProps {
   book: Book;
 }
 function TableItem({ book }: TableItemProps) {
-  const setIsOpen = useBoundStore((state) => state.setIsOpen);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const handleClickTitle = () => {
     setSelectedBookId(book.id);
-    setIsOpen(true);
   };
 
   return (

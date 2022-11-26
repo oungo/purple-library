@@ -1,8 +1,5 @@
-import BookModal from '@/components/book/BookModal';
 import Table from '@/components/book/Table';
-import ModalPortal from '@/components/common/ModalPortal';
 import { DehydratedStateProps } from '@/types/common';
-import { BOOK_MODAL_ID } from '@/utils/common';
 import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
@@ -24,18 +21,11 @@ const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
   if (error) return <Error error={error} />;
 
   return (
-    <>
-      <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-        <SSRSafeSuspence fallback={<Loading />}>
-          <Table />
-        </SSRSafeSuspence>
-      </ErrorBoundary>
-
-      <div id={BOOK_MODAL_ID} />
-      <ModalPortal id={BOOK_MODAL_ID}>
-        <BookModal />
-      </ModalPortal>
-    </>
+    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+      <SSRSafeSuspence fallback={<Loading />}>
+        <Table />
+      </SSRSafeSuspence>
+    </ErrorBoundary>
   );
 };
 

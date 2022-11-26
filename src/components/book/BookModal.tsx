@@ -41,17 +41,16 @@ const BodySection = styled.div`
 
 export default function BookModal() {
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
-  const isOpen = useBoundStore((state) => state.isOpen);
-  const setIsOpen = useBoundStore((state) => state.setIsOpen);
+  const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  if (!isOpen || !selectedBookId) return null;
+  if (!selectedBookId) return null;
 
   return (
     <Container>
       <Content>
         <HeadSection>
           <Title>도서 정보</Title>
-          <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
+          <CloseButton onClick={() => setSelectedBookId(0)}>닫기</CloseButton>
         </HeadSection>
 
         <BodySection>
