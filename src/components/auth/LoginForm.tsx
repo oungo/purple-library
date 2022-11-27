@@ -23,8 +23,8 @@ export default function LoginForm({ onError }: LoginFormProps) {
     const { error } = await supabase.auth.signInWithPassword(formValue);
     if (error) {
       onError(error.message);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
