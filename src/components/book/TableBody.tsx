@@ -4,7 +4,6 @@ import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
 import { BOOK_MODAL_ID, getBookStatus } from '@/utils/common';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
 import styled from 'styled-components';
 import ModalPortal from '../common/ModalPortal';
 import BookModal from './BookModal';
@@ -25,7 +24,7 @@ const Td = styled.td`
 const Title = styled.a`
   cursor: pointer;
 `;
-const Wrapper = styled.td`
+const EmptyText = styled.td`
   position: absolute;
   width: 100%;
   text-align: center;
@@ -38,7 +37,12 @@ const TableBody = () => {
 
   const { data: books } = useBooks(router.query);
 
-  if (books?.count === 0) return <TableItemWrapper>조회된 데이터가 없습니다</TableItemWrapper>;
+  if (books?.count === 0)
+    return (
+      <tr>
+        <EmptyText>조회된 데이터가 없습니다</EmptyText>
+      </tr>
+    );
 
   return (
     <>
@@ -51,14 +55,6 @@ const TableBody = () => {
         <BookModal />
       </ModalPortal>
     </>
-  );
-};
-
-const TableItemWrapper = ({ children }: { children: ReactNode }) => {
-  return (
-    <tr>
-      <Wrapper>{children}</Wrapper>
-    </tr>
   );
 };
 
