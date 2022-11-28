@@ -6,6 +6,8 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { updateBook, UpdateBookValues } from 'api/books';
 import Button from '../common/Button';
 import styled from 'styled-components';
+import Input from '../common/Input';
+import Label from '../common/Label';
 
 const SaveButton = styled(Button)`
   position: absolute;
@@ -51,16 +53,16 @@ export default function BookForm({ book }: IBookFormProps) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <label>
+      <Label htmlFor="buyer">
         구매자
-        <input name="buyer" defaultValue={book.buyer || ''} />
-      </label>
-      <label>
+        <Input name="buyer" id="buyer" defaultValue={book.buyer || ''} />
+      </Label>
+      <Label htmlFor="lender">
         보유자
-        <input name="lender" defaultValue={book.lender || ''} />
-      </label>
+        <Input name="lender" id="lender" defaultValue={book.lender || ''} />
+      </Label>
 
-      <SaveButton color="primary">저장</SaveButton>
+      <SaveButton buttonType="primary">저장</SaveButton>
     </Form>
   );
 }
