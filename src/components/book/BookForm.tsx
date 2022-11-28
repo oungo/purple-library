@@ -30,14 +30,14 @@ export interface IBookFormProps {
 export default function BookForm({ book }: IBookFormProps) {
   const queryClient = useQueryClient();
 
-  const setIsOpen = useBoundStore((state) => state.setIsOpen);
+  const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, Partial<UpdateBookValues>>(
     (value) => updateBook(book.id, value),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([queryKeys.BOOKS]);
-        setIsOpen(false);
+        setSelectedBookId(0);
       },
     }
   );

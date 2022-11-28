@@ -64,15 +64,15 @@ interface TableItemProps {
 function TableItem({ book }: TableItemProps) {
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const handleClickTitle = () => {
-    setSelectedBookId(book.id);
+  const handleOpenModal = (id: number) => {
+    setSelectedBookId(id);
   };
 
   return (
     <>
       <Tr key={book.id}>
-        <Td title={book.title} onClick={handleClickTitle}>
-          <Title>{book.title}</Title>
+        <Td title={book.title}>
+          <Title onClick={() => handleOpenModal(book.id)}>{book.title}</Title>
         </Td>
         <Td>{book.author}</Td>
         <Td title={book.publisher || ''}>{book.publisher}</Td>
