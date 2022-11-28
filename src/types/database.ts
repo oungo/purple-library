@@ -6,8 +6,8 @@ export interface Database {
       book: {
         Row: {
           id: number;
-          title: string;
           createdAt: string | null;
+          title: string;
           author: string | null;
           publisher: string | null;
           isbn: string;
@@ -20,8 +20,8 @@ export interface Database {
         };
         Insert: {
           id?: number;
-          title: string;
           createdAt?: string | null;
+          title: string;
           author?: string | null;
           publisher?: string | null;
           isbn: string;
@@ -34,8 +34,8 @@ export interface Database {
         };
         Update: {
           id?: number;
-          title?: string;
           createdAt?: string | null;
+          title?: string;
           author?: string | null;
           publisher?: string | null;
           isbn?: string;
@@ -45,6 +45,32 @@ export interface Database {
           buyer?: string | null;
           buyDate?: string | null;
           lender?: string | null;
+        };
+      };
+      user: {
+        Row: {
+          id: number;
+          created_at: string | null;
+          email: string | null;
+          name: string | null;
+          role: string | null;
+          uid: string | null;
+        };
+        Insert: {
+          id?: number;
+          created_at?: string | null;
+          email?: string | null;
+          name?: string | null;
+          role?: string | null;
+          uid?: string | null;
+        };
+        Update: {
+          id?: number;
+          created_at?: string | null;
+          email?: string | null;
+          name?: string | null;
+          role?: string | null;
+          uid?: string | null;
         };
       };
     };
