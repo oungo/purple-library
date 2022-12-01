@@ -46,7 +46,16 @@ const ButtonComponent = styled.button<ButtonComponentProps>`
       }
     `}
   position: relative;
-  padding: 10px 20px;
+  padding: ${(props) => {
+    switch (props.size) {
+      case 'small':
+        return '3px 10px';
+      case 'large':
+        return '20px 40px';
+      default:
+        return '10px 20px';
+    }
+  }};
   border-radius: 5px;
   font-size: small;
 `;
@@ -64,6 +73,7 @@ interface ButtonComponentProps {
   buttonType?: 'primary' | 'default';
   fullWidth?: boolean;
   loading?: boolean;
+  size?: 'default' | 'small' | 'large';
 }
 interface ButtonProps extends ButtonHTMLAttributes<HTMLElement>, ButtonComponentProps {}
 
@@ -71,6 +81,7 @@ export default function Button({
   buttonType,
   fullWidth,
   loading,
+  size,
   children,
   ...props
 }: ButtonProps) {
@@ -80,6 +91,7 @@ export default function Button({
       fullWidth={fullWidth}
       loading={loading}
       disabled={loading}
+      size={size}
       {...props}
     >
       {loading && (
