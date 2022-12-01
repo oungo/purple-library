@@ -3,11 +3,20 @@ import { useBookMutation } from '@/hooks/mutations/book';
 import { useBooks } from '@/hooks/queries/book';
 import { Book, PartialBook } from '@/types/book';
 import { ColumnsType } from '@/types/common';
-import { getBookStatus } from '@/utils/common';
+import { BOOK_MODAL_ID, getBookStatus } from '@/utils/common';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
+import Modal from '../common/Modal';
+import { useState } from 'react';
+import BookModalContent from './BookModalContent';
+import { colors } from '@/styles/color';
+import styled from 'styled-components';
+
+const UpdateButton = styled.button`
+  color: ${colors.second};
+`;
 
 type UserColumnsType = ColumnsType<Book>;
 
@@ -63,6 +72,8 @@ export default function BookTable() {
   const user = useUser();
   const queryClient = useQueryClient();
 
+  const [selectedBookId, setSelectedBookId] = useState<number | null>(null);
+
   const { data: books } = useBooks(router.query);
 
   const { mutate } = useBookMutation({
@@ -99,7 +110,27 @@ export default function BookTable() {
         );
       },
     },
+    {
+      dataIndex: 'id',
+      width: '5%',
+      render: (value: number) => (
+        <UpdateButton onClick={() => setSelectedBookId(value)}>수정</UpdateButton>
+      ),
+    },
   ];
 
-  return <Table columns={newColumns} dataSource={books?.data || []} />;
+  return (
+    <>
+      <Table columns={newColumns} dataSource={books?.data || []} />
+
+      <Modal
+        id={BOOK_MODAL_ID}
+        title="도서 수정"
+        visible={!!selectedBookId}
+        closeModal={() => setSelectedBookId(null)}
+      >
+        <BookModalContent selectedBook={books?.data?.find((book) => book.id === selectedBookId)} />
+      </Modal>
+    </>
+  );
 }
