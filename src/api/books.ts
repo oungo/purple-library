@@ -4,6 +4,7 @@ import { supabase } from '@/utils/supabaseClient';
 import { ParsedUrlQuery } from 'querystring';
 
 export interface UpdateBookValues {
+  id: number;
   inStock: boolean;
 }
 
@@ -33,8 +34,8 @@ export const addBook = async (book: BookData) => {
   return await supabase.from('book').insert(book).throwOnError();
 };
 
-export const updateBook = async (id: number, values: PartialBook) => {
-  return await supabase.from('book').update(values).eq('id', id).throwOnError();
+export const updateBook = async (values: PartialBook) => {
+  return await supabase.from('book').update(values).eq('id', values.id).throwOnError();
 };
 
 export const deleteBook = async (id: number) => {

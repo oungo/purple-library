@@ -35,7 +35,7 @@ export default function BookForm({ book }: IBookFormProps) {
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, Partial<UpdateBookValues>>(
-    (value) => updateBook(book.id, value),
+    updateBook,
     {
       onSuccess: () => {
         queryClient.invalidateQueries([queryKeys.BOOKS]);
@@ -48,7 +48,7 @@ export default function BookForm({ book }: IBookFormProps) {
     e.preventDefault();
 
     const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-    mutate(values);
+    mutate({ id: book.id, ...values });
   };
 
   return (

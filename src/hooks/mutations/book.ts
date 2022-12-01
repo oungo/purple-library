@@ -8,9 +8,9 @@ type MutationOptions = Omit<
   'mutationFn'
 >;
 
-export const useBookMutation = (id: number, options?: MutationOptions) => {
+export const useBookMutation = (options?: MutationOptions) => {
   return useMutation<PostgrestResponse<undefined>, unknown, PartialBook>(
-    (value) => updateBook(id, value),
+    (value) => updateBook(value),
     options
   );
 };
