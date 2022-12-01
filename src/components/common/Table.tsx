@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const TableContainer = styled.table`
   table-layout: fixed;
   width: 100%;
+  position: relative;
 `;
 const TheadTr = styled.tr`
   border-bottom: 1px solid ${colors.gray};
@@ -24,6 +25,13 @@ const Td = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+`;
+const EmptyTd = styled.td`
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: ${colors.darkGray};
 `;
 
 interface TableProps<RecordType> {
@@ -51,6 +59,11 @@ export const Table = <RecordType extends Record<string, any>>({
         </TheadTr>
       </thead>
       <tbody>
+        {dataSource.length < 1 && (
+          <tr>
+            <EmptyTd>조회된 데이터가 없습니다</EmptyTd>
+          </tr>
+        )}
         {dataSource?.map((data) => (
           <TbodyTr key={data.id}>
             {columns.map((col) => (
