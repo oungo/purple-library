@@ -51,7 +51,7 @@ const columns: ColumnsType = [
   },
 ];
 
-export default function UserList() {
+export default function UserTable() {
   const { data: users } = useQuery([queryKeys.USERS], getUsers);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 

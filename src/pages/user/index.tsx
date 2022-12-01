@@ -3,7 +3,7 @@ import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import { NextPageWithLayout } from 'pages/_app';
 import { getLayout } from '@/components/layout/Layout';
-import UserList from '@/components/user/UserList';
+import UserTable from '@/components/user/UserTable';
 import { DehydratedStateProps } from '@/types/common';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirectLoginPage } from 'api/auth';
@@ -23,7 +23,7 @@ const User: NextPageWithLayout<BookInfoProps> = ({ error }) => {
   return (
     <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
-        <UserList />
+        <UserTable />
       </SSRSafeSuspence>
     </ErrorBoundary>
   );
