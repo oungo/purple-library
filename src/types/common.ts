@@ -5,11 +5,11 @@ export interface DehydratedStateProps {
   dehydratedState: DehydratedState;
 }
 
-export type ColumnsType = Array<{
+export type ColumnsType<Type> = Array<{
   title?: string;
   dataIndex?: string;
   width?: string | number;
   align?: TdHTMLAttributes<HTMLTableCellElement>['align'];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  render?: (value: any) => ReactNode;
+  render?: (value: any, record: Type) => ReactNode;
 }>;

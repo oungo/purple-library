@@ -91,6 +91,7 @@ export default function BookTable() {
             </button>
           );
         }
+
         return (
           <button onClick={() => handleChangeBookStatus({ id, inStock: true })}>
             보유 도서로 이동

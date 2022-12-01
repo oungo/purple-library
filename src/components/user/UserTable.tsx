@@ -8,12 +8,13 @@ import { USER_MODAL_ID } from '@/utils/common';
 import { useState } from 'react';
 import UserForm from './UserForm';
 import Modal from '../common/Modal';
+import { User } from '@/types/user';
 
 const Container = styled.section`
   padding: 0 100px;
 `;
 
-const columns: ColumnsType = [
+const columns: ColumnsType<User> = [
   {
     title: 'id',
     dataIndex: 'id',
@@ -59,7 +60,7 @@ export default function UserTable() {
     setSelectedUserId(userId);
   };
 
-  const newColumns: ColumnsType = [
+  const newColumns: ColumnsType<User> = [
     ...columns,
     {
       title: '',

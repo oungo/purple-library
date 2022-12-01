@@ -27,7 +27,7 @@ const Td = styled.td`
 `;
 
 interface TableProps<RecordType> {
-  columns: ColumnsType;
+  columns: ColumnsType<RecordType>;
   dataSource: RecordType[];
 }
 
@@ -56,7 +56,7 @@ export const Table = <RecordType extends Record<string, any>>({
             {columns.map((col) => (
               <Td key={`${col.title}${col.dataIndex}`} align={col.align || 'left'}>
                 {col.render
-                  ? col.render(col.dataIndex && data[col.dataIndex])
+                  ? col.render(col.dataIndex && data[col.dataIndex], data)
                   : col.dataIndex && data[col.dataIndex]}
               </Td>
             ))}
