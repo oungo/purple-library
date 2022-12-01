@@ -5,9 +5,9 @@ import { ColumnsType } from '@/types/common';
 import { Table } from '../common/Table';
 import styled from 'styled-components';
 import { USER_MODAL_ID } from '@/utils/common';
-import ModalPortal from '../common/ModalPortal';
 import { useState } from 'react';
-import UserModal from './UserModal';
+import UserForm from './UserForm';
+import Modal from '../common/Modal';
 
 const Container = styled.section`
   padding: 0 100px;
@@ -74,15 +74,13 @@ export default function UserList() {
     <Container>
       <Table columns={newColumns} dataSource={users?.data || []} />
 
-      <div id={USER_MODAL_ID} />
-      {selectedUserId && (
-        <ModalPortal id={USER_MODAL_ID}>
-          <UserModal
-            selectedUser={users?.data?.find((user) => user.id === selectedUserId)}
-            closeModal={() => setSelectedUserId(null)}
-          />
-        </ModalPortal>
-      )}
+      <Modal
+        id={USER_MODAL_ID}
+        visible={!!selectedUserId}
+        closeModal={() => setSelectedUserId(null)}
+      >
+        <UserForm selectedUser={users?.data?.find((user) => user.id === selectedUserId)} />
+      </Modal>
     </Container>
   );
 }
