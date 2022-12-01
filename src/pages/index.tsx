@@ -1,4 +1,4 @@
-import Table from '@/components/book/Table';
+import BookList from '@/components/book/BookList';
 import { DehydratedStateProps } from '@/types/common';
 import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
@@ -23,7 +23,7 @@ const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
   return (
     <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
-        <Table />
+        <BookList />
       </SSRSafeSuspence>
     </ErrorBoundary>
   );
