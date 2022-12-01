@@ -6,8 +6,8 @@ export interface DehydratedStateProps {
 }
 
 export type ColumnsType = Array<{
-  title: string;
-  dataIndex: string;
+  title?: string;
+  dataIndex?: string;
   width?: string | number;
   align?: TdHTMLAttributes<HTMLTableCellElement>['align'];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
