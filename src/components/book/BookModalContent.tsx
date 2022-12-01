@@ -1,13 +1,11 @@
 import { useQuery } from 'react-query';
 import BookForm from './BookForm';
 import * as queryKeys from '@/utils/queryKeys';
-import { useBoundStore } from '@/store/useBoundStore';
-import Spinner from '../common/Spinner';
-import { getBook } from 'api/books';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
 import { getUser } from 'api/user';
 import { useUser } from '@supabase/auth-helpers-react';
+import { Book } from '@/types/book';
 
 const Section = styled.section`
   display: flex;
@@ -37,51 +35,45 @@ const DT = styled.dt`
   color: ${colors.fourth};
 `;
 
-export default function BookModalContent() {
-  const selectedBookId = useBoundStore((state) => state.selectedBookId);
+interface BookModalContentProps {
+  selectedBook?: Book;
+}
+
+export default function BookModalContent({ selectedBook }: BookModalContentProps) {
   const authUser = useUser();
 
   const { data: user } = useQuery([queryKeys.USER], () => getUser(authUser?.id), {
     enabled: !!authUser?.id,
   });
 
-  const { data: book, isLoading } = useQuery(
-    [queryKeys.BOOK, selectedBookId],
-    () => getBook(selectedBookId),
-    {
-      enabled: !!selectedBookId,
-    }
-  );
-
-  if (isLoading) return <Spinner />;
-  if (!book?.data) return <>조회불가</>;
+  if (!selectedBook) return <p>조회불가</p>;
 
   return (
     <Section>
       <ImageWrapper>
-        <img src={book.data.image || ''} alt="도서 이미지" width={250} height={350} />
+        <img src={selectedBook.image || ''} alt="도서 이미지" width={250} height={350} />
       </ImageWrapper>
 
       <div>
         <dl>
-          <Title>{book.data.title}</Title>
-          {book.data.author && (
+          <Title>{selectedBook.title}</Title>
+          {selectedBook.author && (
             <Wrapper>
               <DT>작가</DT>
-              <dd>{book.data.author}</dd>
+              <dd>{selectedBook.author}</dd>
             </Wrapper>
           )}
-          {book.data.publisher && (
+          {selectedBook.publisher && (
             <Wrapper>
               <DT>출판사</DT>
-              <dd>{book.data.publisher}</dd>
+              <dd>{selectedBook.publisher}</dd>
             </Wrapper>
           )}
         </dl>
 
         {user?.data?.role === 'admin' && (
           <FormWrapper>
-            <BookForm book={book.data} />
+            <BookForm book={selectedBook} />
           </FormWrapper>
         )}
       </div>
