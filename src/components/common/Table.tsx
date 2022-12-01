@@ -40,13 +40,13 @@ export const Table = <RecordType extends Record<string, any>>({
     <TableContainer align="right">
       <colgroup>
         {columns.map((col) => (
-          <col key={col.dataIndex} width={col.width}></col>
+          <col key={`${col.title}${col.dataIndex}`} width={col.width}></col>
         ))}
       </colgroup>
       <thead>
         <TheadTr>
           {columns?.map((col) => (
-            <th key={col.dataIndex}>{col.title}</th>
+            <th key={`${col.title}${col.dataIndex}`}>{col.title}</th>
           ))}
         </TheadTr>
       </thead>
@@ -54,8 +54,10 @@ export const Table = <RecordType extends Record<string, any>>({
         {dataSource?.map((data) => (
           <TbodyTr key={data.id}>
             {columns.map((col) => (
-              <Td key={col.dataIndex} align={col.align || 'left'}>
-                {col.render ? col.render(data[col.dataIndex]) : data[col.dataIndex]}
+              <Td key={`${col.title}${col.dataIndex}`} align={col.align || 'left'}>
+                {col.render
+                  ? col.render(col.dataIndex && data[col.dataIndex])
+                  : col.dataIndex && data[col.dataIndex]}
               </Td>
             ))}
           </TbodyTr>
