@@ -13,6 +13,7 @@ import { useState } from 'react';
 import BookModalContent from './BookModalContent';
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
+import Button from '../common/Button';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -95,18 +96,24 @@ export default function BookTable() {
       render: (_, { id, inStock, lender }) => {
         if (inStock) {
           return user?.email === lender ? (
-            <button onClick={() => handleChangeBookStatus({ id, lender: '' })}>반납</button>
+            <Button size="small" onClick={() => handleChangeBookStatus({ id, lender: '' })}>
+              반납
+            </Button>
           ) : (
-            <button onClick={() => handleChangeBookStatus({ id, lender: user?.email })}>
+            <Button
+              size="small"
+              buttonType="primary"
+              onClick={() => handleChangeBookStatus({ id, lender: user?.email })}
+            >
               대여
-            </button>
+            </Button>
           );
         }
 
         return (
-          <button onClick={() => handleChangeBookStatus({ id, inStock: true })}>
+          <Button size="small" onClick={() => handleChangeBookStatus({ id, inStock: true })}>
             보유 도서로 이동
-          </button>
+          </Button>
         );
       },
     },
