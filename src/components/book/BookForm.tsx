@@ -34,15 +34,16 @@ export default function BookForm({ book }: IBookFormProps) {
 
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, Partial<UpdateBookValues>>(
-    updateBook,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.BOOKS]);
-        setSelectedBookId(0);
-      },
-    }
-  );
+  const { mutate, isLoading } = useMutation<
+    PostgrestResponse<undefined>,
+    unknown,
+    Partial<UpdateBookValues>
+  >(updateBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([queryKeys.BOOKS]);
+      setSelectedBookId(null);
+    },
+  });
 
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +63,9 @@ export default function BookForm({ book }: IBookFormProps) {
         <Input name="lender" id="lender" defaultValue={book.lender || ''} />
       </Label>
 
-      <SaveButton buttonType="primary">저장</SaveButton>
+      <SaveButton loading={isLoading} buttonType="primary">
+        저장
+      </SaveButton>
     </Form>
   );
 }
