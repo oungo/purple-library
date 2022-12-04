@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
 import Modal from '../common/Modal';
-import { useState } from 'react';
 import BookModalContent from './BookModalContent';
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Button from '../common/Button';
+import { useBoundStore } from '@/store/useBoundStore';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -73,7 +73,8 @@ export default function BookTable() {
   const user = useUser();
   const queryClient = useQueryClient();
 
-  const [selectedBookId, setSelectedBookId] = useState<number | null>(null);
+  const selectedBookId = useBoundStore((state) => state.selectedBookId);
+  const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const { data: books } = useBooks(router.query);
 
