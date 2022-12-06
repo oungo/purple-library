@@ -1,11 +1,9 @@
-import { useQuery } from 'react-query';
 import BookForm from './BookForm';
-import * as queryKeys from '@/utils/queryKeys';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
-import { getUser } from 'api/user';
 import { useUser } from '@supabase/auth-helpers-react';
 import { Book } from '@/types/book';
+import { useCurrentUser } from '@/hooks/queries/useCurrentUser';
 
 const Section = styled.section`
   display: flex;
@@ -42,9 +40,7 @@ interface BookModalContentProps {
 export default function BookModalContent({ selectedBook }: BookModalContentProps) {
   const authUser = useUser();
 
-  const { data: user } = useQuery([queryKeys.USER], () => getUser(authUser?.id), {
-    enabled: !!authUser?.id,
-  });
+  const { data: user } = useCurrentUser(authUser?.id);
 
   if (!selectedBook) return <p>조회불가</p>;
 
