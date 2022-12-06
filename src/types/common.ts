@@ -13,3 +13,7 @@ export type ColumnsType<Type> = Array<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render?: (value: any, record: Type) => ReactNode;
 }>;
+
+export type RemoveNull<Type> = {
+  [Property in keyof Type]: NonNullable<Type[Property]>;
+};
