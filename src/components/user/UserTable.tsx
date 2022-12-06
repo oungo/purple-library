@@ -11,9 +11,13 @@ import Modal from '../common/Modal';
 import { User } from '@/types/user';
 import { useRouter } from 'next/router';
 import Pagination from '../book/Pagination';
+import { colors } from '@/styles/color';
 
 const Container = styled.section`
   padding: 0 100px;
+`;
+const UpdateButton = styled.button`
+  color: ${colors.second};
 `;
 
 const columns: ColumnsType<User> = [
@@ -80,7 +84,7 @@ export default function UserTable() {
       title: '',
       dataIndex: 'id',
       render: (value: number) => {
-        return <button onClick={() => handleOpenModal(value)}>수정</button>;
+        return <UpdateButton onClick={() => handleOpenModal(value)}>수정</UpdateButton>;
       },
     },
   ];
