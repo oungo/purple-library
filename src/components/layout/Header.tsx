@@ -11,7 +11,7 @@ const Head = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${colors.lightGray};
+  border-bottom: 1px solid ${colors.lightGray};
 `;
 const LogoutButton = styled.button`
   margin-left: 1rem;
