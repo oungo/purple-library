@@ -74,7 +74,7 @@ export default function BookTable() {
   const router = useRouter();
   const user = useUser();
   const queryClient = useQueryClient();
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser(user?.id);
 
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
