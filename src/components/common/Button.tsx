@@ -37,7 +37,7 @@ const ButtonComponent = styled.button<ButtonComponentProps>`
     }
   }}
   ${(props) =>
-    props.loading &&
+    props.$loading &&
     css`
       opacity: 0.5;
       :hover {
@@ -71,13 +71,13 @@ const LoadingContainer = styled.div`
   }
 `;
 
-interface ButtonComponentProps {
+type ButtonComponentProps = Omit<ButtonProps, 'loading'> & { $loading?: boolean };
+interface ButtonProps extends ButtonHTMLAttributes<HTMLElement> {
   buttonType?: 'primary' | 'default';
   fullWidth?: boolean;
   loading?: boolean;
   size?: 'default' | 'small' | 'large';
 }
-interface ButtonProps extends ButtonHTMLAttributes<HTMLElement>, ButtonComponentProps {}
 
 export default function Button({
   buttonType,
@@ -91,7 +91,7 @@ export default function Button({
     <ButtonComponent
       buttonType={buttonType}
       fullWidth={fullWidth}
-      loading={loading}
+      $loading={loading}
       disabled={loading}
       size={size}
       {...props}
