@@ -6,7 +6,7 @@ export const getUser = async (uid?: string) => {
 };
 
 export const getUsers = async () => {
-  return supabase.from('user').select('*').throwOnError();
+  return supabase.from('user').select('*').order('id', { ascending: false }).throwOnError();
 };
 
 export const updateUser = async (values: PartialUser) => {
