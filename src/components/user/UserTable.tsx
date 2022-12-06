@@ -64,6 +64,9 @@ export default function UserTable() {
     setSelectedUserId(userId);
   };
 
+  const handleCloseModal = () => {
+    setSelectedUserId(null);
+  };
   const newColumns: ColumnsType<User> = [
     ...columns,
     {
@@ -75,16 +78,19 @@ export default function UserTable() {
     },
   ];
 
+  const selectedUser = users?.data?.find((user) => user.id === selectedUserId);
+
   return (
     <Container>
       <Table columns={newColumns} dataSource={users?.data || []} />
 
       <Modal
         id={USER_MODAL_ID}
+        title="사용자 수정"
         visible={!!selectedUserId}
-        closeModal={() => setSelectedUserId(null)}
+        closeModal={handleCloseModal}
       >
-        <UserForm selectedUser={users?.data?.find((user) => user.id === selectedUserId)} />
+        {selectedUser && <UserForm selectedUser={selectedUser} closeModal={handleCloseModal} />}
       </Modal>
     </Container>
   );
