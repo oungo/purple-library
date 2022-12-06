@@ -9,6 +9,8 @@ import { useState } from 'react';
 import UserForm from './UserForm';
 import Modal from '../common/Modal';
 import { User } from '@/types/user';
+import { useRouter } from 'next/router';
+import Pagination from '../book/Pagination';
 
 const Container = styled.section`
   padding: 0 100px;
@@ -57,7 +59,12 @@ const columns: ColumnsType<User> = [
 ];
 
 export default function UserTable() {
-  const { data: users } = useQuery([queryKeys.USERS], getUsers);
+  const router = useRouter();
+
+  const { data: users } = useQuery([queryKeys.USERS], () => getUsers(router.query), {
+    keepPreviousData: true,
+  });
+
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   const handleOpenModal = (userId: number) => {
@@ -83,6 +90,8 @@ export default function UserTable() {
   return (
     <Container>
       <Table columns={newColumns} dataSource={users?.data || []} />
+
+      <Pagination totalCount={users?.count ?? 0} />
 
       <Modal
         id={USER_MODAL_ID}

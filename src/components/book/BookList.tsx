@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import BookTable from './BookTable';
-import Pagination from './Pagination';
 import Tabs from './Tabs';
 
 //#region
@@ -18,8 +17,6 @@ export default function BookList() {
       <TableWrapper>
         <BookTable />
       </TableWrapper>
-
-      <Pagination />
     </>
   );
 }

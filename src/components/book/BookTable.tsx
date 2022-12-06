@@ -14,6 +14,7 @@ import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import { useBoundStore } from '@/store/useBoundStore';
+import Pagination from './Pagination';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -130,6 +131,8 @@ export default function BookTable() {
   return (
     <>
       <Table columns={newColumns} dataSource={books?.data || []} />
+
+      <Pagination totalCount={books?.count || 0} />
 
       <Modal
         id={BOOK_MODAL_ID}

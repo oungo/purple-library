@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   let error = null;
 
   await queryClient
-    .fetchQuery([queryKeys.USERS], getUsers)
+    .fetchQuery([queryKeys.USERS], () => getUsers(context.query))
     .catch((err) => (error = err.response.data));
 
   return {

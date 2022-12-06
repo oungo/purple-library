@@ -3,7 +3,6 @@ import { PAGE_SIZE } from '@/utils/common';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useBooks } from '@/hooks/queries/book';
 
 const Container = styled.div`
   display: flex;
@@ -34,23 +33,25 @@ const PageNumber = styled.a<PageNumberProps>`
   border-radius: 5px;
 `;
 
+interface PaginationProps {
+  totalCount?: number;
+}
+
 const PAGE_COUNT = 10;
 
-export default function Pagination() {
+export default function Pagination({ totalCount }: PaginationProps) {
   const router = useRouter();
   const query = router.query;
 
   const pageNumber = Number(query.page || 1);
 
-  const { data: books } = useBooks(query);
-
-  if (!books?.count || books?.data?.length < 1) return null;
+  if (!totalCount || totalCount < 1) return null;
 
   return (
     <Container>
       <PrevPageArrow pageNumber={pageNumber} />
       <PageNumbers>
-        {getPageNumbers(books.count)
+        {getPageNumbers(totalCount)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
             <Link key={page} href={{ pathname: router.pathname, query: { ...query, page } }}>
@@ -58,7 +59,7 @@ export default function Pagination() {
             </Link>
           ))}
       </PageNumbers>
-      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(books.count).length} />
+      <NextPageArrow pageNumber={pageNumber} lastPage={getPageNumbers(totalCount).length} />
     </Container>
   );
 }
