@@ -46,7 +46,11 @@ const columns: ColumnsType<User> = [
     align: 'center',
     render: (value: Date) => {
       const date = new Date(value);
-      const intl = new Intl.DateTimeFormat('ko');
+      const intl = new Intl.DateTimeFormat('ko', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+      });
       return <div>{intl.format(date)}</div>;
     },
   },
