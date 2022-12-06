@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
+import { useCurrentUser } from '../../hooks/queries/useCurrentUser';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -73,6 +74,7 @@ export default function BookTable() {
   const router = useRouter();
   const user = useUser();
   const queryClient = useQueryClient();
+  const { data: currentUser } = useCurrentUser();
 
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
@@ -130,7 +132,10 @@ export default function BookTable() {
 
   return (
     <>
-      <Table columns={newColumns} dataSource={books?.data || []} />
+      <Table
+        columns={currentUser?.data?.role === 'admin' ? newColumns : newColumns.slice(0, -1)}
+        dataSource={books?.data || []}
+      />
 
       <Pagination totalCount={books?.count || 0} />
 
