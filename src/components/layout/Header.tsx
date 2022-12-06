@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <Head>
-      <Link href="/">홈</Link>
+      <Link href="/">Home</Link>
 
       <Search />
 

@@ -1,4 +1,7 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import styled from 'styled-components';
+import { useCurrentUser } from '@/hooks/queries/useCurrentUser';
+import Link from 'next/link';
 
 const NavList = styled.ul`
   display: flex;
@@ -8,10 +11,18 @@ const NavList = styled.ul`
 `;
 
 export default function Nav() {
+  const authUser = useUser();
+
+  const { data: user } = useCurrentUser(authUser?.id);
+
   return (
     <nav>
       <NavList>
-        <li>내 책</li>
+        {user?.data?.role === 'admin' && (
+          <li>
+            <Link href="/user">사용자 목록</Link>
+          </li>
+        )}
       </NavList>
     </nav>
   );
