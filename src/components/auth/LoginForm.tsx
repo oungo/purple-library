@@ -31,7 +31,7 @@ export default function LoginForm({ onError }: LoginFormProps) {
     <form onSubmit={handleSubmit}>
       <FormItem>
         <Label htmlFor="email">Email</Label>
-        <Input type="text" name="email" id="email" fullWidth />
+        <Input type="email" pattern=".+@purple.io" name="email" id="email" fullWidth />
       </FormItem>
 
       <FormItem>

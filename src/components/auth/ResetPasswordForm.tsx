@@ -36,7 +36,7 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
     <form onSubmit={handleSubmit}>
       <FormItem>
         <Label htmlFor="email">Email</Label>
-        <Input type="text" name="email" id="email" fullWidth />
+        <Input type="email" pattern=".+@purple.io" name="email" id="email" fullWidth />
       </FormItem>
 
       <Button buttonType="primary" type="submit" loading={loading} fullWidth>

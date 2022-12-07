@@ -36,7 +36,14 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
     <form onSubmit={handleSubmit}>
       <FormItem>
         <Label htmlFor="email">Email</Label>
-        <Input type="text" name="email" id="email" fullWidth />
+        <Input
+          type="email"
+          pattern=".+@purple.io"
+          name="email"
+          id="email"
+          placeholder="퍼플아이오 메일을 사용해주세요. ex) admin@purple.io"
+          fullWidth
+        />
       </FormItem>
       <FormItem>
         <Label htmlFor="password">Password</Label>

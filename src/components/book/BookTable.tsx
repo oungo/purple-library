@@ -72,15 +72,14 @@ const columns: UserColumnsType = [
 
 export default function BookTable() {
   const router = useRouter();
-
   const queryClient = useQueryClient();
+
   const { data: user } = useUser();
+  const { data: books } = useBooks(router.query);
+  const isAdmin = useCheckAdmin();
 
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
-
-  const { data: books } = useBooks(router.query);
-  const isAdmin = useCheckAdmin();
 
   const { mutate } = useBookMutation({
     onSuccess: () => {
