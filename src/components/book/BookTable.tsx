@@ -4,7 +4,6 @@ import { useBooks } from '@/hooks/queries/book';
 import { Book, PartialBook } from '@/types/book';
 import { ColumnsType } from '@/types/common';
 import { BOOK_MODAL_ID, getBookStatus } from '@/utils/common';
-import { useUser } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
@@ -15,7 +14,8 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
-import { useCurrentUser } from '../../hooks/queries/useCurrentUser';
+import { useUser } from '@/hooks/use-user';
+import { useCheckAdmin } from '../../hooks/use-check-admin';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -72,14 +72,15 @@ const columns: UserColumnsType = [
 
 export default function BookTable() {
   const router = useRouter();
-  const user = useUser();
+
   const queryClient = useQueryClient();
-  const { data: currentUser } = useCurrentUser(user?.id);
+  const { data: user } = useUser();
 
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
   const { data: books } = useBooks(router.query);
+  const isAdmin = useCheckAdmin();
 
   const { mutate } = useBookMutation({
     onSuccess: () => {
@@ -99,7 +100,7 @@ export default function BookTable() {
       width: '10%',
       render: (_, { id, inStock, lender }) => {
         if (inStock) {
-          return user?.email === lender ? (
+          return user?.data?.email === lender ? (
             <Button size="small" onClick={() => handleChangeBookStatus({ id, lender: '' })}>
               반납
             </Button>
@@ -107,7 +108,7 @@ export default function BookTable() {
             <Button
               size="small"
               buttonType="primary"
-              onClick={() => handleChangeBookStatus({ id, lender: user?.email })}
+              onClick={() => handleChangeBookStatus({ id, lender: user?.data?.email ?? '' })}
             >
               대여
             </Button>
@@ -133,7 +134,7 @@ export default function BookTable() {
   return (
     <>
       <Table
-        columns={currentUser?.data?.role === 'admin' ? newColumns : newColumns.slice(0, -1)}
+        columns={isAdmin ? newColumns : newColumns.slice(0, -1)}
         dataSource={books?.data || []}
       />
 
