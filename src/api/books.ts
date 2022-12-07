@@ -31,30 +31,30 @@ export const getBook = async (id?: number) => {
 };
 
 export const addBook = async (book: BookData) => {
-  return await supabase.from('book').insert(book).throwOnError();
+  return supabase.from('book').insert(book).throwOnError();
 };
 
 export const updateBook = async (values: PartialBook) => {
-  return await supabase.from('book').update(values).eq('id', values.id).throwOnError();
+  return supabase.from('book').update(values).eq('id', values.id).throwOnError();
 };
 
 export const deleteBook = async (id: number) => {
-  return await supabase.from('book').delete().eq('id', id).throwOnError();
+  return supabase.from('book').delete().eq('id', id).throwOnError();
 };
 
 export const getToPurchaseBookCount = async (isbn: string) => {
-  return await supabase
+  return supabase
     .from('book')
-    .select('id')
+    .select('id', { count: 'exact' })
     .eq('isbn', isbn)
     .eq('inStock', false)
     .throwOnError();
 };
 
 export const getStockBookCount = async (isbn: string) => {
-  return await supabase
+  return supabase
     .from('book')
-    .select('id')
+    .select('id', { count: 'exact' })
     .eq('isbn', isbn)
     .eq('inStock', true)
     .throwOnError();

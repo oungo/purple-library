@@ -11,7 +11,7 @@ export default function ToPurchaseBookCount({ isbn }: BookCountProps) {
     getToPurchaseBookCount(isbn)
   );
 
-  if (!data || (data.data && data.data?.length < 1)) return null;
+  if ((data?.count ?? 0) < 1) return null;
 
-  return <p>{data.data?.length}권 구매 예정</p>;
+  return <p>{data?.count}권 구매 예정</p>;
 }

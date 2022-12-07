@@ -7,10 +7,11 @@ import StockBookCount from './StockBookCount';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
 import { addBook } from 'api/books';
 import { useUser } from '@supabase/auth-helpers-react';
+import { colors } from '@/styles/color';
 
 const Article = styled.article`
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
   padding: 0 100px;
 `;
 const InfoSection = styled.section`
@@ -37,7 +38,16 @@ const CoverImage = styled.img`
   width: 400px;
   box-shadow: 1px 1px 5px;
 `;
-
+const Wrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  dt {
+    color: ${colors.fourth};
+  }
+`;
+const BuyLink = styled.a`
+  color: ${colors.second};
+`;
 export interface BookInfoProps {
   book: NBook;
 }
@@ -46,7 +56,7 @@ export default function BookInfo({ book }: BookInfoProps) {
   const queryClient = useQueryClient();
   const user = useUser();
 
-  const { mutate } = useMutation(addBook, {
+  const { mutate, isLoading } = useMutation(addBook, {
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.STOCK_BOOK_COUNT]);
       queryClient.invalidateQueries([queryKeys.TO_PURCHASE_BOOK_COUNT]);
@@ -77,26 +87,38 @@ export default function BookInfo({ book }: BookInfoProps) {
       <InfoSection>
         <InfoWrapper>
           <Title>{book.title}</Title>
-          {book.author && <dd>작가 {book.author}</dd>}
-          {book.publisher && <dd>출판사 {book.publisher}</dd>}
+          {book.author && (
+            <Wrapper>
+              <dt>작가</dt>
+              <dd>{book.author}</dd>
+            </Wrapper>
+          )}
+          {book.publisher && (
+            <Wrapper>
+              <dt>출판사</dt>
+              <dd>{book.publisher}</dd>
+            </Wrapper>
+          )}
           {book.link && (
             <dd>
-              <a href={book.link} target="_blank" rel="noreferrer noopener">
+              <BuyLink href={book.link} target="_blank" rel="noreferrer noopener">
                 구매 링크
-              </a>
+              </BuyLink>
             </dd>
           )}
         </InfoWrapper>
 
-        <StockBookCount isbn={book.isbn} />
-        <ToPurchaseBookCount isbn={book.isbn} />
-
         <ButtonWrapper>
-          <Button color="primary" onClick={() => handleAddBook(false)}>
+          <Button buttonType="primary" loading={isLoading} onClick={() => handleAddBook(false)}>
             구매 예정 도서 추가
           </Button>
-          <Button onClick={() => handleAddBook(true)}>사내 도서 추가</Button>
+          <Button loading={isLoading} onClick={() => handleAddBook(true)}>
+            사내 도서 추가
+          </Button>
         </ButtonWrapper>
+
+        <StockBookCount isbn={book.isbn} />
+        <ToPurchaseBookCount isbn={book.isbn} />
       </InfoSection>
     </Article>
   );
