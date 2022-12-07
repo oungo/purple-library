@@ -6,8 +6,8 @@ import * as queryKeys from '@/utils/queryKeys';
 import StockBookCount from './StockBookCount';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
 import { addBook } from 'api/books';
-import { useUser } from '@supabase/auth-helpers-react';
 import { colors } from '@/styles/color';
+import { useUser } from '@/hooks/use-user';
 
 const Article = styled.article`
   display: flex;
@@ -54,7 +54,7 @@ export interface BookInfoProps {
 
 export default function BookInfo({ book }: BookInfoProps) {
   const queryClient = useQueryClient();
-  const user = useUser();
+  const { data: user } = useUser();
 
   const { mutate, isLoading } = useMutation(addBook, {
     onSuccess: () => {
@@ -73,7 +73,7 @@ export default function BookInfo({ book }: BookInfoProps) {
       image,
       discount,
       inStock,
-      buyer: user?.email || '',
+      buyer: user?.data?.email || '',
     };
 
     mutate(bookData);

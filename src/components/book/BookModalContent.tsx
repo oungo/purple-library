@@ -1,9 +1,8 @@
 import BookForm from './BookForm';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
-import { useUser } from '@supabase/auth-helpers-react';
 import { Book } from '@/types/book';
-import { useCurrentUser } from '@/hooks/queries/useCurrentUser';
+import { useCheckAdmin } from '@/hooks/use-check-admin';
 
 const Section = styled.section`
   display: flex;
@@ -38,9 +37,7 @@ interface BookModalContentProps {
 }
 
 export default function BookModalContent({ selectedBook }: BookModalContentProps) {
-  const authUser = useUser();
-
-  const { data: user } = useCurrentUser(authUser?.id);
+  const isAdmin = useCheckAdmin();
 
   if (!selectedBook) return <p>조회불가</p>;
 
@@ -67,7 +64,7 @@ export default function BookModalContent({ selectedBook }: BookModalContentProps
           )}
         </dl>
 
-        {user?.data?.role === 'admin' && (
+        {isAdmin && (
           <FormWrapper>
             <BookForm book={selectedBook} />
           </FormWrapper>

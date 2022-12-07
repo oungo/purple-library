@@ -15,7 +15,7 @@ import Button from '../common/Button';
 import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
 import { useUser } from '@/hooks/use-user';
-import { useCheckAdmin } from '../../hooks/use-check-admin';
+import { useCheckAdmin } from '@/hooks/use-check-admin';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
