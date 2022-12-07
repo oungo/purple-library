@@ -23,7 +23,8 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
     const formValue = Object.fromEntries(formData) as AuthFormValue;
 
     const { data, error } = await supabase.auth.signUp(formValue);
-    if (data) {
+
+    if (data.session) {
       setSuccessSendAuthMail(true);
     }
     if (error) {
