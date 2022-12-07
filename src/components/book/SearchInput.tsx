@@ -1,4 +1,5 @@
 import { useBoundStore } from '@/store/useBoundStore';
+import { colors } from '@/styles/color';
 import { KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ const Input = styled.input`
   height: 3rem;
   padding: 10px;
   border: none;
-  border: 1px solid gray;
+  border: 1px solid ${colors.gray};
   border-radius: 0.5rem;
 `;
 

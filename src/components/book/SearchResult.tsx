@@ -41,13 +41,17 @@ const BookTitle = styled.li`
 
 export default function SearchResult() {
   return (
-    <Container>
-      <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
-        <Suspense fallback={<Loading />}>
-          <BookTitleList />
-        </Suspense>
-      </ErrorBoundary>
-    </Container>
+    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+      <Suspense
+        fallback={
+          <Container>
+            <Loading />
+          </Container>
+        }
+      >
+        <BookTitleList />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
@@ -77,10 +81,10 @@ function BookTitleList() {
     }
   }, [books]);
 
-  if (!isShowList) return null;
+  if (!isShowList || !books) return null;
 
   return (
-    <>
+    <Container>
       {books?.map((book) => {
         return (
           <BookTitle key={book.isbn}>
@@ -88,6 +92,6 @@ function BookTitleList() {
           </BookTitle>
         );
       })}
-    </>
+    </Container>
   );
 }
