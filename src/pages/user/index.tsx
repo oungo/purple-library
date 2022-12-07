@@ -10,7 +10,7 @@ import { getServerSession, redirectLoginPage } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import { getUsers } from 'api/user';
+import { getUser, getUsers } from 'api/user';
 import Error from '@/components/common/Error';
 
 interface BookInfoProps {
@@ -42,6 +42,19 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   await queryClient
     .fetchQuery([queryKeys.USERS], () => getUsers(context.query))
     .catch((err) => (error = err.response.data));
+
+  const { data: user } = await queryClient.fetchQuery([queryKeys.USER], () =>
+    getUser(session.user.id)
+  );
+
+  if (user?.role !== 'admin') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
