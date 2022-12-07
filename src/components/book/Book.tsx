@@ -7,15 +7,10 @@ import { getNBook } from 'api/naverBook';
 export default function Book() {
   const { isbn } = useRouter().query;
 
-  const { data } = useQuery([queryKeys.NAVER_BOOK, isbn], () => getNBook(isbn as string), {
+  const { data: book } = useQuery([queryKeys.NAVER_BOOK, isbn], () => getNBook(isbn as string), {
     enabled: !!isbn,
   });
 
-  return (
-    <>
-      {data?.items.map((book) => {
-        return <BookInfo key={book.isbn} book={book} />;
-      })}
-    </>
-  );
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return <BookInfo key={book?.isbn} book={book!} />;
 }
