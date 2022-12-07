@@ -88,7 +88,9 @@ function BookTitleList() {
       {books?.map((book) => {
         return (
           <BookTitle key={book.isbn}>
-            <Link href={{ pathname: `/book/${book.isbn}` }}>{book.title}</Link>
+            <Link href={{ pathname: `/book/[isbn]`, query: { isbn: book.isbn } }}>
+              {book.title}
+            </Link>
           </BookTitle>
         );
       })}
