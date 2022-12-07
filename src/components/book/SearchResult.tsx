@@ -22,6 +22,7 @@ const Container = styled.ul`
   transform: translateX(-50%);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   z-index: 1;
+  padding: 10px;
 `;
 const BookTitle = styled.li`
   cursor: pointer;
@@ -34,7 +35,7 @@ const BookTitle = styled.li`
   :hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     transition: box-shadow 0.2s;
-    background-color: ${colors.gray};
+    background-color: ${colors.lightGray};
   }
 `;
 
