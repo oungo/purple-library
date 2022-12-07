@@ -54,7 +54,11 @@ export default function Pagination({ totalCount }: PaginationProps) {
         {getPageNumbers(totalCount)
           .slice(getSliceStart(pageNumber), getSliceEnd(pageNumber))
           .map((page) => (
-            <Link key={page} href={{ pathname: router.pathname, query: { ...query, page } }}>
+            <Link
+              key={page}
+              href={{ pathname: router.pathname, query: { ...query, page } }}
+              shallow={true}
+            >
               <PageNumber active={pageNumber === page}>{page}</PageNumber>
             </Link>
           ))}
@@ -80,13 +84,17 @@ export function PrevPageArrow({ pageNumber }: ArrowProps) {
 
   const handleMovePrev = () => {
     if (pageNumber > 1) {
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          page: pageNumber - 1,
+      router.push(
+        {
+          pathname: router.pathname,
+          query: {
+            ...router.query,
+            page: pageNumber - 1,
+          },
         },
-      });
+        undefined,
+        { shallow: true }
+      );
     }
   };
   return <Arrow onClick={handleMovePrev}>&lt;</Arrow>;
@@ -100,13 +108,17 @@ export function NextPageArrow({ pageNumber, lastPage }: NextArrowProps) {
 
   const handleMoveNext = () => {
     if (pageNumber < lastPage) {
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          page: pageNumber + 1,
+      router.push(
+        {
+          pathname: router.pathname,
+          query: {
+            ...router.query,
+            page: pageNumber + 1,
+          },
         },
-      });
+        undefined,
+        { shallow: true }
+      );
     }
   };
 
