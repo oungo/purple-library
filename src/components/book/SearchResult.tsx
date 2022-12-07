@@ -81,7 +81,7 @@ function BookTitleList() {
     }
   }, [books]);
 
-  if (!isShowList || !books) return null;
+  if (!isShowList || books?.length === 0) return null;
 
   return (
     <Container>
