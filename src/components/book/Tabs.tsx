@@ -27,10 +27,14 @@ export default function Tabs() {
     const query = { ...router.query, inStock: tabValue, page: null };
     const filteredQuery = Object.fromEntries(Object.entries(query).filter(([_, value]) => value));
 
-    router.push({
-      pathname: router.pathname,
-      query: filteredQuery,
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: filteredQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   return (
