@@ -53,7 +53,7 @@ export default function SearchResult() {
 function BookTitleList() {
   const router = useRouter();
   const keyword = useBoundStore((state) => state.keyword);
-  const newKeyword = useDebounce(keyword, 700);
+  const newKeyword = useDebounce(keyword, 300);
 
   const [isShowList, setIsShowList] = useState(true);
 
