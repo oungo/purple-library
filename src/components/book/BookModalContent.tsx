@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   margin-bottom: 10px;
 `;
 const DT = styled.dt`
-  color: ${colors.fourth};
+  color: ${colors.third};
 `;
 
 interface BookModalContentProps {
