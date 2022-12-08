@@ -44,6 +44,7 @@ const columns: ColumnsType<User> = [
     dataIndex: 'role',
     width: '20%',
     align: 'center',
+    render: (value) => (value === 'admin' ? '관리자' : '사용자'),
   },
   {
     title: '가입일',
