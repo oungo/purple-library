@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Search from '../book/Search';
+import Loading from '../common/Loading';
+import SSRSafeSuspence from '../SSRSafeSuspense';
+import Nav from './Nav';
 
 const Head = styled.header`
   padding: 1rem 4rem;
@@ -30,6 +33,10 @@ export default function Header() {
       <Link href="/">Home</Link>
 
       <Search />
+
+      <SSRSafeSuspence fallback={<Loading />}>
+        <Nav />
+      </SSRSafeSuspence>
 
       <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
     </Head>
