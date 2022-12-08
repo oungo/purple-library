@@ -100,7 +100,7 @@ export default function BookTable() {
       width: '10%',
       render: (_, { id, inStock, lender }) => {
         if (inStock) {
-          return user?.data?.email === lender ? (
+          return user?.data?.email === lender || user?.data?.name === lender ? (
             <Button size="small" onClick={() => handleChangeBookStatus({ id, lender: '' })}>
               반납
             </Button>
