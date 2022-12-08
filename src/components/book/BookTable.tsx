@@ -108,7 +108,12 @@ export default function BookTable() {
             <Button
               size="small"
               buttonType="primary"
-              onClick={() => handleChangeBookStatus({ id, lender: user?.data?.email ?? '' })}
+              onClick={() =>
+                handleChangeBookStatus({
+                  id,
+                  lender: (user?.data?.name || user?.data?.email) ?? '',
+                })
+              }
             >
               대여
             </Button>
