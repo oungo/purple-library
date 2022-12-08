@@ -11,17 +11,17 @@ import { GetServerSideProps } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
 import { getUser, getUsers } from 'api/user';
-import Error from '@/components/common/Error';
+import ErrorComponent from '@/components/common/ErrorComponent';
 
 interface BookInfoProps {
   error: ErrorType;
 }
 
 const User: NextPageWithLayout<BookInfoProps> = ({ error }) => {
-  if (error) return <Error error={error} />;
+  if (error) return <ErrorComponent error={error} />;
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
         <UserTable />
       </SSRSafeSuspence>

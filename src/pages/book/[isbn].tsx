@@ -5,7 +5,7 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirectLoginPage } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
-import Error from '@/components/common/Error';
+import ErrorComponent from '@/components/common/ErrorComponent';
 import * as queryKeys from '@/utils/queryKeys';
 import { dehydrate, QueryClient } from 'react-query';
 import { DehydratedStateProps } from '@/types/common';
@@ -18,10 +18,10 @@ interface BookInfoProps {
 }
 
 const BookInfo: NextPageWithLayout<BookInfoProps> = ({ error }) => {
-  if (error) return <Error error={error} />;
+  if (error) return <ErrorComponent error={error} />;
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
         <Book />
       </SSRSafeSuspence>

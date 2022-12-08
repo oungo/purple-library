@@ -12,7 +12,7 @@ interface Props {
   error: ErrorType;
 }
 
-export default function Error({ error }: Props) {
+export default function ErrorComponent({ error }: Props) {
   return (
     <ErrorText>
       <p>에러가 발생했습니다. </p>

@@ -7,7 +7,7 @@ import { colors } from '@/styles/color';
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ErrorBoundary from '../ErrorBoundary';
-import Error from '../common/Error';
+import ErrorComponent from '../common/ErrorComponent';
 import Loading from '../common/Loading';
 
 const Container = styled.ul`
@@ -41,7 +41,7 @@ const BookTitle = styled.li`
 
 export default function SearchResult() {
   return (
-    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
       <Suspense
         fallback={
           <Container>

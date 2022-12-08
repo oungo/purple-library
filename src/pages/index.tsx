@@ -9,7 +9,7 @@ import { getLayout } from '@/components/layout/Layout';
 import { getServerSession, redirectLoginPage } from 'api/auth';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import SSRSafeSuspence from '@/components/SSRSafeSuspense';
-import Error from '@/components/common/Error';
+import ErrorComponent from '@/components/common/ErrorComponent';
 import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import Loading from '@/components/common/Loading';
 
@@ -18,10 +18,10 @@ interface IndexProps {
 }
 
 const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
-  if (error) return <Error error={error} />;
+  if (error) return <ErrorComponent error={error} />;
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <Error error={error} />}>
+    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
         <BookList />
       </SSRSafeSuspence>
