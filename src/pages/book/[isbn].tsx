@@ -32,6 +32,7 @@ const BookInfo: NextPageWithLayout<BookInfoProps> = ({ error }) => {
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
+  console.log(context);
 
   if (!session) return redirectLoginPage();
 
@@ -40,8 +41,8 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   let error = null;
 
   await queryClient
-    .fetchQuery([queryKeys.NAVER_BOOK, context.query.isbn], () =>
-      getNBook(context.query.isbn as string)
+    .fetchQuery([queryKeys.NAVER_BOOK, context.params?.isbn], () =>
+      getNBook(context.params?.isbn as string)
     )
     .catch((err) => (error = err.response.data));
 
