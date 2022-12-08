@@ -60,13 +60,14 @@ const columns: UserColumnsType = [
     dataIndex: 'buyer',
     align: 'center',
     width: '7%',
+    render: (value: string) => value.split('@')[0],
   },
   {
     title: '보유자',
     dataIndex: 'lender',
     align: 'center',
     width: '7%',
-    render: (value: string, { inStock }) => (inStock ? value || '공용서가' : ''),
+    render: (value: string, { inStock }) => (inStock ? value?.split('@')[0] || '공용서가' : ''),
   },
 ];
 
