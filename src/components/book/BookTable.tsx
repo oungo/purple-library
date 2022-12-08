@@ -3,7 +3,7 @@ import { useBookMutation } from '@/hooks/mutations/book';
 import { useBooks } from '@/hooks/queries/book';
 import { Book, PartialBook } from '@/types/book';
 import { ColumnsType } from '@/types/common';
-import { BOOK_MODAL_ID, getBookStatus } from '@/utils/common';
+import { BOOK_MODAL_ID } from '@/utils/common';
 import { useRouter } from 'next/router';
 import { useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
@@ -46,7 +46,7 @@ const columns: UserColumnsType = [
     dataIndex: 'inStock',
     align: 'center',
     width: '10%',
-    render: getBookStatus,
+    render: (value) => (value ? '보유중' : '구매예정'),
   },
   {
     title: '단가',
