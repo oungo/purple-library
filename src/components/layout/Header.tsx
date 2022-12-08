@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Search from '../book/Search';
 import Loading from '../common/Loading';
 import SSRSafeSuspence from '../SSRSafeSuspense';
+import Logo from './Logo';
 import Nav from './Nav';
 
 const Head = styled.header`
@@ -30,7 +31,11 @@ export default function Header() {
 
   return (
     <Head>
-      <Link href="/">Home</Link>
+      <Link href="/">
+        <a>
+          <Logo />
+        </a>
+      </Link>
 
       <Search />
 
