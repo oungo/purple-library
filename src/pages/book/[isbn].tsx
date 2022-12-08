@@ -32,7 +32,6 @@ const BookInfo: NextPageWithLayout<BookInfoProps> = ({ error }) => {
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
-  console.log(context);
 
   if (!session) return redirectLoginPage();
 
