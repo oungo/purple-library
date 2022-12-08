@@ -14,6 +14,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@sentry/nextjs": "^7.24.2",
     "@supabase/auth-helpers-nextjs": "^0.4.2",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.0.4",
