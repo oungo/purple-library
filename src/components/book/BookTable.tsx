@@ -60,14 +60,18 @@ const columns: UserColumnsType = [
     dataIndex: 'buyer',
     align: 'center',
     width: '7%',
-    render: (value: string) => value?.split('@')[0],
+    render: (value: string) => (value?.includes('@') ? value?.split('@')[0] : value),
   },
   {
     title: '보유자',
     dataIndex: 'lender',
     align: 'center',
     width: '7%',
-    render: (value: string, { inStock }) => (inStock ? value?.split('@')[0] || '공용서가' : ''),
+    render: (value: string, { inStock }) => {
+      if (!inStock) return '';
+      if (!value) return '공용서가';
+      return value?.includes('@') ? value?.split('@')[0] : value;
+    },
   },
 ];
 
@@ -106,13 +110,18 @@ export default function BookTable() {
       render: (_, { id, inStock, lender }) => {
         if (inStock) {
           return user?.data?.email === lender || user?.data?.name === lender ? (
-            <Button size="small" onClick={() => handleChangeBookStatus({ id, lender: '' })}>
+            <Button
+              size="small"
+              disabled={user.data.email !== lender && user.data.name !== lender}
+              onClick={() => handleChangeBookStatus({ id, lender: '' })}
+            >
               반납
             </Button>
           ) : (
             <Button
               size="small"
               buttonType="primary"
+              disabled={!!lender}
               onClick={() =>
                 handleChangeBookStatus({
                   id,
