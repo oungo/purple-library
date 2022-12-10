@@ -41,7 +41,13 @@ const BookTitle = styled.li`
 
 export default function SearchResult() {
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
+    <ErrorBoundary
+      renderFallback={({ error }) => (
+        <Container>
+          <ErrorComponent error={error} />
+        </Container>
+      )}
+    >
       <Suspense
         fallback={
           <Container>
