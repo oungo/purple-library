@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Search from '../book/Search';
-import Loading from '../common/Loading';
 import ErrorBoundary from '../ErrorBoundary';
 import SSRSafeSuspence from '../SSRSafeSuspense';
 import Logo from './Logo';
@@ -41,7 +40,7 @@ export default function Header() {
       <Search />
 
       <ErrorBoundary renderFallback={() => <></>}>
-        <SSRSafeSuspence fallback={<Loading />}>
+        <SSRSafeSuspence fallback={<></>}>
           <Nav />
         </SSRSafeSuspence>
       </ErrorBoundary>
