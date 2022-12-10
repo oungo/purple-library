@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Search from '../book/Search';
 import Loading from '../common/Loading';
+import ErrorBoundary from '../ErrorBoundary';
 import SSRSafeSuspence from '../SSRSafeSuspense';
 import Logo from './Logo';
 import Nav from './Nav';
@@ -39,9 +40,11 @@ export default function Header() {
 
       <Search />
 
-      <SSRSafeSuspence fallback={<Loading />}>
-        <Nav />
-      </SSRSafeSuspence>
+      <ErrorBoundary renderFallback={() => <></>}>
+        <SSRSafeSuspence fallback={<Loading />}>
+          <Nav />
+        </SSRSafeSuspence>
+      </ErrorBoundary>
 
       <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
     </Head>
