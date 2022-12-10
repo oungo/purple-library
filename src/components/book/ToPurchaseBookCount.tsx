@@ -7,9 +7,10 @@ export interface BookCountProps {
 }
 
 export default function ToPurchaseBookCount({ isbn }: BookCountProps) {
-  const { data } = useQuery([queryKeys.TO_PURCHASE_BOOK_COUNT, isbn], () =>
-    getToPurchaseBookCount(isbn)
-  );
+  const { data } = useQuery({
+    queryKey: [queryKeys.TO_PURCHASE_BOOK_COUNT, isbn],
+    queryFn: () => getToPurchaseBookCount(isbn),
+  });
 
   if ((data?.count ?? 0) < 1) return null;
 

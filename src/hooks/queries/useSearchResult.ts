@@ -3,7 +3,9 @@ import * as queryKeys from '@/utils/queryKeys';
 import { getNBooks } from 'api/naverBook';
 
 export const useSearchResult = (keyword: string) => {
-  return useQuery([queryKeys.NAVER_BOOKS, keyword], () => getNBooks(keyword), {
+  return useQuery({
+    queryKey: [queryKeys.NAVER_BOOKS, keyword],
+    queryFn: () => getNBooks(keyword),
     enabled: !!keyword,
   });
 };

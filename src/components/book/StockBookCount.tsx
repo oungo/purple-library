@@ -7,7 +7,10 @@ export interface BookCountProps {
 }
 
 export default function StockBookCount({ isbn }: BookCountProps) {
-  const { data } = useQuery([queryKeys.STOCK_BOOK_COUNT, isbn], () => getStockBookCount(isbn));
+  const { data } = useQuery({
+    queryKey: [queryKeys.STOCK_BOOK_COUNT, isbn],
+    queryFn: () => getStockBookCount(isbn),
+  });
 
   if ((data?.count ?? 0) < 1) return null;
 

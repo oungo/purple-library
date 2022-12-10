@@ -78,13 +78,11 @@ export default function BookTable() {
   const supabaseClient = useSupabaseClient();
 
   const { data: user } = useUser();
-  const { data: books } = useQuery(
-    [queryKeys.BOOKS, router.query],
-    () => getBooks(supabaseClient, router.query),
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data: books } = useQuery({
+    queryKey: [queryKeys.BOOKS, router.query],
+    queryFn: () => getBooks(supabaseClient, router.query),
+    keepPreviousData: true,
+  });
 
   const isAdmin = useCheckAdmin();
 

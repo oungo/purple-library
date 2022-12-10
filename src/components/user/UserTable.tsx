@@ -66,7 +66,9 @@ const columns: ColumnsType<User> = [
 export default function UserTable() {
   const router = useRouter();
 
-  const { data: users } = useQuery([queryKeys.USERS], () => getUsers(router.query), {
+  const { data: users } = useQuery({
+    queryKey: [queryKeys.USERS],
+    queryFn: () => getUsers(router.query),
     keepPreviousData: true,
   });
 

@@ -7,7 +7,9 @@ import { getNBook } from 'api/naverBook';
 export default function Book() {
   const { isbn } = useRouter().query;
 
-  const { data: book } = useQuery([queryKeys.NAVER_BOOK, isbn], () => getNBook(isbn as string), {
+  const { data: book } = useQuery({
+    queryKey: [queryKeys.NAVER_BOOK, isbn],
+    queryFn: () => getNBook(isbn as string),
     enabled: !!isbn,
   });
 
