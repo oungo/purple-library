@@ -1,10 +1,9 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { useBookMutation } from '@/hooks/mutations/book';
 import { Book, PartialBook } from '@/types/book';
 import { ColumnsType } from '@/types/common';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import { useRouter } from 'next/router';
-import { useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
 import Modal from '../common/Modal';
 import BookModalContent from './BookModalContent';
@@ -15,8 +14,9 @@ import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
 import { useUser } from '@/hooks/use-user';
 import { useCheckAdmin } from '@/hooks/use-check-admin';
-import { getBooks } from 'api/books';
+import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { PostgrestResponse } from '@supabase/supabase-js';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -89,7 +89,8 @@ export default function BookTable() {
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const { mutate } = useBookMutation({
+  const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, PartialBook>({
+    mutationFn: (value) => updateBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);
     },

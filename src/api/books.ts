@@ -1,6 +1,5 @@
 import { BookData, PartialBook } from '@/types/book';
 import { PAGE_SIZE } from '@/utils/common';
-import { supabase } from '@/utils/supabaseClient';
 import { ParsedUrlQuery } from 'querystring';
 import { SupabaseClient } from '@supabase/supabase-js';
 
@@ -27,20 +26,20 @@ export const getBooks = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   return supabaseQuery.range(start, end);
 };
 
-export const addBook = async (book: BookData) => {
-  return supabase.from('book').insert(book).throwOnError();
+export const addBook = async (supabaseClient: SupabaseClient, book: BookData) => {
+  return supabaseClient.from('book').insert(book).throwOnError();
 };
 
-export const updateBook = async (values: PartialBook) => {
-  return supabase.from('book').update(values).eq('id', values.id).throwOnError();
+export const updateBook = async (supabaseClient: SupabaseClient, values: PartialBook) => {
+  return supabaseClient.from('book').update(values).eq('id', values.id).throwOnError();
 };
 
-export const deleteBook = async (id: number) => {
-  return supabase.from('book').delete().eq('id', id).throwOnError();
+export const deleteBook = async (supabaseClient: SupabaseClient, id: number) => {
+  return supabaseClient.from('book').delete().eq('id', id).throwOnError();
 };
 
-export const getToPurchaseBookCount = async (isbn: string) => {
-  return supabase
+export const getToPurchaseBookCount = async (supabaseClient: SupabaseClient, isbn: string) => {
+  return supabaseClient
     .from('book')
     .select('id', { count: 'exact' })
     .eq('isbn', isbn)
@@ -48,8 +47,8 @@ export const getToPurchaseBookCount = async (isbn: string) => {
     .throwOnError();
 };
 
-export const getStockBookCount = async (isbn: string) => {
-  return supabase
+export const getStockBookCount = async (supabaseClient: SupabaseClient, isbn: string) => {
+  return supabaseClient
     .from('book')
     .select('id', { count: 'exact' })
     .eq('isbn', isbn)

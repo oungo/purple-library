@@ -8,6 +8,8 @@ import ToPurchaseBookCount from './ToPurchaseBookCount';
 import { addBook } from 'api/books';
 import { colors } from '@/styles/color';
 import { useUser } from '@/hooks/use-user';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { PostgrestResponse } from '@supabase/supabase-js';
 
 const Article = styled.article`
   display: flex;
@@ -54,9 +56,11 @@ export interface BookInfoProps {
 
 export default function BookInfo({ book }: BookInfoProps) {
   const queryClient = useQueryClient();
+  const supabaseClient = useSupabaseClient();
   const { data: user } = useUser();
 
-  const { mutate, isLoading } = useMutation(addBook, {
+  const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, BookData>({
+    mutationFn: (value) => addBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.STOCK_BOOK_COUNT]);
       queryClient.invalidateQueries([queryKeys.TO_PURCHASE_BOOK_COUNT]);

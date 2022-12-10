@@ -8,6 +8,7 @@ import Button from '../common/Button';
 import styled from 'styled-components';
 import Input from '../common/Input';
 import Label from '../common/Label';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
 const SaveButton = styled(Button)`
   position: absolute;
@@ -31,6 +32,7 @@ export interface IBookFormProps {
 
 export default function BookForm({ book }: IBookFormProps) {
   const queryClient = useQueryClient();
+  const supabaseClient = useSupabaseClient();
 
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
@@ -38,7 +40,8 @@ export default function BookForm({ book }: IBookFormProps) {
     PostgrestResponse<undefined>,
     unknown,
     Partial<UpdateBookValues>
-  >(updateBook, {
+  >({
+    mutationFn: (value) => updateBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);
       setSelectedBookId(null);
