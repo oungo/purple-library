@@ -7,7 +7,6 @@ const TabList = styled.ul`
   display: flex;
   list-style: none;
   gap: 1rem;
-  padding: 0 100px;
   margin-bottom: 1rem;
 `;
 const TabItem = styled.li<{ active: boolean }>`

@@ -14,9 +14,6 @@ import Pagination from '../book/Pagination';
 import { colors } from '@/styles/color';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
-const Container = styled.section`
-  padding: 0 100px;
-`;
 const UpdateButton = styled.button`
   color: ${colors.second};
 `;
@@ -97,7 +94,7 @@ export default function UserTable() {
   const selectedUser = users?.data?.find((user) => user.id === selectedUserId);
 
   return (
-    <Container>
+    <>
       <Table columns={newColumns} dataSource={users?.data || []} />
 
       <Pagination totalCount={users?.count ?? 0} />
@@ -110,6 +107,6 @@ export default function UserTable() {
       >
         {selectedUser && <UserForm selectedUser={selectedUser} closeModal={handleCloseModal} />}
       </Modal>
-    </Container>
+    </>
   );
 }

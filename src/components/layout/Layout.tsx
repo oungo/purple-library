@@ -7,7 +7,9 @@ export interface LayoutProps {
 }
 
 const Main = styled.main`
-  margin-top: 2rem;
+  max-width: 1920px;
+  margin: 2rem auto;
+  padding: 0 4rem;
 `;
 
 export default function Layout({ children }: LayoutProps) {
