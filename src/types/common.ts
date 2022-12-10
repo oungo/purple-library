@@ -1,5 +1,7 @@
 import { ReactNode, TdHTMLAttributes } from 'react';
 import { DehydratedState } from 'react-query';
+import { SupabaseClient as OriginSupabaseClient } from '@supabase/supabase-js';
+import { Database } from './database';
 
 export interface DehydratedStateProps {
   dehydratedState: DehydratedState;
@@ -17,3 +19,5 @@ export type ColumnsType<Type> = Array<{
 export type RemoveNull<Type> = {
   [Property in keyof Type]: NonNullable<Type[Property]>;
 };
+
+export type SupabaseClient = OriginSupabaseClient<Database>;

@@ -1,7 +1,7 @@
 import { BookData, PartialBook } from '@/types/book';
+import { SupabaseClient } from '@/types/common';
 import { PAGE_SIZE } from '@/utils/common';
 import { ParsedUrlQuery } from 'querystring';
-import { SupabaseClient } from '@supabase/supabase-js';
 
 export interface UpdateBookValues {
   id: number;

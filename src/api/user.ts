@@ -1,6 +1,6 @@
+import { SupabaseClient } from '@/types/common';
 import { PartialUser } from '@/types/user';
 import { PAGE_SIZE } from '@/utils/common';
-import { SupabaseClient } from '@supabase/supabase-js';
 import { ParsedUrlQuery } from 'querystring';
 
 export const getUser = async (supabaseClient: SupabaseClient, uid?: string) => {
@@ -22,7 +22,7 @@ export const getUsers = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   const start = (Number(query.page || 1) - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE - 1;
 
-  return await supabaseQuery.range(start, end);
+  return supabaseQuery.range(start, end);
 };
 
 export const updateUser = async (supabaseClient: SupabaseClient, values: PartialUser) => {
