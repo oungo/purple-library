@@ -1,3 +1,11 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
+const sentryConfig = {
+  sentry: {
+    hideSourceMaps: true,
+  },
+};
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -12,6 +20,9 @@ const nextConfig = {
       },
     ],
   },
+  ...sentryConfig,
 };
 
-module.exports = nextConfig;
+const sentryWebpackPluginOptions = { silent: true };
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
