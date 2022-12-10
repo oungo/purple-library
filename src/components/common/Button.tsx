@@ -58,6 +58,10 @@ const ButtonComponent = styled.button<ButtonComponentProps>`
   }};
   border-radius: 5px;
   font-size: small;
+  :disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 `;
 const LoadingContainer = styled.div`
   position: absolute;
