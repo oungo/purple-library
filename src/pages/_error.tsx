@@ -1,40 +1,34 @@
-import { NextPage } from 'next';
-import { useEffect } from 'react';
-import styled from 'styled-components';
-import { useRouter } from 'next/router';
+/**
+ * NOTE: This requires `@sentry/nextjs` version 7.3.0 or higher.
+ *
+ * This page is loaded by Nextjs:
+ *  - on the server, when data-fetching methods throw or reject
+ *  - on the client, when `getInitialProps` throws or rejects
+ *  - on the client, when a React lifecycle method throws or rejects, and it's
+ *    caught by the built-in Nextjs error boundary
+ *
+ * See:
+ *  - https://nextjs.org/docs/basic-features/data-fetching/overview
+ *  - https://nextjs.org/docs/api-reference/data-fetching/get-initial-props
+ *  - https://reactjs.org/docs/error-boundaries.html
+ */
 
-const Container = styled.div`
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import * as Sentry from '@sentry/nextjs';
+import type { NextPage } from 'next';
+import type { ErrorProps } from 'next/error';
+import NextErrorComponent from 'next/error';
 
-interface Props {
-  statusCode?: number;
-}
-
-const Error: NextPage<Props> = ({ statusCode }) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    setTimeout(() => router.push('/'), 3000);
-  }, [router]);
-
-  return (
-    <Container>
-      <p>
-        {statusCode ? `An error ${statusCode} occurred on server` : 'An error occurred on client'}
-      </p>
-      <p>3초 후 홈페이지로 이동합니다.</p>
-    </Container>
-  );
+const CustomErrorComponent: NextPage<ErrorProps> = (props) => {
+  return <NextErrorComponent statusCode={props.statusCode} />;
 };
 
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { statusCode };
+CustomErrorComponent.getInitialProps = async (contextData) => {
+  // In case this is running in a serverless function, await this in order to give Sentry
+  // time to send the error before the lambda exits
+  await Sentry.captureUnderscoreErrorException(contextData);
+
+  // This will contain the status code of the response
+  return NextErrorComponent.getInitialProps(contextData);
 };
 
-export default Error;
+export default CustomErrorComponent;
