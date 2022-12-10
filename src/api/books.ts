@@ -27,10 +27,6 @@ export const getBooks = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   return supabaseQuery.range(start, end);
 };
 
-export const getBook = async (id?: number) => {
-  return supabase.from('book').select('*', { count: 'exact' }).eq('id', id).throwOnError().single();
-};
-
 export const addBook = async (book: BookData) => {
   return supabase.from('book').insert(book).throwOnError();
 };
