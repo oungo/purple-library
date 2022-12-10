@@ -1,21 +1,25 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { Book } from '@/types/book';
+import { Book, PartialBook } from '@/types/book';
 import { useBoundStore } from '@/store/useBoundStore';
-import { updateBook, UpdateBookValues } from 'api/books';
+import { updateBook } from 'api/books';
 import Button from '../common/Button';
 import styled from 'styled-components';
 import Input from '../common/Input';
 import Label from '../common/Label';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
-const SaveButton = styled(Button)`
+const ButtonWrapper = styled.div`
   position: absolute;
   display: block;
   bottom: 0;
   right: 0;
   margin: 1rem;
+  gap: 1rem;
+`;
+const SaveButton = styled(Button)`
+  margin-right: 1rem;
 `;
 const Form = styled.form`
   display: flex;
@@ -36,11 +40,7 @@ export default function BookForm({ book }: IBookFormProps) {
 
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const { mutate, isLoading } = useMutation<
-    PostgrestResponse<undefined>,
-    unknown,
-    Partial<UpdateBookValues>
-  >({
+  const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, PartialBook>({
     mutationFn: (value) => updateBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);
@@ -55,6 +55,12 @@ export default function BookForm({ book }: IBookFormProps) {
     mutate({ id: book.id, ...values });
   };
 
+  const handleDelete = () => {
+    if (confirm(`도서명: ${book.title} \n해당 책을 정말 삭제하시겠습니까?`)) {
+      mutate({ id: book.id, isDeleted: true });
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="buyer">
@@ -66,9 +72,14 @@ export default function BookForm({ book }: IBookFormProps) {
         <Input name="lender" id="lender" defaultValue={book.lender || ''} />
       </Label>
 
-      <SaveButton loading={isLoading} buttonType="primary">
-        저장
-      </SaveButton>
+      <ButtonWrapper>
+        <SaveButton loading={isLoading} buttonType="primary">
+          저장
+        </SaveButton>
+        <Button type="button" onClick={handleDelete}>
+          삭제
+        </Button>
+      </ButtonWrapper>
     </Form>
   );
 }
