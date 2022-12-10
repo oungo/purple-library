@@ -2,14 +2,15 @@ import { BookData, PartialBook } from '@/types/book';
 import { PAGE_SIZE } from '@/utils/common';
 import { supabase } from '@/utils/supabaseClient';
 import { ParsedUrlQuery } from 'querystring';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 export interface UpdateBookValues {
   id: number;
   inStock: boolean;
 }
 
-export const getBooks = async (query: ParsedUrlQuery = {}) => {
-  let supabaseQuery = supabase
+export const getBooks = async (supabaseClient: SupabaseClient, query: ParsedUrlQuery = {}) => {
+  let supabaseQuery = supabaseClient
     .from('book')
     .select('*', { count: 'exact' })
     .order('id', { ascending: false })
@@ -23,7 +24,7 @@ export const getBooks = async (query: ParsedUrlQuery = {}) => {
   const start = (Number(query.page || 1) - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE - 1;
 
-  return await supabaseQuery.range(start, end);
+  return supabaseQuery.range(start, end);
 };
 
 export const getBook = async (id?: number) => {

@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   let error = null;
 
   await queryClient
-    .fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(context.query))
+    .fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(supabaseClient, context.query))
     .catch((err) => (error = err));
 
   return {

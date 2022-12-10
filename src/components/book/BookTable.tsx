@@ -1,11 +1,10 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { useBookMutation } from '@/hooks/mutations/book';
-import { useBooks } from '@/hooks/queries/book';
 import { Book, PartialBook } from '@/types/book';
 import { ColumnsType } from '@/types/common';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import { useRouter } from 'next/router';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
 import Modal from '../common/Modal';
 import BookModalContent from './BookModalContent';
@@ -16,6 +15,8 @@ import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
 import { useUser } from '@/hooks/use-user';
 import { useCheckAdmin } from '@/hooks/use-check-admin';
+import { getBooks } from 'api/books';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -74,9 +75,17 @@ const columns: UserColumnsType = [
 export default function BookTable() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const supabaseClient = useSupabaseClient();
 
   const { data: user } = useUser();
-  const { data: books } = useBooks(router.query);
+  const { data: books } = useQuery(
+    [queryKeys.BOOKS, router.query],
+    () => getBooks(supabaseClient, router.query),
+    {
+      keepPreviousData: true,
+    }
+  );
+
   const isAdmin = useCheckAdmin();
 
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
