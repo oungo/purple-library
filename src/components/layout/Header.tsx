@@ -3,11 +3,12 @@ import { colors } from '@/styles/color';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Search from '../book/Search';
+import SearchInput from './SearchInput';
 import ErrorBoundary from '../ErrorBoundary';
 import SSRSafeSuspence from '../SSRSafeSuspense';
 import Logo from './Logo';
 import Nav from './Nav';
+import SearchResult from './SearchResult';
 
 const Head = styled.header`
   border-bottom: 1px solid ${colors.lightGray};
@@ -19,6 +20,11 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: auto;
+`;
+const SearchContainer = styled.div`
+  position: relative;
+  text-align: center;
+  flex: 1;
 `;
 const LogoutButton = styled.button`
   margin-left: 1rem;
@@ -42,7 +48,10 @@ export default function Header() {
           </a>
         </Link>
 
-        <Search />
+        <SearchContainer>
+          <SearchInput />
+          <SearchResult />
+        </SearchContainer>
 
         <ErrorBoundary renderFallback={() => <></>}>
           <SSRSafeSuspence fallback={<></>}>
