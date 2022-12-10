@@ -1,4 +1,3 @@
-import BookList from '@/components/book/BookList';
 import { DehydratedStateProps } from '@/types/common';
 import { getBooks } from 'api/books';
 import { GetServerSideProps } from 'next';
@@ -12,6 +11,17 @@ import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
 import Loading from '@/components/common/Loading';
+import BookTable from '@/components/book/BookTable';
+import Tabs from '@/components/book/Tabs';
+import styled from 'styled-components';
+import BookSearchInput from '@/components/book/BookSearchInput';
+
+const Head = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
 
 interface IndexProps {
   error: ErrorType;
@@ -23,7 +33,11 @@ const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
   return (
     <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
       <SSRSafeSuspence fallback={<Loading />}>
-        <BookList />
+        <Head>
+          <Tabs />
+          <BookSearchInput />
+        </Head>
+        <BookTable />
       </SSRSafeSuspence>
     </ErrorBoundary>
   );

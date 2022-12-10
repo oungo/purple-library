@@ -17,7 +17,11 @@ export const getBooks = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
 
   for (const [key, value] of Object.entries(query)) {
     if (key === 'page') continue;
-    supabaseQuery = supabaseQuery.eq(key, value as string);
+    if (key === 'title') {
+      supabaseQuery = supabaseQuery.like(key, `%${value}%`);
+    } else {
+      supabaseQuery = supabaseQuery.eq(key, value as string);
+    }
   }
 
   const start = (Number(query.page || 1) - 1) * PAGE_SIZE;

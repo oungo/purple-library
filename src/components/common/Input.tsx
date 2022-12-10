@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const InputComponent = styled.input<{ fullWidth?: boolean }>`
   width: ${(props) => props.fullWidth && '100%'};
-  padding: 10px;
+  padding: 5px 10px;
   border: 1px solid ${colors.gray};
   border-radius: 5px;
   :focus,

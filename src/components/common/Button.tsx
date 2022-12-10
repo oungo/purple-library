@@ -53,7 +53,7 @@ const ButtonComponent = styled.button<ButtonComponentProps>`
       case 'large':
         return '20px 40px';
       default:
-        return '10px 20px';
+        return '7px 20px';
     }
   }};
   border-radius: 5px;

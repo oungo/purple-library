@@ -1,4 +1,5 @@
 import { colors } from '@/styles/color';
+import { filterQuery } from '@/utils/common';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
@@ -7,7 +8,6 @@ const TabList = styled.ul`
   display: flex;
   list-style: none;
   gap: 1rem;
-  margin-bottom: 1rem;
 `;
 const TabItem = styled.li<{ active: boolean }>`
   cursor: pointer;
@@ -23,13 +23,10 @@ export default function Tabs() {
 
     const tabValue = target.dataset.tabValue;
 
-    const query = { ...router.query, inStock: tabValue, page: null };
-    const filteredQuery = Object.fromEntries(Object.entries(query).filter(([_, value]) => value));
-
     router.push(
       {
         pathname: router.pathname,
-        query: filteredQuery,
+        query: filterQuery({ inStock: tabValue, page: '' }),
       },
       undefined,
       { shallow: true }
