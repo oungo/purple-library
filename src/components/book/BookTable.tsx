@@ -60,7 +60,7 @@ const columns: UserColumnsType = [
     dataIndex: 'buyer',
     align: 'center',
     width: '7%',
-    render: (value: string) => value.split('@')[0],
+    render: (value: string) => value?.split('@')[0],
   },
   {
     title: '보유자',
