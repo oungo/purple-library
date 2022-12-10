@@ -1,5 +1,5 @@
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { colors } from '@/styles/color';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';

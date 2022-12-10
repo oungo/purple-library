@@ -12,6 +12,7 @@ import { User } from '@/types/user';
 import { useRouter } from 'next/router';
 import Pagination from '../book/Pagination';
 import { colors } from '@/styles/color';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
 const Container = styled.section`
   padding: 0 100px;
@@ -65,10 +66,11 @@ const columns: ColumnsType<User> = [
 
 export default function UserTable() {
   const router = useRouter();
+  const supabaseClient = useSupabaseClient();
 
   const { data: users } = useQuery({
     queryKey: [queryKeys.USERS],
-    queryFn: () => getUsers(router.query),
+    queryFn: () => getUsers(supabaseClient, router.query),
     keepPreviousData: true,
   });
 

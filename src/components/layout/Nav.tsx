@@ -1,5 +1,6 @@
 import { useCheckAdmin } from '@/hooks/use-check-admin';
 import Link from 'next/link';
+
 export default function Nav() {
   const isAdmin = useCheckAdmin();
 

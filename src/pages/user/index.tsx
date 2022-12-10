@@ -40,11 +40,17 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
   let error = null;
 
   await queryClient
-    .fetchQuery([queryKeys.USERS], () => getUsers(context.query))
+    .fetchQuery({
+      queryKey: [queryKeys.USERS],
+      queryFn: () => getUsers(supabaseClient, context.query),
+    })
     .catch((err) => (error = err));
 
   const { data: user } = await queryClient
-    .fetchQuery([queryKeys.USER], () => getUser(session.user.id))
+    .fetchQuery({
+      queryKey: [queryKeys.USER],
+      queryFn: () => getUser(supabaseClient, session.user.id),
+    })
     .catch((err) => (error = err));
 
   if (user?.role !== 'admin') {

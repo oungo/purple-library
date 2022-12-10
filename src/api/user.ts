@@ -1,14 +1,14 @@
 import { PartialUser } from '@/types/user';
 import { PAGE_SIZE } from '@/utils/common';
-import { supabase } from '@/utils/supabaseClient';
+import { SupabaseClient } from '@supabase/supabase-js';
 import { ParsedUrlQuery } from 'querystring';
 
-export const getUser = async (uid?: string) => {
-  return supabase.from('user').select('*').eq('uid', uid).throwOnError().single();
+export const getUser = async (supabaseClient: SupabaseClient, uid?: string) => {
+  return supabaseClient.from('user').select('*').eq('uid', uid).throwOnError().single();
 };
 
-export const getUsers = async (query: ParsedUrlQuery = {}) => {
-  let supabaseQuery = supabase
+export const getUsers = async (supabaseClient: SupabaseClient, query: ParsedUrlQuery = {}) => {
+  let supabaseQuery = supabaseClient
     .from('user')
     .select('*', { count: 'exact' })
     .order('id', { ascending: false })
@@ -25,6 +25,6 @@ export const getUsers = async (query: ParsedUrlQuery = {}) => {
   return await supabaseQuery.range(start, end);
 };
 
-export const updateUser = async (values: PartialUser) => {
-  return supabase.from('user').update(values).eq('id', values.id).throwOnError();
+export const updateUser = async (supabaseClient: SupabaseClient, values: PartialUser) => {
+  return supabaseClient.from('user').update(values).eq('id', values.id).throwOnError();
 };

@@ -8,6 +8,7 @@ import * as queryKeys from '@/utils/queryKeys';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { updateUser } from 'api/user';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 
 const Dl = styled.dl`
   display: flex;
@@ -37,6 +38,7 @@ interface UpdateUserValues {
 
 export default function UserForm({ selectedUser, closeModal }: UserModalProps) {
   const queryClient = useQueryClient();
+  const supabaseClient = useSupabaseClient();
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,15 +47,13 @@ export default function UserForm({ selectedUser, closeModal }: UserModalProps) {
     mutate({ id: selectedUser.id, ...values });
   };
 
-  const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserValues>(
-    updateUser,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.USERS]);
-        closeModal();
-      },
-    }
-  );
+  const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserValues>({
+    mutationFn: (value) => updateUser(supabaseClient, value),
+    onSuccess: () => {
+      queryClient.invalidateQueries([queryKeys.USERS]);
+      closeModal();
+    },
+  });
 
   return (
     <>

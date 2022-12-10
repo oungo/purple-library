@@ -13,7 +13,6 @@ import Button from '../common/Button';
 import { useBoundStore } from '@/store/useBoundStore';
 import Pagination from './Pagination';
 import { useUser } from '@/hooks/use-user';
-import { useCheckAdmin } from '@/hooks/use-check-admin';
 import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
@@ -84,8 +83,6 @@ export default function BookTable() {
     keepPreviousData: true,
   });
 
-  const isAdmin = useCheckAdmin();
-
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
@@ -147,7 +144,7 @@ export default function BookTable() {
   return (
     <>
       <Table
-        columns={isAdmin ? newColumns : newColumns.slice(0, -1)}
+        columns={user?.data?.role === 'admin' ? newColumns : newColumns.slice(0, -1)}
         dataSource={books?.data || []}
       />
 

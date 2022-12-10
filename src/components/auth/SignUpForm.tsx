@@ -1,4 +1,4 @@
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { MouseEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
