@@ -8,9 +8,7 @@ import ResetPasswordForm from './auth/ResetPasswordForm';
 import SignUpForm from './auth/SignUpForm';
 
 const Container = styled.div`
-  width: 500px;
-  margin: auto;
-  padding-top: 200px;
+  margin-top: 5rem;
 `;
 const ButtonGroup = styled.div`
   display: flex;
