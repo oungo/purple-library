@@ -2,7 +2,7 @@ import BookForm from './BookForm';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
-import { useCheckAdmin } from '@/hooks/use-check-admin';
+import { useUser } from '../../hooks/use-user';
 
 const Section = styled.section`
   display: flex;
@@ -37,7 +37,7 @@ interface BookModalContentProps {
 }
 
 export default function BookModalContent({ selectedBook }: BookModalContentProps) {
-  const isAdmin = useCheckAdmin();
+  const { data: user } = useUser();
 
   if (!selectedBook) return <p>조회불가</p>;
 
@@ -64,7 +64,7 @@ export default function BookModalContent({ selectedBook }: BookModalContentProps
           )}
         </dl>
 
-        {isAdmin && (
+        {user?.data?.role === 'admin' && (
           <FormWrapper>
             <BookForm book={selectedBook} />
           </FormWrapper>

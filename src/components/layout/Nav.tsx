@@ -1,10 +1,10 @@
-import { useCheckAdmin } from '@/hooks/use-check-admin';
+import { useUser } from '@/hooks/use-user';
 import Link from 'next/link';
 
 export default function Nav() {
-  const isAdmin = useCheckAdmin();
+  const { data: user } = useUser();
 
-  if (!isAdmin) return null;
+  if (user?.data?.role !== 'admin') return null;
 
   return <Link href="/user">사용자 목록</Link>;
 }
