@@ -41,11 +41,11 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
 
   await queryClient
     .fetchQuery([queryKeys.USERS], () => getUsers(context.query))
-    .catch((err) => (error = err.response.data));
+    .catch((err) => (error = err));
 
-  const { data: user } = await queryClient.fetchQuery([queryKeys.USER], () =>
-    getUser(session.user.id)
-  );
+  const { data: user } = await queryClient
+    .fetchQuery([queryKeys.USER], () => getUser(session.user.id))
+    .catch((err) => (error = err));
 
   if (user?.role !== 'admin') {
     return {
