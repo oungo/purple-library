@@ -6,9 +6,9 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { updateBook } from 'api/books';
 import Button from '../common/Button';
 import styled from 'styled-components';
-import Input from '../common/Input';
 import Label from '../common/Label';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import UserSelect from './UserSelect';
 
 const ButtonWrapper = styled.div`
   position: absolute;
@@ -65,11 +65,15 @@ export default function BookForm({ book }: IBookFormProps) {
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="buyer">
         구매자
-        <Input name="buyer" id="buyer" defaultValue={book.buyer || ''} />
+        <UserSelect name="buyer" defaultValue={book.buyer || ''} />
       </Label>
       <Label htmlFor="lender">
         보유자
-        <Input name="lender" id="lender" defaultValue={book.lender || ''} />
+        <UserSelect
+          name="lender"
+          defaultValue={book.lender || ''}
+          defaultOption={<option value="">공용서가</option>}
+        />
       </Label>
 
       <ButtonWrapper>
