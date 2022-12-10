@@ -78,7 +78,7 @@ export default function BookInfo({ book }: BookInfoProps) {
       discount,
       inStock,
       isDeleted: false,
-      buyer: user?.data?.email || '',
+      buyer: user?.data?.name || user?.data?.email || '',
     };
 
     mutate(bookData);
