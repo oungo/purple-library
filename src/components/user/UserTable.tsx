@@ -60,9 +60,9 @@ export default function UserTable() {
     keepPreviousData: true,
   });
 
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
-  const handleOpenModal = (userId: string) => {
+  const handleOpenModal = (userId: number) => {
     setSelectedUserId(userId);
   };
 
@@ -74,7 +74,7 @@ export default function UserTable() {
     {
       title: '',
       dataIndex: 'id',
-      render: (value: string) => {
+      render: (value: number) => {
         return <UpdateButton onClick={() => handleOpenModal(value)}>수정</UpdateButton>;
       },
     },
