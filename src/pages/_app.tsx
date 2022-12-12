@@ -7,6 +7,7 @@ import { DehydratedStateProps } from '@/types/common';
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { NextPage } from 'next';
+import Head from 'next/head';
 
 interface PageProps extends DehydratedStateProps {
   initialSession: Session;
@@ -44,6 +45,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
+          <Head>
+            <title>퍼플아이오 도서관리</title>
+          </Head>
           {getLayout(<Component {...pageProps} />)}
         </Hydrate>
       </QueryClientProvider>
