@@ -21,6 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    return res.status(500).json({ message: '에러 발생' });
+    return res.status(500).json({ message: '에러가 발생했습니다.' });
   }
 }
