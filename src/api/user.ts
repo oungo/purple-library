@@ -3,8 +3,8 @@ import { UpdateUserData } from '@/types/user';
 import { PAGE_SIZE } from '@/utils/common';
 import { ParsedUrlQuery } from 'querystring';
 
-export const getUser = async (supabaseClient: SupabaseClient, uid?: string) => {
-  return supabaseClient.from('user').select('*').eq('uid', uid).throwOnError().single();
+export const getUser = async (supabaseClient: SupabaseClient, id?: string) => {
+  return supabaseClient.from('user').select('*').eq('id', id).throwOnError().single();
 };
 
 export const getUsers = async (supabaseClient: SupabaseClient, query: ParsedUrlQuery = {}) => {
