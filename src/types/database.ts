@@ -58,25 +58,28 @@ export interface Database {
       };
       user: {
         Row: {
-          id: string;
+          id: number;
+          createdAt: string | null;
           email: string | null;
           name: string | null;
           role: string | null;
-          createdAt: string | null;
+          uid: string | null;
         };
         Insert: {
-          id: string;
+          id?: number;
+          createdAt?: string | null;
           email?: string | null;
           name?: string | null;
           role?: string | null;
-          createdAt?: string | null;
+          uid?: string | null;
         };
         Update: {
-          id?: string;
+          id?: number;
+          createdAt?: string | null;
           email?: string | null;
           name?: string | null;
           role?: string | null;
-          createdAt?: string | null;
+          uid?: string | null;
         };
       };
     };
