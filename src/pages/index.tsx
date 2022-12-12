@@ -1,45 +1,59 @@
-import { DehydratedStateProps } from '@/types/common';
-import { getBooks } from 'api/books';
-import { GetServerSideProps } from 'next';
-import { QueryClient, dehydrate } from 'react-query';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
+import { UpdateUserData } from '@/types/user';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { PostgrestResponse } from '@supabase/supabase-js';
 import * as queryKeys from '@/utils/queryKeys';
-import { NextPageWithLayout } from './_app';
-import { getLayout } from '@/components/layout/Layout';
-import { getServerSession, redirectLoginPage } from 'api/auth';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import SSRSafeSuspence from '@/components/SSRSafeSuspense';
-import ErrorComponent from '@/components/common/ErrorComponent';
-import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
-import Loading from '@/components/common/Loading';
-import BookTable from '@/components/book/BookTable';
-import Tabs from '@/components/book/Tabs';
+import { getUser, updateUser } from 'api/user';
+import { MouseEvent } from 'react';
+import { dehydrate, QueryClient, useMutation } from 'react-query';
 import styled from 'styled-components';
-import BookSearchInput from '@/components/book/BookSearchInput';
+import { useRouter } from 'next/router';
+import { DehydratedStateProps } from '@/types/common';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { getServerSession, redirectLoginPage } from 'api/auth';
+import { GetServerSideProps } from 'next';
+import { useUser } from '@/hooks/use-user';
 
-const Head = styled.section`
+const Form = styled.form`
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
-interface IndexProps {
-  error: ErrorType;
-}
+const Index = () => {
+  const router = useRouter();
+  const { data: user } = useUser();
+  const supabaseClient = useSupabaseClient();
 
-const Index: NextPageWithLayout<IndexProps> = ({ error }) => {
-  if (error) return <ErrorComponent error={error} />;
+  const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserData>({
+    mutationFn: (value) => updateUser(supabaseClient, value),
+    onSuccess: () => {
+      router.push('/book');
+    },
+  });
+
+  const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
+    const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+    mutate({ id: user?.data?.id, ...values });
+  };
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
-      <SSRSafeSuspence fallback={<Loading />}>
-        <Head>
-          <Tabs />
-          <BookSearchInput />
-        </Head>
-        <BookTable />
-      </SSRSafeSuspence>
-    </ErrorBoundary>
+    <Form onSubmit={handleSubmit}>
+      <Label>사용자 이름 등록 후 이용해주세요.</Label>
+      <Input type="text" name="name" required />
+      <Button loading={isLoading} buttonType="primary">
+        등록
+      </Button>
+    </Form>
   );
 };
 
@@ -53,15 +67,25 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
 
   let error = null;
 
-  await queryClient
-    .fetchQuery([queryKeys.BOOKS, context.query], () => getBooks(supabaseClient, context.query))
+  const { data: user } = await queryClient
+    .fetchQuery({
+      queryKey: [queryKeys.USER],
+      queryFn: () => getUser(supabaseClient, session.user.id),
+    })
     .catch((err) => (error = err));
+
+  if (user?.name) {
+    return {
+      redirect: {
+        destination: '/book',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: { error, dehydratedState: dehydrate(queryClient) },
   };
 };
-
-Index.getLayout = getLayout;
 
 export default Index;

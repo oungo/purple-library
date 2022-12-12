@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { User } from '@/types/user';
+import { UpdateUserData, User } from '@/types/user';
 import Input from '../common/Input';
 import Label from '../common/Label';
 import Button from '../common/Button';
@@ -30,12 +30,6 @@ interface UserModalProps {
   closeModal: () => void;
 }
 
-interface UpdateUserValues {
-  id: number;
-  name?: string;
-  admin?: string;
-}
-
 export default function UserForm({ selectedUser, closeModal }: UserModalProps) {
   const queryClient = useQueryClient();
   const supabaseClient = useSupabaseClient();
@@ -47,7 +41,7 @@ export default function UserForm({ selectedUser, closeModal }: UserModalProps) {
     mutate({ id: selectedUser.id, ...values });
   };
 
-  const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserValues>({
+  const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserData>({
     mutationFn: (value) => updateUser(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.USERS]);
