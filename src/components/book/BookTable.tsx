@@ -157,17 +157,14 @@ export default function BookTable() {
       dataIndex: 'id',
       width: '5%',
       render: (value: number) => (
-        <UpdateButton onClick={() => setSelectedBookId(value)}>수정</UpdateButton>
+        <UpdateButton onClick={() => setSelectedBookId(value)}>상세</UpdateButton>
       ),
     },
   ];
 
   return (
     <>
-      <Table
-        columns={user?.data?.role === 'admin' ? newColumns : newColumns.slice(0, -1)}
-        dataSource={books?.data || []}
-      />
+      <Table columns={newColumns} dataSource={books?.data || []} />
 
       <Pagination totalCount={books?.count || 0} />
 
