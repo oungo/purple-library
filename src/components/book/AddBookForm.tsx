@@ -79,7 +79,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
 
       <Label>
         단가
-        <Input step={123} type="number" name="discount" defaultValue={book?.discount} required />
+        <Input type="number" name="discount" defaultValue={book?.discount} required />
       </Label>
 
       <Button buttonType="primary" loading={isLoading}>
