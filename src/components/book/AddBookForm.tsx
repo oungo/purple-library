@@ -50,15 +50,16 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
 
     const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
 
-    const bookData = {
+    const bookData: BookInsertData = {
       title: book?.title || '',
       author: book?.author || '',
       publisher: book?.publisher || '',
       isbn: book?.isbn || '',
       image: book?.image || '',
-      discount: book?.discount || '',
+      discount: Number(book?.discount),
+      description: book?.description,
       isDeleted: false,
-      buyer: user?.data?.name || user?.data?.email || '',
+      buyer: user?.data?.id,
       ...values,
     };
 
