@@ -1,7 +1,7 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { Book, PartialBook } from '@/types/book';
+import { Book, BookUpdateData } from '@/types/book';
 import { useBoundStore } from '@/store/useBoundStore';
 import { updateBook } from 'api/books';
 import Button from '../common/Button';
@@ -41,7 +41,7 @@ export default function BookForm({ book }: IBookFormProps) {
 
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, PartialBook>({
+  const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, BookUpdateData>({
     mutationFn: (value) => updateBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);

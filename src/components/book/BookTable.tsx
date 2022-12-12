@@ -1,5 +1,5 @@
 import * as queryKeys from '@/utils/queryKeys';
-import { Book, PartialBook } from '@/types/book';
+import { Book, BookUpdateData } from '@/types/book';
 import { ColumnsType } from '@/types/common';
 import { BOOK_MODAL_ID } from '@/utils/common';
 import { useRouter } from 'next/router';
@@ -102,14 +102,14 @@ export default function BookTable() {
   const selectedBookId = useBoundStore((state) => state.selectedBookId);
   const setSelectedBookId = useBoundStore((state) => state.setSelectedBookId);
 
-  const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, PartialBook>({
+  const { mutate } = useMutation<PostgrestResponse<undefined>, unknown, BookUpdateData>({
     mutationFn: (value) => updateBook(supabaseClient, value),
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.BOOKS]);
     },
   });
 
-  const handleChangeBookStatus = (data: PartialBook) => {
+  const handleChangeBookStatus = (data: BookUpdateData) => {
     mutate(data);
   };
 

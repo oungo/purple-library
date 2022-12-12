@@ -1,5 +1,4 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import { RemoveNull } from './common';
 import { Database } from './database';
 
 export interface NBookResponse {
@@ -24,7 +23,6 @@ export interface NBook {
 
 export type Book = Database['public']['Tables']['book']['Row'];
 export type BookInsertData = Database['public']['Tables']['book']['Insert'];
-
-export type PartialBook = Partial<RemoveNull<Book>>;
+export type BookUpdateData = Database['public']['Tables']['book']['Update'];
 
 export type BookClient = SupabaseClient<Database>;
