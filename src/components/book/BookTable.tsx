@@ -1,7 +1,7 @@
 import * as queryKeys from '@/utils/queryKeys';
 import { Book, BookUpdateData } from '@/types/book';
 import { ColumnsType } from '@/types/common';
-import { BOOK_MODAL_ID } from '@/utils/common';
+import * as modalIds from '@/utils/modalIds';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
@@ -169,7 +169,7 @@ export default function BookTable() {
       <Pagination totalCount={books?.count || 0} />
 
       <Modal
-        id={BOOK_MODAL_ID}
+        id={modalIds.BOOK_DETAIL}
         title="도서 상세"
         visible={!!selectedBookId}
         closeModal={() => setSelectedBookId(null)}

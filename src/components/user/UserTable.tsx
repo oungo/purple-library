@@ -4,7 +4,7 @@ import { getUsers } from 'api/user';
 import { ColumnsType } from '@/types/common';
 import { Table } from '../common/Table';
 import styled from 'styled-components';
-import { USER_MODAL_ID } from '@/utils/common';
+import * as modalIds from '@/utils/modalIds';
 import { useState } from 'react';
 import UserForm from './UserForm';
 import Modal from '../common/Modal';
@@ -100,7 +100,7 @@ export default function UserTable() {
       <Pagination totalCount={users?.count ?? 0} />
 
       <Modal
-        id={USER_MODAL_ID}
+        id={modalIds.USER_DETAIL}
         title="사용자 수정"
         visible={!!selectedUserId}
         closeModal={handleCloseModal}

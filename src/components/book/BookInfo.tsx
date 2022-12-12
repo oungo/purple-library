@@ -2,6 +2,7 @@ import { NBook } from '@/types/book';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import StockBookCount from './StockBookCount';
+import * as modalIds from '@/utils/modalIds';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
 import { colors } from '@/styles/color';
 import { useRouter } from 'next/router';
@@ -106,7 +107,7 @@ export default function BookInfo() {
         </ButtonWrapper>
 
         <Modal
-          id="addBookModal"
+          id={modalIds.BOOK_ADD}
           title="도서 추가"
           width="300px"
           visible={visibleBookModal}
