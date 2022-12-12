@@ -1,4 +1,4 @@
-import { BookData, PartialBook } from '@/types/book';
+import { BookInsertData, PartialBook } from '@/types/book';
 import { SupabaseClient } from '@/types/common';
 import { PAGE_SIZE } from '@/utils/common';
 import { ParsedUrlQuery } from 'querystring';
@@ -26,7 +26,7 @@ export const getBooks = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   return supabaseQuery.range(start, end);
 };
 
-export const addBook = async (supabaseClient: SupabaseClient, book: BookData) => {
+export const addBook = async (supabaseClient: SupabaseClient, book: BookInsertData) => {
   return supabaseClient.from('book').insert(book).throwOnError();
 };
 

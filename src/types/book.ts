@@ -23,7 +23,7 @@ export interface NBook {
 }
 
 export type Book = Database['public']['Tables']['book']['Row'];
-export type BookData = Omit<Book, 'id' | 'createdAt' | 'buyDate' | 'lender'>;
+export type BookInsertData = Database['public']['Tables']['book']['Insert'];
 
 export type PartialBook = Partial<RemoveNull<Book>>;
 

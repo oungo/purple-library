@@ -1,17 +1,14 @@
-import { BookData, NBook } from '@/types/book';
-import { useMutation, useQueryClient } from 'react-query';
+import { NBook } from '@/types/book';
 import styled from 'styled-components';
 import Button from '../common/Button';
-import * as queryKeys from '@/utils/queryKeys';
 import StockBookCount from './StockBookCount';
 import ToPurchaseBookCount from './ToPurchaseBookCount';
-import { addBook } from 'api/books';
 import { colors } from '@/styles/color';
-import { useUser } from '@/hooks/use-user';
-import { useSupabaseClient } from '@/hooks/use-supabase-client';
-import { PostgrestResponse } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { useBook } from './hooks/useBook';
+import Modal from '../common/Modal';
+import { useState } from 'react';
+import AddBookForm from './AddBookForm';
 
 const Article = styled.article`
   display: flex;
@@ -58,37 +55,19 @@ export interface BookInfoProps {
 
 export default function BookInfo() {
   const router = useRouter();
+
   const { data: book } = useBook(router.query.isbn as string);
 
-  const queryClient = useQueryClient();
-  const supabaseClient = useSupabaseClient();
-  const { data: user } = useUser();
-
-  const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, BookData>({
-    mutationFn: (value) => addBook(supabaseClient, value),
-    onSuccess: () => {
-      queryClient.invalidateQueries([queryKeys.STOCK_BOOK_COUNT]);
-      queryClient.invalidateQueries([queryKeys.TO_PURCHASE_BOOK_COUNT]);
-    },
-  });
+  const [visibleBookModal, setVisibleBookModal] = useState(false);
 
   if (!book) return null;
 
-  const handleAddBook = (inStock: boolean) => {
-    const { title, author, publisher, isbn, image, discount } = book;
-    const bookData: BookData = {
-      title,
-      author,
-      publisher,
-      isbn,
-      image,
-      discount,
-      inStock,
-      isDeleted: false,
-      buyer: user?.data?.name || user?.data?.email || '',
-    };
+  const handleOpenModal = () => {
+    setVisibleBookModal(true);
+  };
 
-    mutate(bookData);
+  const handleCloseModal = () => {
+    setVisibleBookModal(false);
   };
 
   return (
@@ -121,13 +100,20 @@ export default function BookInfo() {
         </InfoWrapper>
 
         <ButtonWrapper>
-          <Button buttonType="primary" loading={isLoading} onClick={() => handleAddBook(false)}>
+          <Button buttonType="primary" onClick={handleOpenModal}>
             구매 예정 도서 추가
           </Button>
-          <Button loading={isLoading} onClick={() => handleAddBook(true)}>
-            사내 도서 추가
-          </Button>
         </ButtonWrapper>
+
+        <Modal
+          id="addBookModal"
+          title="도서 추가"
+          width="300px"
+          visible={visibleBookModal}
+          closeModal={handleCloseModal}
+        >
+          <AddBookForm closeModal={handleCloseModal} />
+        </Modal>
 
         <StockBookCount isbn={book.isbn} />
         <ToPurchaseBookCount isbn={book.isbn} />

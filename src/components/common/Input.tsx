@@ -14,6 +14,11 @@ const InputComponent = styled.input<{ fullWidth?: boolean }>`
   :active {
     border-color: ${colors.primaryVariant};
   }
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 interface InputProps extends InputHTMLAttributes<HTMLElement> {
