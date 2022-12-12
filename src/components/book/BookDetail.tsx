@@ -73,7 +73,7 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
           </Wrapper>
           <Wrapper>
             <dt>단가</dt>
-            <dd>{formatPrice(selectedBook.discount || '')}</dd>
+            <dd>{formatPrice(selectedBook.discount || 0)}</dd>
           </Wrapper>
         </dl>
 

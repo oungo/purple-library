@@ -6,8 +6,8 @@ export const filterQuery = (query: ParsedUrlQuery) => {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value));
 };
 
-export const formatPrice = (price?: string) => {
-  return new Intl.NumberFormat('ko').format(Number(price));
+export const formatPrice = (price = 0) => {
+  return new Intl.NumberFormat('ko').format(price);
 };
 
 export const formatDate = (date: Date | number) => {
