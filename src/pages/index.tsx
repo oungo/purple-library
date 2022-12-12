@@ -42,6 +42,7 @@ const Index = () => {
   });
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
     mutate({ id: user?.data?.id, ...values });
   };
