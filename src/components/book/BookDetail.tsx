@@ -36,7 +36,7 @@ interface BookModalContentProps {
   selectedBook?: Book;
 }
 
-export default function BookModalContent({ selectedBook }: BookModalContentProps) {
+export default function BookDetail({ selectedBook }: BookModalContentProps) {
   const { data: user } = useUser();
 
   if (!selectedBook) return <p>조회불가</p>;

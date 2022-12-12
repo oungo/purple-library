@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
 import Modal from '../common/Modal';
-import BookModalContent from './BookModalContent';
+import BookDetail from './BookDetail';
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Button from '../common/Button';
@@ -174,7 +174,7 @@ export default function BookTable() {
         visible={!!selectedBookId}
         closeModal={() => setSelectedBookId(null)}
       >
-        <BookModalContent selectedBook={books?.data?.find((book) => book.id === selectedBookId)} />
+        <BookDetail selectedBook={books?.data?.find((book) => book.id === selectedBookId)} />
       </Modal>
     </>
   );
