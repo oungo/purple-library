@@ -170,7 +170,7 @@ export default function BookTable() {
 
       <Modal
         id={BOOK_MODAL_ID}
-        title="도서 수정"
+        title="도서 상세"
         visible={!!selectedBookId}
         closeModal={() => setSelectedBookId(null)}
       >

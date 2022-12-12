@@ -80,7 +80,7 @@ export default function BookInfo() {
           <Title>{book.title}</Title>
           {book.author && (
             <Wrapper>
-              <dt>작가</dt>
+              <dt>저자</dt>
               <dd>{book.author}</dd>
             </Wrapper>
           )}

@@ -25,7 +25,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  input {
+  input,
+  select {
     margin-left: 1rem;
   }
 `;

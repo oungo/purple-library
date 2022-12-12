@@ -27,9 +27,9 @@ const Wrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-`;
-const DT = styled.dt`
-  color: ${colors.third};
+  dt {
+    color: ${colors.third};
+  }
 `;
 
 interface BookModalContentProps {
@@ -52,16 +52,28 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
           <Title>{selectedBook.title}</Title>
           {selectedBook.author && (
             <Wrapper>
-              <DT>작가</DT>
+              <dt>저자</dt>
               <dd>{selectedBook.author}</dd>
             </Wrapper>
           )}
           {selectedBook.publisher && (
             <Wrapper>
-              <DT>출판사</DT>
+              <dt>출판사</dt>
               <dd>{selectedBook.publisher}</dd>
             </Wrapper>
           )}
+          <Wrapper>
+            <dt>상태</dt>
+            <dd>{selectedBook.inStock ? '보유중' : '구매예정'}</dd>
+          </Wrapper>
+          <Wrapper>
+            <dt>구매일자</dt>
+            <dd>{selectedBook.buyDate}</dd>
+          </Wrapper>
+          <Wrapper>
+            <dt>단가</dt>
+            <dd>{selectedBook.discount}</dd>
+          </Wrapper>
         </dl>
 
         {user?.data?.role === 'admin' && (
