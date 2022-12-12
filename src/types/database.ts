@@ -18,6 +18,7 @@ export interface Database {
           buyDate: string | null;
           lender: string | null;
           isDeleted: boolean;
+          category: string | null;
         };
         Insert: {
           id?: number;
@@ -33,6 +34,7 @@ export interface Database {
           buyDate?: string | null;
           lender?: string | null;
           isDeleted?: boolean;
+          category?: string | null;
         };
         Update: {
           id?: number;
@@ -48,6 +50,7 @@ export interface Database {
           buyDate?: string | null;
           lender?: string | null;
           isDeleted?: boolean;
+          category?: string | null;
         };
       };
       user: {
