@@ -16,8 +16,4 @@ export type ColumnsType<Type> = Array<{
   render?: (value: any, record: Type) => ReactNode;
 }>;
 
-export type RemoveNull<Type> = {
-  [Property in keyof Type]: NonNullable<Type[Property]>;
-};
-
 export type SupabaseClient = OriginSupabaseClient<Database>;
