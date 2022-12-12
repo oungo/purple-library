@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@/types/common';
-import { PartialUser } from '@/types/user';
+import { UpdateUserData } from '@/types/user';
 import { PAGE_SIZE } from '@/utils/common';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -25,6 +25,6 @@ export const getUsers = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   return supabaseQuery.range(start, end);
 };
 
-export const updateUser = async (supabaseClient: SupabaseClient, values: PartialUser) => {
+export const updateUser = async (supabaseClient: SupabaseClient, values: UpdateUserData) => {
   return supabaseClient.from('user').update(values).eq('id', values.id).throwOnError();
 };
