@@ -1,5 +1,5 @@
 import { NBookResponse } from '@/types/book';
-import { axiosServerInstance } from '@/utils/api';
+import { axiosServerInstance } from 'api/utils';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 

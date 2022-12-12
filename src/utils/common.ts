@@ -1,9 +1,4 @@
-import axios from 'axios';
 import { ParsedUrlQuery } from 'querystring';
-
-export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
-});
 
 export const PAGE_SIZE = 15;
 
