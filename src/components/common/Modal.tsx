@@ -12,15 +12,15 @@ const Layer = styled.div`
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.3);
 `;
-const Container = styled.section`
+const Container = styled.section<{ width?: string }>`
   border-radius: 10px;
   position: relative;
   background-color: ${colors.white};
   top: 25%;
   margin: auto;
   padding: 1rem;
+  width: ${({ width }) => width || '700px'};
   max-width: 700px;
-  width: 100%;
 `;
 const Head = styled.div`
   display: flex;
@@ -40,18 +40,19 @@ interface ModalProps {
   id: string;
   title?: string;
   visible: boolean;
+  width?: string;
   closeModal: () => void;
   children: ReactNode;
 }
 
-export default function Modal({ id, title, visible, closeModal, children }: ModalProps) {
+export default function Modal({ id, title, visible, width, closeModal, children }: ModalProps) {
   return (
     <>
       <div id={id} />
       {visible && (
         <ModalPortal id={id}>
           <Layer>
-            <Container>
+            <Container width={width}>
               <Head>
                 {title && <Title>{title}</Title>}
                 <Close onClick={closeModal}>닫기</Close>
