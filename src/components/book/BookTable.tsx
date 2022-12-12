@@ -25,6 +25,12 @@ type UserColumnsType = ColumnsType<Book>;
 
 const columns: UserColumnsType = [
   {
+    title: '분류',
+    dataIndex: 'category',
+    align: 'center',
+    width: '9%',
+  },
+  {
     title: '제목',
     dataIndex: 'title',
     align: 'center',
@@ -33,7 +39,7 @@ const columns: UserColumnsType = [
     title: '저자',
     dataIndex: 'author',
     align: 'center',
-    width: '15%',
+    width: '8%',
   },
   {
     title: '출판사',
@@ -45,21 +51,27 @@ const columns: UserColumnsType = [
     title: '상태',
     dataIndex: 'inStock',
     align: 'center',
-    width: '10%',
+    width: '6%',
     render: (value) => (value ? '보유중' : '구매예정'),
+  },
+  {
+    title: '구매일자',
+    dataIndex: 'buyDate',
+    align: 'center',
+    width: '9%',
   },
   {
     title: '단가',
     dataIndex: 'discount',
     align: 'center',
-    width: '8%',
+    width: '5%',
     render: (value = '') => new Intl.NumberFormat('ko').format(value),
   },
   {
     title: '구매자',
     dataIndex: 'buyer',
     align: 'center',
-    width: '7%',
+    width: '5%',
     render: (value: string) => (value?.includes('@') ? value?.split('@')[0] : value),
   },
   {
