@@ -1,5 +1,5 @@
 import { BookData, NBook } from '@/types/book';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import * as queryKeys from '@/utils/queryKeys';
@@ -11,7 +11,7 @@ import { useUser } from '@/hooks/use-user';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
-import { getNBook } from 'api/naverBook';
+import { useBook } from './hooks/useBook';
 
 const Article = styled.article`
   display: flex;
@@ -57,13 +57,8 @@ export interface BookInfoProps {
 }
 
 export default function BookInfo() {
-  const { isbn } = useRouter().query;
-
-  const { data: book } = useQuery({
-    queryKey: [queryKeys.NAVER_BOOK, isbn],
-    queryFn: () => getNBook(isbn as string),
-    enabled: !!isbn,
-  });
+  const router = useRouter();
+  const { data: book } = useBook(router.query.isbn as string);
 
   const queryClient = useQueryClient();
   const supabaseClient = useSupabaseClient();
