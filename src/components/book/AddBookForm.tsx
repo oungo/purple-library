@@ -59,7 +59,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
       discount: Number(book?.discount),
       description: book?.description,
       isDeleted: false,
-      buyer: user?.data?.id,
+      buyer: user?.data?.name || user?.data?.email || '',
       ...values,
     };
 
