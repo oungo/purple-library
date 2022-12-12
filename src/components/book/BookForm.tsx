@@ -10,13 +10,11 @@ import Label from '../common/Label';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import UserSelect from './UserSelect';
 
+const Container = styled.div`
+  margin-top: 1rem;
+`;
 const ButtonWrapper = styled.div`
-  position: absolute;
-  display: block;
-  bottom: 0;
-  right: 0;
-  margin: 1rem;
-  gap: 1rem;
+  margin-left: auto;
 `;
 const SaveButton = styled(Button)`
   margin-right: 1rem;
@@ -63,28 +61,30 @@ export default function BookForm({ book }: IBookFormProps) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="buyer">
-        구매자
-        <UserSelect name="buyer" defaultValue={book.buyer || ''} />
-      </Label>
-      <Label htmlFor="lender">
-        보유자
-        <UserSelect
-          name="lender"
-          defaultValue={book.lender || ''}
-          defaultOption={<option value="">공용서가</option>}
-        />
-      </Label>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Label htmlFor="buyer">
+          구매자
+          <UserSelect name="buyer" defaultValue={book.buyer || ''} />
+        </Label>
+        <Label htmlFor="lender">
+          보유자
+          <UserSelect
+            name="lender"
+            defaultValue={book.lender || ''}
+            defaultOption={<option value="">공용서가</option>}
+          />
+        </Label>
 
-      <ButtonWrapper>
-        <SaveButton loading={isLoading} buttonType="primary">
-          저장
-        </SaveButton>
-        <Button type="button" onClick={handleDelete}>
-          삭제
-        </Button>
-      </ButtonWrapper>
-    </Form>
+        <ButtonWrapper>
+          <SaveButton loading={isLoading} buttonType="primary">
+            저장
+          </SaveButton>
+          <Button type="button" onClick={handleDelete}>
+            삭제
+          </Button>
+        </ButtonWrapper>
+      </Form>
+    </Container>
   );
 }

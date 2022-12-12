@@ -15,8 +15,8 @@ const ImageWrapper = styled.div`
   min-height: 350px;
   box-shadow: 1px 1px 5px;
 `;
-const FormWrapper = styled.div`
-  margin-top: 1rem;
+const InfoWrapper = styled.div`
+  width: 100%;
 `;
 const Title = styled.p`
   font-weight: bold;
@@ -47,7 +47,7 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
         <img src={selectedBook.image || ''} alt="도서 이미지" width={250} height={350} />
       </ImageWrapper>
 
-      <div>
+      <InfoWrapper>
         <dl>
           <Title>{selectedBook.title}</Title>
           {selectedBook.author && (
@@ -76,12 +76,8 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
           </Wrapper>
         </dl>
 
-        {user?.data?.role === 'admin' && (
-          <FormWrapper>
-            <BookForm book={selectedBook} />
-          </FormWrapper>
-        )}
-      </div>
+        {user?.data?.role === 'admin' && <BookForm book={selectedBook} />}
+      </InfoWrapper>
     </Section>
   );
 }
