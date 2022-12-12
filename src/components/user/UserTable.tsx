@@ -21,12 +21,6 @@ const UpdateButton = styled.button`
 
 const columns: ColumnsType<User> = [
   {
-    title: 'id',
-    dataIndex: 'id',
-    width: '10%',
-    align: 'center',
-  },
-  {
     title: '이메일',
     dataIndex: 'email',
     width: '20%',
@@ -47,7 +41,7 @@ const columns: ColumnsType<User> = [
   },
   {
     title: '가입일',
-    dataIndex: 'created_at',
+    dataIndex: 'createdAt',
     width: '20%',
     align: 'center',
     render: (value: Date) => {
