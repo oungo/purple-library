@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import Pagination from '../book/Pagination';
 import { colors } from '@/styles/color';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { formatDate } from '@/utils/common';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -50,13 +51,7 @@ const columns: ColumnsType<User> = [
     width: '20%',
     align: 'center',
     render: (value: Date) => {
-      const date = new Date(value);
-      const intl = new Intl.DateTimeFormat('ko', {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit',
-      });
-      return <div>{intl.format(date)}</div>;
+      return <div>{formatDate(new Date(value))}</div>;
     },
   },
 ];

@@ -13,6 +13,7 @@ import { PostgrestResponse } from '@supabase/supabase-js';
 import { addBook } from 'api/books';
 import { useQueryClient, useMutation } from 'react-query';
 import { useUser } from '@/hooks/use-user';
+import { formatDate } from '@/utils/common';
 
 const Form = styled.form`
   display: flex;
@@ -35,12 +36,6 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
 
   const queryClient = useQueryClient();
   const supabaseClient = useSupabaseClient();
-
-  const today = new Intl.DateTimeFormat('fr-CA', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(Date.now());
 
   const { mutate, isLoading } = useMutation<PostgrestResponse<undefined>, unknown, BookInsertData>({
     mutationFn: (value) => addBook(supabaseClient, value),
@@ -74,7 +69,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
     <Form onSubmit={handleSubmit}>
       <Label>
         구매 일자
-        <Input type="date" name="buyDate" required defaultValue={today} />
+        <Input type="date" name="buyDate" required defaultValue={formatDate(Date.now())} />
       </Label>
 
       <Label>

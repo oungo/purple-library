@@ -9,3 +9,11 @@ export const filterQuery = (query: ParsedUrlQuery) => {
 export const formatPrice = (price?: string) => {
   return new Intl.NumberFormat('ko').format(Number(price));
 };
+
+export const formatDate = (date: Date | number) => {
+  return new Intl.DateTimeFormat('fr-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+};
