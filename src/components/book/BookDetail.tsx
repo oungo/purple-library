@@ -2,7 +2,8 @@ import BookForm from './BookForm';
 import styled from 'styled-components';
 import { colors } from '@/styles/color';
 import { Book } from '@/types/book';
-import { useUser } from '../../hooks/use-user';
+import { formatPrice } from '@/utils/common';
+import { useUser } from '@/hooks/use-user';
 
 const Section = styled.section`
   display: flex;
@@ -72,7 +73,7 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
           </Wrapper>
           <Wrapper>
             <dt>단가</dt>
-            <dd>{selectedBook.discount}</dd>
+            <dd>{formatPrice(selectedBook.discount || '')}</dd>
           </Wrapper>
         </dl>
 

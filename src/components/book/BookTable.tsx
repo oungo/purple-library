@@ -16,6 +16,7 @@ import { useUser } from '@/hooks/use-user';
 import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
+import { formatPrice } from '@/utils/common';
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -65,7 +66,7 @@ const columns: UserColumnsType = [
     dataIndex: 'discount',
     align: 'center',
     width: '5%',
-    render: (value = '') => new Intl.NumberFormat('ko').format(value),
+    render: formatPrice,
   },
   {
     title: '구매자',
