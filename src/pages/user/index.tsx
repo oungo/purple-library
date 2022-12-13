@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = asyn
 
   await queryClient
     .fetchQuery({
-      queryKey: [queryKeys.USERS],
+      queryKey: [queryKeys.USERS, context.query],
       queryFn: () => getUsers(supabaseClient, context.query),
     })
     .catch((err) => (error = err));

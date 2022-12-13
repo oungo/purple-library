@@ -55,7 +55,7 @@ export default function UserTable() {
   const supabaseClient = useSupabaseClient();
 
   const { data: users } = useQuery({
-    queryKey: [queryKeys.USERS],
+    queryKey: [queryKeys.USERS, router.query],
     queryFn: () => getUsers(supabaseClient, router.query),
     keepPreviousData: true,
   });
