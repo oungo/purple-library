@@ -6,7 +6,7 @@ import { useSupabaseClient } from '../use-supabase-client';
 export const useCurrentUser = (userId?: string) => {
   const supabaseClient = useSupabaseClient();
   return useQuery({
-    queryKey: [queryKeys.USER],
+    queryKey: [queryKeys.USER, userId],
     queryFn: () => getUser(supabaseClient, userId),
     enabled: !!userId,
   });
