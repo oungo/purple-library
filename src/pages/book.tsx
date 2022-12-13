@@ -7,15 +7,15 @@ import { NextPageWithLayout } from './_app';
 import { getLayout } from '@/components/layout/Layout';
 import { getServerSession, redirectLoginPage } from 'api/auth';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import ErrorComponent from '@/components/common/ErrorComponent';
-import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
+import { ErrorType } from '@/components/ErrorBoundary';
 import Loading from '@/components/common/Loading';
 import BookTable from '@/components/book/BookTable';
 import Tabs from '@/components/book/Tabs';
 import styled from 'styled-components';
 import BookSearchInput from '@/components/book/BookSearchInput';
 import { getUser } from 'api/user';
+import AsyncBoundary from '@/components/common/AsyncBoundary';
 
 const Head = styled.section`
   display: flex;
@@ -32,15 +32,16 @@ const Book: NextPageWithLayout<IndexProps> = ({ error }) => {
   if (error) return <ErrorComponent error={error} />;
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
-      <SSRSafeSuspence fallback={<Loading />}>
-        <Head>
-          <Tabs />
-          <BookSearchInput />
-        </Head>
-        <BookTable />
-      </SSRSafeSuspence>
-    </ErrorBoundary>
+    <AsyncBoundary
+      loadingFallback={<Loading />}
+      rejectedFallback={({ error }) => <ErrorComponent error={error} />}
+    >
+      <Head>
+        <Tabs />
+        <BookSearchInput />
+      </Head>
+      <BookTable />
+    </AsyncBoundary>
   );
 };
 

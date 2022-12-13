@@ -4,11 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import SearchInput from './SearchInput';
-import ErrorBoundary from '../ErrorBoundary';
-import SSRSafeSuspence from '../SSRSafeSuspense';
 import Logo from './Logo';
 import Nav from './Nav';
 import SearchResult from './SearchResult';
+import AsyncBoundary from '../common/AsyncBoundary';
 
 const Head = styled.header`
   border-bottom: 1px solid ${colors.lightGray};
@@ -53,11 +52,9 @@ export default function Header() {
           <SearchResult />
         </SearchContainer>
 
-        <ErrorBoundary renderFallback={() => <></>}>
-          <SSRSafeSuspence fallback={<></>}>
-            <Nav />
-          </SSRSafeSuspence>
-        </ErrorBoundary>
+        <AsyncBoundary loadingFallback={<></>} rejectedFallback={() => <></>}>
+          <Nav />
+        </AsyncBoundary>
 
         <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
       </Wrapper>

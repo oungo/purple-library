@@ -1,4 +1,4 @@
-import ErrorBoundary, { ErrorType } from '@/components/ErrorBoundary';
+import { ErrorType } from '@/components/ErrorBoundary';
 import { getLayout } from '@/components/layout/Layout';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirectLoginPage } from 'api/auth';
@@ -8,10 +8,10 @@ import ErrorComponent from '@/components/common/ErrorComponent';
 import * as queryKeys from '@/utils/queryKeys';
 import { dehydrate, QueryClient } from 'react-query';
 import { DehydratedStateProps } from '@/types/common';
-import SSRSafeSuspence from '@/components/SSRSafeSuspense';
 import { getNBook } from 'api/naverBook';
 import Loading from '@/components/common/Loading';
 import BookInfo from '@/components/book/BookInfo';
+import AsyncBoundary from '@/components/common/AsyncBoundary';
 
 interface BookInfoProps {
   error: ErrorType;
@@ -21,11 +21,12 @@ const BookDetail: NextPageWithLayout<BookInfoProps> = ({ error }) => {
   if (error) return <ErrorComponent error={error} />;
 
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
-      <SSRSafeSuspence fallback={<Loading />}>
-        <BookInfo />
-      </SSRSafeSuspence>
-    </ErrorBoundary>
+    <AsyncBoundary
+      loadingFallback={<Loading />}
+      rejectedFallback={({ error }) => <ErrorComponent error={error} />}
+    >
+      <BookInfo />
+    </AsyncBoundary>
   );
 };
 

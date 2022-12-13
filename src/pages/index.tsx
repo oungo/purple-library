@@ -6,18 +6,18 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { getServerSession, redirectLoginPage } from 'api/auth';
 import { GetServerSideProps } from 'next';
 import Loading from '@/components/common/Loading';
-import SSRSafeSuspence from '@/components/SSRSafeSuspense';
-import ErrorBoundary from '@/components/ErrorBoundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import AddNameForm from '@/components/user/AddNameForm';
+import AsyncBoundary from '@/components/common/AsyncBoundary';
 
 const Index = () => {
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />}>
-      <SSRSafeSuspence fallback={<Loading />}>
-        <AddNameForm />
-      </SSRSafeSuspence>
-    </ErrorBoundary>
+    <AsyncBoundary
+      loadingFallback={<Loading />}
+      rejectedFallback={({ error }) => <ErrorComponent error={error} />}
+    >
+      <AddNameForm />
+    </AsyncBoundary>
   );
 };
 
