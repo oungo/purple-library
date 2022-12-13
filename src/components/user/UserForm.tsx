@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { updateUser } from 'api/user';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { getFormValue } from '@/utils/common';
 
 const Dl = styled.dl`
   display: flex;
@@ -36,9 +37,7 @@ export default function UserForm({ selectedUser, closeModal }: UserModalProps) {
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-    mutate({ id: selectedUser.id, ...values });
+    mutate({ id: selectedUser.id, ...getFormValue(e.target) });
   };
 
   const { mutate, isLoading } = useMutation<PostgrestResponse<unknown>, unknown, UpdateUserData>({

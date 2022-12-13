@@ -3,7 +3,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
-import { filterQuery } from '@/utils/common';
+import { filterQuery, getFormValue } from '@/utils/common';
 
 const Form = styled.form`
   display: flex;
@@ -12,20 +12,12 @@ const Form = styled.form`
   gap: 0.5rem;
 `;
 
-interface SearchFormValue {
-  [key: string]: string;
-}
-
 export default function BookSearchInput() {
   const router = useRouter();
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const formValue = Object.fromEntries(formData) as SearchFormValue;
-
-    router.push({ query: filterQuery({ ...router.query, ...formValue }) });
+    router.push({ query: filterQuery({ ...router.query, ...getFormValue(e.target) }) });
   };
 
   return (

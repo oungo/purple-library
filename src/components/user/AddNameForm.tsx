@@ -1,5 +1,6 @@
 import { useUser } from '@/hooks/use-user';
 import { UpdateUserData } from '@/types/user';
+import { getFormValue } from '@/utils/common';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { updateUser } from 'api/user';
@@ -39,8 +40,9 @@ export default function AddNameForm() {
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-    mutate({ id: user?.data?.id, ...values });
+
+    const formValue = getFormValue(e.target);
+    mutate({ id: user?.data?.id, ...formValue });
   };
 
   return (

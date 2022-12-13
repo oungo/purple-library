@@ -9,6 +9,8 @@ import styled from 'styled-components';
 import Label from '../common/Label';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import UserSelect from './UserSelect';
+import { MouseEvent } from 'react';
+import { getFormValue } from '@/utils/common';
 
 const Container = styled.div`
   margin-top: 1rem;
@@ -47,11 +49,9 @@ export default function BookForm({ book }: IBookFormProps) {
     },
   });
 
-  const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-    mutate({ id: book.id, ...values });
+    mutate({ id: book.id, ...getFormValue(e.target) });
   };
 
   const handleDelete = () => {

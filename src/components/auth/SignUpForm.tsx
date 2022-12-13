@@ -1,10 +1,11 @@
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { getFormValue } from '@/utils/common';
+import { SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 import { MouseEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Label from '../common/Label';
 import { FormItem } from './styled';
-import { AuthFormValue } from './types';
 
 interface SignUpFormProps {
   onError: (errorMessage: string) => void;
@@ -19,10 +20,10 @@ export default function SignUpForm({ onError }: SignUpFormProps) {
   const handleSubmit = async (e: MouseEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const formValue = Object.fromEntries(formData) as AuthFormValue;
 
-    const { data, error } = await supabase.auth.signUp(formValue);
+    const { data, error } = await supabase.auth.signUp(
+      getFormValue(e.target) as SignUpWithPasswordCredentials
+    );
 
     if (data.user) {
       setSuccessSendAuthMail(true);

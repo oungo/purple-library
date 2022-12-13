@@ -1,10 +1,10 @@
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
+import { getFormValue } from '@/utils/common';
 import { MouseEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Label from '../common/Label';
 import { FormItem } from './styled';
-import { AuthFormValue } from './types';
 
 interface ResetPasswordFormProps {
   onError: (errorMessage: string) => void;
@@ -19,15 +19,13 @@ export default function ResetPasswordForm({ onError }: ResetPasswordFormProps) {
   const handleSubmit = async (e: MouseEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const formValue = Object.fromEntries(formData) as AuthFormValue;
 
-    const { data, error } = await supabase.auth.resetPasswordForEmail(formValue.email);
-    if (data) {
-      setSuccessSendEmail(true);
-    }
+    const { data, error } = await supabase.auth.resetPasswordForEmail(getFormValue(e.target).email);
     if (error) {
       onError(error.message);
+    }
+    if (data) {
+      setSuccessSendEmail(true);
     }
     setLoading(false);
   };

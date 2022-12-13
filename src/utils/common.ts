@@ -17,3 +17,8 @@ export const formatDate = (date: Date | number) => {
     day: '2-digit',
   }).format(date);
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getFormValue = <ElementType>(form: ElementType): { [key: string]: any } => {
+  return Object.fromEntries(new FormData(form as HTMLFormElement));
+};

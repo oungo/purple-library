@@ -13,7 +13,7 @@ import { PostgrestResponse } from '@supabase/supabase-js';
 import { addBook } from 'api/books';
 import { useQueryClient, useMutation } from 'react-query';
 import { useUser } from '@/hooks/use-user';
-import { formatDate } from '@/utils/common';
+import { formatDate, getFormValue } from '@/utils/common';
 
 const Form = styled.form`
   display: flex;
@@ -48,8 +48,6 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const values = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-
     const bookData: BookInsertData = {
       title: book?.title || '',
       author: book?.author || '',
@@ -60,7 +58,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
       description: book?.description,
       isDeleted: false,
       buyer: user?.data?.name || user?.data?.email || '',
-      ...values,
+      ...getFormValue(e.target),
     };
 
     mutate(bookData);
