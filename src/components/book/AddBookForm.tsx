@@ -75,7 +75,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
 
       <Label>
         분류
-        <BookCategorySelect name="category" />
+        <BookCategorySelect autoFocus name="category" />
       </Label>
 
       <Label>
