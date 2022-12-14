@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import * as queryKeys from '@/utils/queryKeys';
 import { Book, BookUpdateData } from '@/types/book';
 import { ColumnsType } from '@/types/common';
@@ -5,8 +6,6 @@ import * as modalIds from '@/utils/modalIds';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Table } from '../common/Table';
-import Modal from '../common/Modal';
-import BookDetail from './BookDetail';
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Button from '../common/Button';
@@ -17,6 +16,9 @@ import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { formatPrice } from '@/utils/common';
+
+const Modal = dynamic(() => import('../common/Modal'), { suspense: true });
+const BookDetail = dynamic(() => import('./BookDetail'), { suspense: true });
 
 const UpdateButton = styled.button`
   color: ${colors.second};
