@@ -16,9 +16,11 @@ import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { formatPrice } from '@/utils/common';
+import { Suspense } from 'react';
+import Loading from '../common/Loading';
+import Modal from '../common/Modal';
 
-const Modal = dynamic(() => import('../common/Modal'));
-const BookDetail = dynamic(() => import('./BookDetail'));
+const BookDetail = dynamic(() => import('./BookDetail'), { suspense: true });
 
 const UpdateButton = styled.button`
   color: ${colors.second};
@@ -177,7 +179,9 @@ export default function BookTable() {
         visible={!!selectedBookId}
         closeModal={() => setSelectedBookId(null)}
       >
-        <BookDetail selectedBook={books?.data?.find((book) => book.id === selectedBookId)} />
+        <Suspense fallback={<Loading />}>
+          <BookDetail selectedBook={books?.data?.find((book) => book.id === selectedBookId)} />
+        </Suspense>
       </Modal>
     </>
   );
