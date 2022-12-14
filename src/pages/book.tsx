@@ -46,6 +46,7 @@ const Book: NextPageWithLayout<IndexProps> = ({ error }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<DehydratedStateProps> = async (context) => {
+  context.res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const supabaseClient = createServerSupabaseClient(context);
   const session = await getServerSession(supabaseClient);
 
