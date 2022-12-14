@@ -4,11 +4,11 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { useSearchResult } from '@/hooks/queries/useSearchResult';
 import { useBoundStore } from '@/store/useBoundStore';
 import { colors } from '@/styles/color';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ErrorComponent from '../common/ErrorComponent';
 import Loading from '../common/Loading';
-import AsyncBoundary from '../common/AsyncBoundary';
+import ErrorBoundary from '../ErrorBoundary';
 
 const Container = styled.ul`
   position: absolute;
@@ -41,20 +41,23 @@ const BookTitle = styled.li`
 
 export default function SearchResult() {
   return (
-    <AsyncBoundary
-      loadingFallback={
-        <Container>
-          <Loading />
-        </Container>
-      }
-      rejectedFallback={({ error }) => (
+    <ErrorBoundary
+      renderFallback={({ error }) => (
         <Container>
           <ErrorComponent error={error} />
         </Container>
       )}
     >
-      <BookTitleList />
-    </AsyncBoundary>
+      <Suspense
+        fallback={
+          <Container>
+            <Loading />
+          </Container>
+        }
+      >
+        <BookTitleList />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
