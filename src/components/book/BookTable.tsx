@@ -17,8 +17,8 @@ import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { formatPrice } from '@/utils/common';
 
-const Modal = dynamic(() => import('../common/Modal'), { suspense: true });
-const BookDetail = dynamic(() => import('./BookDetail'), { suspense: true });
+const Modal = dynamic(() => import('../common/Modal'));
+const BookDetail = dynamic(() => import('./BookDetail'));
 
 const UpdateButton = styled.button`
   color: ${colors.second};

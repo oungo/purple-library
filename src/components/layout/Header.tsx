@@ -6,8 +6,10 @@ import styled from 'styled-components';
 import SearchInput from './SearchInput';
 import Logo from './Logo';
 import Nav from './Nav';
-import SearchResult from './SearchResult';
 import AsyncBoundary from '../common/AsyncBoundary';
+import dynamic from 'next/dynamic';
+
+const SearchResult = dynamic(() => import('./SearchResult'));
 
 const Head = styled.header`
   border-bottom: 1px solid ${colors.lightGray};
