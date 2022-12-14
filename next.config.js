@@ -12,6 +12,7 @@ const sentryConfig = {
 const nextConfig = {
   /* config options here */
   reactStrictMode: true,
+  swcMinify: true,
   images: {
     remotePatterns: [
       {
