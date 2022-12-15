@@ -25,6 +25,15 @@ export const getUsers = async (supabaseClient: SupabaseClient, query: ParsedUrlQ
   return supabaseQuery.range(start, end);
 };
 
+export const getAllUsers = async (supabaseClient: SupabaseClient) => {
+  return supabaseClient
+    .from('user')
+    .select('*', { count: 'exact' })
+    .order('name')
+    .range(0, 100)
+    .throwOnError();
+};
+
 export const updateUser = async (supabaseClient: SupabaseClient, values: UpdateUserData) => {
   return supabaseClient.from('user').update(values).eq('id', values.id).throwOnError();
 };

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
-import { getUsers } from 'api/user';
+import { getAllUsers } from 'api/user';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { ReactNode, SelectHTMLAttributes } from 'react';
 
@@ -12,8 +12,8 @@ export default function UserSelect({ defaultOption, ...props }: UserSelectProps)
   const supabaseClient = useSupabaseClient();
 
   const { data: users } = useQuery({
-    queryKey: [queryKeys.USERS],
-    queryFn: () => getUsers(supabaseClient),
+    queryKey: [queryKeys.ALL_USERS],
+    queryFn: () => getAllUsers(supabaseClient),
     keepPreviousData: true,
   });
 

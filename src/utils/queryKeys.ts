@@ -7,3 +7,4 @@ export const TO_PURCHASE_BOOK_COUNT = 'toPurchaseBookCount';
 
 export const USER = 'user';
 export const USERS = 'users';
+export const ALL_USERS = 'allUsers';
