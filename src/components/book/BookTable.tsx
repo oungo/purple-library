@@ -22,8 +22,8 @@ import Modal from '../common/Modal';
 
 const BookDetail = dynamic(() => import('./BookDetail'), { suspense: true });
 
-const UpdateButton = styled.button`
-  color: ${colors.second};
+const Title = styled.button`
+  color: ${colors.primary};
 `;
 
 type UserColumnsType = ColumnsType<Book>;
@@ -34,11 +34,6 @@ const columns: UserColumnsType = [
     dataIndex: 'category',
     align: 'center',
     width: '9%',
-  },
-  {
-    title: '제목',
-    dataIndex: 'title',
-    align: 'center',
   },
   {
     title: '저자',
@@ -119,6 +114,16 @@ export default function BookTable() {
   };
 
   const newColumns: UserColumnsType = [
+    {
+      title: '제목',
+      dataIndex: 'title',
+      align: 'center',
+      render: (value, record) => (
+        <Title title={value} onClick={() => setSelectedBookId(record.id)}>
+          {value}
+        </Title>
+      ),
+    },
     ...columns,
     {
       title: '',
@@ -157,13 +162,6 @@ export default function BookTable() {
           </Button>
         );
       },
-    },
-    {
-      dataIndex: 'id',
-      width: '5%',
-      render: (value: number) => (
-        <UpdateButton onClick={() => setSelectedBookId(value)}>상세</UpdateButton>
-      ),
     },
   ];
 
