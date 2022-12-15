@@ -42,6 +42,7 @@ export default function AddBookForm({ closeModal }: AddBookFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries([queryKeys.TO_PURCHASE_BOOK_COUNT]);
       closeModal();
+      router.push('/book');
     },
   });
 
