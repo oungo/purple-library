@@ -2,7 +2,6 @@ import { useQuery } from 'react-query';
 import * as queryKeys from '@/utils/queryKeys';
 import { getUsers } from 'api/user';
 import { ColumnsType } from '@/types/common';
-import { Table } from '../common/Table';
 import styled from 'styled-components';
 import * as modalIds from '@/utils/modalIds';
 import { useState } from 'react';
@@ -14,6 +13,7 @@ import Pagination from '../book/Pagination';
 import { colors } from '@/styles/color';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { formatDate } from '@/utils/common';
+import Table from '../common/Table';
 
 const UpdateButton = styled.button`
   color: ${colors.second};

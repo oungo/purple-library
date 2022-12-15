@@ -5,7 +5,6 @@ import { ColumnsType } from '@/types/common';
 import * as modalIds from '@/utils/modalIds';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { Table } from '../common/Table';
 import { colors } from '@/styles/color';
 import styled from 'styled-components';
 import Button from '../common/Button';
@@ -19,6 +18,7 @@ import { formatDate, formatPrice } from '@/utils/common';
 import { Suspense } from 'react';
 import Loading from '../common/Loading';
 import Modal from '../common/Modal';
+import Table from '../common/Table';
 
 const BookDetail = dynamic(() => import('./BookDetail'), { suspense: true });
 

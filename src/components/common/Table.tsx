@@ -40,7 +40,7 @@ interface TableProps<RecordType> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Table = <RecordType extends Record<string, any>>({
+const Table = <RecordType extends Record<string, any>>({
   columns,
   dataSource,
 }: TableProps<RecordType>) => {
@@ -79,3 +79,5 @@ export const Table = <RecordType extends Record<string, any>>({
     </TableContainer>
   );
 };
+
+export default Table;
