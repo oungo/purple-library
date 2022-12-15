@@ -16,11 +16,11 @@ const Container = styled.section<{ width?: string }>`
   border-radius: 10px;
   position: relative;
   background-color: ${colors.white};
-  top: 25%;
+  top: 50%;
+  transform: translateY(-50%);
   margin: auto;
   padding: 1rem;
-  width: ${({ width }) => width || '700px'};
-  max-width: 700px;
+  width: ${({ width }) => width || '1000px'};
 `;
 const Head = styled.div`
   display: flex;
