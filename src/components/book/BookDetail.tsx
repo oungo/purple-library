@@ -71,6 +71,12 @@ export default function BookDetail({ selectedBook }: BookModalContentProps) {
             <dt>구매일자</dt>
             <dd>{selectedBook.buyDate}</dd>
           </Wrapper>
+          {selectedBook.lendDate && (
+            <Wrapper>
+              <dt>대여일자</dt>
+              <dd>{selectedBook.lendDate}</dd>
+            </Wrapper>
+          )}
           <Wrapper>
             <dt>단가</dt>
             <dd>{formatPrice(selectedBook.discount || 0)}</dd>

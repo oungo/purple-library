@@ -15,7 +15,7 @@ import { useUser } from '@/hooks/use-user';
 import { getBooks, updateBook } from 'api/books';
 import { useSupabaseClient } from '@/hooks/use-supabase-client';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { formatPrice } from '@/utils/common';
+import { formatDate, formatPrice } from '@/utils/common';
 import { Suspense } from 'react';
 import Loading from '../common/Loading';
 import Modal from '../common/Modal';
@@ -130,35 +130,35 @@ export default function BookTable() {
       align: 'center',
       width: '10%',
       render: (_, { id, inStock, lender }) => {
-        if (inStock) {
-          return lender && (user?.data?.email === lender || user?.data?.name === lender) ? (
-            <Button
-              size="small"
-              disabled={user.data.email !== lender && user.data.name !== lender}
-              onClick={() => handleChangeBookStatus({ id, lender: '' })}
-            >
-              반납
-            </Button>
-          ) : (
-            <Button
-              size="small"
-              buttonType="primary"
-              disabled={!!lender}
-              onClick={() =>
-                handleChangeBookStatus({
-                  id,
-                  lender: (user?.data?.name || user?.data?.email) ?? '',
-                })
-              }
-            >
-              대여
+        if (!inStock) {
+          return (
+            <Button size="small" onClick={() => handleChangeBookStatus({ id, inStock: true })}>
+              보유 도서로 이동
             </Button>
           );
         }
-
-        return (
-          <Button size="small" onClick={() => handleChangeBookStatus({ id, inStock: true })}>
-            보유 도서로 이동
+        return lender && (user?.data?.email === lender || user?.data?.name === lender) ? (
+          <Button
+            size="small"
+            disabled={user.data.email !== lender && user.data.name !== lender}
+            onClick={() => handleChangeBookStatus({ id, lender: '', lendDate: null })}
+          >
+            반납
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            buttonType="primary"
+            disabled={!!lender}
+            onClick={() =>
+              handleChangeBookStatus({
+                id,
+                lender: (user?.data?.name || user?.data?.email) ?? '',
+                lendDate: formatDate(Date.now()),
+              })
+            }
+          >
+            대여
           </Button>
         );
       },
