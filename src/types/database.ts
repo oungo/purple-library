@@ -6,7 +6,6 @@ export interface Database {
       book: {
         Row: {
           id: number;
-          inStock: boolean;
           author: string | null;
           category: string | null;
           description: string | null;
@@ -16,14 +15,15 @@ export interface Database {
           isbn: string | null;
           publisher: string | null;
           title: string | null;
-          createdAt: string | null;
           buyDate: string | null;
-          isDeleted: boolean;
           lender: string | null;
+          createdAt: string | null;
+          inStock: boolean;
+          isDeleted: boolean;
+          lendDate: string | null;
         };
         Insert: {
           id?: number;
-          inStock?: boolean;
           author?: string | null;
           category?: string | null;
           description?: string | null;
@@ -33,14 +33,15 @@ export interface Database {
           isbn?: string | null;
           publisher?: string | null;
           title?: string | null;
-          createdAt?: string | null;
           buyDate?: string | null;
-          isDeleted?: boolean;
           lender?: string | null;
+          createdAt?: string | null;
+          inStock?: boolean;
+          isDeleted?: boolean;
+          lendDate?: string | null;
         };
         Update: {
           id?: number;
-          inStock?: boolean;
           author?: string | null;
           category?: string | null;
           description?: string | null;
@@ -50,36 +51,38 @@ export interface Database {
           isbn?: string | null;
           publisher?: string | null;
           title?: string | null;
-          createdAt?: string | null;
           buyDate?: string | null;
-          isDeleted?: boolean;
           lender?: string | null;
+          createdAt?: string | null;
+          inStock?: boolean;
+          isDeleted?: boolean;
+          lendDate?: string | null;
         };
       };
       user: {
         Row: {
           id: number;
-          createdAt: string | null;
           email: string | null;
           name: string | null;
-          role: string | null;
           uid: string | null;
+          createdAt: string | null;
+          role: string | null;
         };
         Insert: {
           id?: number;
-          createdAt?: string | null;
           email?: string | null;
           name?: string | null;
-          role?: string | null;
           uid?: string | null;
+          createdAt?: string | null;
+          role?: string | null;
         };
         Update: {
           id?: number;
-          createdAt?: string | null;
           email?: string | null;
           name?: string | null;
-          role?: string | null;
           uid?: string | null;
+          createdAt?: string | null;
+          role?: string | null;
         };
       };
     };
