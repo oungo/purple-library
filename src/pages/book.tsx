@@ -32,16 +32,19 @@ const Book: NextPageWithLayout<IndexProps> = ({ error }) => {
   if (error) return <ErrorComponent error={error} />;
 
   return (
-    <AsyncBoundary
-      loadingFallback={<Loading />}
-      rejectedFallback={({ error }) => <ErrorComponent error={error} />}
-    >
+    <>
       <Head>
         <Tabs />
         <BookSearchInput />
       </Head>
-      <BookTable />
-    </AsyncBoundary>
+
+      <AsyncBoundary
+        loadingFallback={<Loading />}
+        rejectedFallback={({ error }) => <ErrorComponent error={error} />}
+      >
+        <BookTable />
+      </AsyncBoundary>
+    </>
   );
 };
 
