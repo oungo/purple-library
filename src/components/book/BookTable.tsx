@@ -158,7 +158,7 @@ export default function BookTable() {
               })
             }
           >
-            대여
+            {lender ? '대여중' : '대여'}
           </Button>
         );
       },
