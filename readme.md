@@ -35,7 +35,7 @@ NEXT_PUBLIC_SUPABASE_URL=next_public_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=next_public_supabase_anon_key
 ```
 
-3. 위에서 안내한 설정을 마친 후 디렉토리에서 필요한 패키지를 다운받습니다.
+3. 위에서 안내한 설정을 마친 후 프로젝트에 필요한 패키지를 다운받습니다.
 
 ```
 yarn install
